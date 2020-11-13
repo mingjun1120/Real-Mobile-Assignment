@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".HomeScreen">
+
+    <include layout="@layout/toolbar"/>
+
+<!--    <androidx.appcompat.widget.Toolbar-->
+<!--        xmlns:android="http://schemas.android.com/apk/res/android"-->
+<!--        xmlns:app="http://schemas.android.com/apk/res-auto"-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:background="@color/ghex"-->
+<!--        android:minHeight="?attr/actionBarSize"-->
+<!--        app:theme="@style/ThemeOverlay.AppCompat.Light"-->
+<!--        app:popupTheme="@style/ThemeOverlay.AppCompat.Light"-->
+<!--        tools:ignore="MissingConstraints">-->
+
+<!--        <item-->
+<!--            android:id="@+id/action_settings"-->
+<!--            android:orderInCategory="100"-->
+<!--            android:title="@string/action_settings"-->
+<!--            app:showAsAction="never" />-->
+<!--        <item-->
+<!--            android:id="@+id/action_search"-->
+<!--            android:orderInCategory="200"-->
+<!--            android:title="Search"-->
+<!--            android:icon="@drawable/ic_search"-->
+<!--            app:showAsAction="ifRoom"-->
+<!--            ></item>-->
+<!--        <item-->
+<!--            android:id="@+id/action_user"-->
+<!--            android:orderInCategory="300"-->
+<!--            android:title="User"-->
+<!--            android:icon="@drawable/ic_user"-->
+<!--            app:showAsAction="ifRoom"></item>-->
+<!--    </androidx.appcompat.widget.Toolbar>-->
+    <TextView
+        android:id="@+id/textView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="85dp"
+        android:text="@string/warehouse_management"
+        android:textColor="#253A4B"
+        android:textSize="33sp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.519"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <ImageButton
+        android:id="@+id/imageButton4"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="38dp"
+        android:layout_marginTop="80dp"
+        android:layout_marginEnd="20dp"
+        android:background="@color/Transparent"
+        app:layout_constraintEnd_toStartOf="@+id/imageButton"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView"
+        app:srcCompat="@drawable/group_54"
+        android:contentDescription="@string/stockInImageBtn" />
+
+    <ImageButton
+        android:id="@+id/imageButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="80dp"
+        android:layout_marginEnd="38dp"
+        android:background="@color/Transparent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/imageButton4"
+        app:layout_constraintTop_toBottomOf="@+id/textView"
+        app:srcCompat="@drawable/group_55"
+        android:contentDescription="@string/stockOutImageBtn" />
+
+    <ImageButton
+        android:id="@+id/imageButton2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="38dp"
+        android:layout_marginTop="69dp"
+        android:layout_marginEnd="20dp"
+        android:background="@color/Transparent"
+        app:layout_constraintEnd_toStartOf="@+id/imageButton3"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/imageButton4"
+        app:srcCompat="@drawable/group_56"
+        android:contentDescription="@string/addNewImageBtn" />
+
+    <ImageButton
+        android:id="@+id/imageButton3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="69dp"
+        android:layout_marginEnd="38dp"
+        android:background="@color/Transparent"
+        android:contentDescription="@string/itemInfoImageBtn"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/imageButton2"
+        app:layout_constraintTop_toBottomOf="@+id/imageButton"
+        app:srcCompat="@drawable/group_70" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

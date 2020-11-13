@@ -1,0 +1,48 @@
+<resources>
+    <string name="app_name">Warehouse (Lim Ming Jun)</string>
+    <string name="logo_of_the_app">logo of the app</string>
+    <string name="welcome">Welcome!</string>
+    <string name="nice_to_meet_you">Nice to meet you!</string>
+    <string name="login_button1">Login</string>
+    <string name="register">Register</string>
+    <string name="you_are_not_a_member">You are not a member?</string>
+    <string name="hello_there">Hello There!</string>
+    <string name="email">Email:</string>
+    <string name="someone_gmail_com">someone@gmail.com</string>
+    <string name="password">Password:</string>
+    <string name="Password">***************</string>
+    <string name="donald_trump">Donald Trump</string>
+    <string name="username">Username:</string>
+    <string name="sign_up">Sign Up</string>
+    <string name="already_have_an_account">Already have an account?</string>
+    <string name="login">Login</string>
+    <string name="backbutton">backButton</string>
+    <string name="avatar">Avatar</string>
+    <string name="background_pinkroundsquare">backGround_pinkRoundSquare</string>
+    <string name="hello_Username">Hello, Donald!</string>
+    <string name="email_icon">email_icon</string>
+    <string name="username_icon">username_icon</string>
+    <string name="delimeter_email_usercard_icon">delimeter_email_usercard_icon</string>
+    <string name="edit_Btn">Edit</string>
+    <string name="change_password_Btn">Change Password</string>
+    <string name="update">Update</string>
+    <string name="pwd_condition">pwd condition</string>
+    <string name="u25cf_use_at_least_7_characters_n_u25cf_mix_upper_and_lower_case_characters_n_u25cf_use_at_least_1_number_n_u25cf_use_at_least_1_special_character_like">
+        ● Use at least 7 character.
+        ● Mix upper and lower case characters
+        ● Use at least 1 number
+        ● Use at least 1 special character like !, #</string>
+    <string name="please_make_sure_that_your_password_fulfils_the_following_criteria">Please make sure that your password fulfils the following criteria:</string>
+    <string name="new_password">New Password:</string>
+    <string name="confirm_new_password">Confirm New Password:</string>
+    <string name="save">Save</string>
+    <string name="input_new_password">input new password</string>
+    <string name="input_confirm_new_password">input confirm new password</string>
+    <string name="warehouse_management">Warehouse Management</string>
+    <string name="profile">Profile</string>
+    <string name="log_out">Log out</string>
+    <string name="stockInImageBtn">stockInImageBtn</string>
+    <string name="stockOutImageBtn">stockOutImageBtn</string>
+    <string name="addNewImageBtn">addNewImageBtn</string>
+    <string name="itemInfoImageBtn">itemInfoImageBtn</string>
+</resources>
