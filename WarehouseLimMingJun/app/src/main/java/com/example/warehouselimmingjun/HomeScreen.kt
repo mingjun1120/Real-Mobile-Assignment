@@ -60,6 +60,29 @@ class HomeScreen : AppCompatActivity()
 //                showMenu(it)
 //            }
 //        )
+
+        val stockInBtn = findViewById<ImageButton>(R.id.buttonStockIn)
+        stockInBtn.setOnClickListener{
+            val intent = Intent(this, StockIn::class.java)
+            startActivity(intent)
+        }
+
+        val stockOutBtn = findViewById<ImageButton>(R.id.buttonStockOut)
+        stockOutBtn.setOnClickListener{
+            val intent = Intent(this, StockOut::class.java)
+            startActivity(intent)
+        }
+
+        val addNewItemBtn = findViewById<ImageButton>(R.id.buttonAddNewItem)
+        addNewItemBtn.setOnClickListener{
+            val intent = Intent(this, AddNewItem::class.java)
+            startActivity(intent)
+        }
+
+        val itemInfoBtn = findViewById<ImageButton>(R.id.buttonItemInfo)
+        itemInfoBtn.setOnClickListener{
+            val intent = Intent(this, ItemInfo::class.java)
+            startActivity(intent)
     }
 
 //    private fun showMenu(v:View)
@@ -80,27 +103,6 @@ class HomeScreen : AppCompatActivity()
 //        popupMenu.show()
 //    }
 
-    val stockInBtn = findViewById<ImageButton>(R.id.buttonStockIn)
-    stockInBtn.setOnClickListener{
-    val intent = Intent(this, StockIn::class.java)
-    startActivity(intent)
-}
 
-    val stockOutBtn = findViewById<ImageButton>(R.id.buttonStockOut)
-    stockOutBtn.setOnClickListener{
-    val intent = Intent(this, StockOut::class.java)
-    startActivity(intent)
-}
-
-    val addNewItemBtn = findViewById<ImageButton>(R.id.buttonAddNewItem)
-    addNewItemBtn.setOnClickListener{
-    val intent = Intent(this, AddNewItem::class.java)
-    startActivity(intent)
-}
-
-    val itemInfoBtn = findViewById<ImageButton>(R.id.buttonItemInfo)
-    itemInfoBtn.setOnClickListener{
-    val intent = Intent(this, ItemInfo::class.java)
-    startActivity(intent)
 }
 }
