@@ -128,7 +128,7 @@
         android:background="@drawable/round_corner_texture"
         android:ems="11"
         android:hint="@string/donald_trump"
-        android:inputType="textEmailAddress"
+        android:inputType="textPersonName"
         android:textAlignment="center"
         android:textColorHint="@color/BlueDark"
         android:textSize="22sp"
