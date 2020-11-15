@@ -46,67 +46,66 @@
         android:layout_marginTop="85dp"
         android:text="@string/warehouse_management"
         android:textColor="#253A4B"
-        android:textSize="33sp"
-        android:textStyle="bold"
+        android:textSize="30sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.519"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <ImageButton
-        android:id="@+id/imageButton4"
+        android:id="@+id/buttonStockIn"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="38dp"
         android:layout_marginTop="80dp"
         android:layout_marginEnd="20dp"
-        android:background="@color/Transparent"
-        app:layout_constraintEnd_toStartOf="@+id/imageButton"
+        android:background="@color/transparent"
+        app:layout_constraintEnd_toStartOf="@+id/buttonStockOut"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView"
         app:srcCompat="@drawable/group_54"
-        android:contentDescription="@string/stockInImageBtn" />
+        android:contentDescription="@string/todo" />
 
     <ImageButton
-        android:id="@+id/imageButton"
+        android:id="@+id/buttonStockOut"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="20dp"
         android:layout_marginTop="80dp"
         android:layout_marginEnd="38dp"
-        android:background="@color/Transparent"
+        android:background="@color/transparent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/imageButton4"
+        app:layout_constraintStart_toEndOf="@+id/buttonStockIn"
         app:layout_constraintTop_toBottomOf="@+id/textView"
         app:srcCompat="@drawable/group_55"
-        android:contentDescription="@string/stockOutImageBtn" />
+        android:contentDescription="@string/todo" />
 
     <ImageButton
-        android:id="@+id/imageButton2"
+        android:id="@+id/buttonAddNewItem"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="38dp"
         android:layout_marginTop="69dp"
         android:layout_marginEnd="20dp"
-        android:background="@color/Transparent"
-        app:layout_constraintEnd_toStartOf="@+id/imageButton3"
+        android:background="@color/transparent"
+        app:layout_constraintEnd_toStartOf="@+id/buttonItemInfo"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/imageButton4"
+        app:layout_constraintTop_toBottomOf="@+id/buttonStockIn"
         app:srcCompat="@drawable/group_56"
-        android:contentDescription="@string/addNewImageBtn" />
+        android:contentDescription="@string/todo" />
 
     <ImageButton
-        android:id="@+id/imageButton3"
+        android:id="@+id/buttonItemInfo"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="20dp"
         android:layout_marginTop="69dp"
         android:layout_marginEnd="38dp"
-        android:background="@color/Transparent"
-        android:contentDescription="@string/itemInfoImageBtn"
+        android:background="@color/transparent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/imageButton2"
-        app:layout_constraintTop_toBottomOf="@+id/imageButton"
-        app:srcCompat="@drawable/group_70" />
+        app:layout_constraintStart_toEndOf="@+id/buttonAddNewItem"
+        app:layout_constraintTop_toBottomOf="@+id/buttonStockOut"
+        app:srcCompat="@drawable/group_70"
+        android:contentDescription="@string/todo" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
