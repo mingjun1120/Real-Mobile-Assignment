@@ -55,12 +55,6 @@ class HomeScreen : AppCompatActivity()
             }
         }
 
-//        rightIcon.setOnClickListener(View.OnClickListener
-//            {
-//                showMenu(it)
-//            }
-//        )
-
         val stockInBtn = findViewById<ImageButton>(R.id.buttonStockIn)
         stockInBtn.setOnClickListener{
             val intent = Intent(this, StockIn::class.java)
@@ -83,26 +77,7 @@ class HomeScreen : AppCompatActivity()
         itemInfoBtn.setOnClickListener{
             val intent = Intent(this, ItemInfo::class.java)
             startActivity(intent)
+        }
+
     }
-
-//    private fun showMenu(v:View)
-//    {
-//        // In Kotlin
-//        val popupMenu = PopupMenu(this@HomeScreen, v)
-//        popupMenu.menuInflater.inflate(R.menu.popup_menu, popupMenu.menu)
-//
-//        popupMenu.setOnMenuItemClickListener(PopupMenu.OnMenuItemClickListener { item ->
-//            when(item.itemId) {
-//                R.id.one ->
-//                    Toast.makeText(this@HomeScreen, "You Clicked One: " + item.title, Toast.LENGTH_SHORT).show()
-//                R.id.two ->
-//                    Toast.makeText(this@HomeScreen, "You Clicked Two: " + item.title, Toast.LENGTH_SHORT).show()
-//            }
-//            true
-//        })
-//        popupMenu.show()
-//    }
-
-
-}
 }
