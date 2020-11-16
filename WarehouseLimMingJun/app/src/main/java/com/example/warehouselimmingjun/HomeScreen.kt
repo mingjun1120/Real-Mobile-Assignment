@@ -20,7 +20,8 @@ class HomeScreen : AppCompatActivity()
         rightIcon.setOnClickListener {
             val popupMenu = PopupMenu(this@HomeScreen, it)
             popupMenu.setOnMenuItemClickListener { item ->
-                when (item.itemId){
+                when (item.itemId)
+                {
                     R.id.one -> {
                         //val intent = Intent(Intent.ACTION_VIEW, Uri.parse("http://resocoder.com"))
                         //startActivity(intent)
@@ -48,7 +49,7 @@ class HomeScreen : AppCompatActivity()
                 mPopup.javaClass
                     .getDeclaredMethod("setForceShowIcon", Boolean::class.java)
                     .invoke(mPopup, true)
-            } catch (e: Exception){
+            } catch (e: Exception) {
                 Log.e("Main", "Error showing menu icons.", e)
             } finally {
                 popupMenu.show()
