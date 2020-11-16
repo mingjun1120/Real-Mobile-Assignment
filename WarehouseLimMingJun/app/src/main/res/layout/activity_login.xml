@@ -25,27 +25,52 @@
         android:text="@string/password"
         android:textColor="@color/BlueDark"
         android:textSize="14sp"
-        app:layout_constraintBottom_toTopOf="@+id/editTextTextPwd"
+        app:layout_constraintBottom_toTopOf="@+id/textInputLayout3"
         app:layout_constraintStart_toStartOf="parent" />
 
-    <EditText
-        android:id="@+id/editTextTextPwd"
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/textInputLayout3"
         android:layout_width="0dp"
-        android:layout_height="32dp"
+        android:layout_height="57dp"
         android:layout_marginStart="55dp"
-        android:layout_marginTop="121dp"
+        android:layout_marginTop="116dp"
         android:layout_marginEnd="55dp"
-        android:autofillHints=""
-        android:background="@drawable/round_corner_texture"
-        android:ems="10"
-        android:hint="@string/Password"
-        android:inputType="textPassword"
-        android:textAlignment="center"
-        app:backgroundTint="@color/BlueDarkOpa"
+        android:paddingVertical="0dp"
+        app:placeholderText="@string/Password"
+        app:boxBackgroundColor="@color/BlueDarkOpa"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.558"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView4" />
+        app:layout_constraintTop_toBottomOf="@+id/textView4"
+        app:passwordToggleEnabled="true">
+
+        <EditText
+            android:id="@+id/editTextTextPwd"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:autofillHints=""
+            android:ems="10"
+            android:gravity="center_horizontal"
+            android:inputType="textPassword"
+            tools:ignore="LabelFor" />
+    </com.google.android.material.textfield.TextInputLayout>
+<!--    <EditText-->
+<!--        android:id="@+id/editTextTextPwd"-->
+<!--        android:layout_width="0dp"-->
+<!--        android:layout_height="32dp"-->
+<!--        android:layout_marginStart="55dp"-->
+<!--        android:layout_marginEnd="55dp"-->
+<!--        android:autofillHints=""-->
+<!--        android:background="@drawable/round_corner_texture"-->
+<!--        android:ems="10"-->
+<!--        android:hint="@string/Password"-->
+<!--        android:inputType="textPassword"-->
+<!--        android:textAlignment="center"-->
+<!--        app:backgroundTint="@color/BlueDarkOpa"-->
+<!--        app:layout_constraintEnd_toEndOf="parent"-->
+<!--        app:layout_constraintHorizontal_bias="0.0"-->
+<!--        app:layout_constraintStart_toStartOf="parent"-->
+<!--        tools:layout_editor_absoluteY="430dp" />-->
 
     <EditText
         android:id="@+id/editTextTextEmailAddress"
@@ -62,7 +87,6 @@
         android:textAlignment="center"
         app:backgroundTint="@color/BlueDarkOpa"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.558"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView4" />
 
@@ -93,6 +117,8 @@
         android:id="@+id/login_button"
         android:layout_width="100dp"
         android:layout_height="58dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginBottom="169dp"
         android:fontFamily="sans-serif"
         android:text="@string/login_button1"
         android:textAllCaps="false"
@@ -103,8 +129,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.192"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/editTextTextPwd"
-        app:layout_constraintVertical_bias="0.158" />
+        app:layout_constraintTop_toBottomOf="@+id/textInputLayout3" />
 
     <TextView
         android:id="@+id/you_are_not_a_member"
