@@ -5,9 +5,6 @@ import android.os.Bundle
 import android.widget.ImageButton
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
-import com.example.warehouselimmingjun.AddNewItem
-import com.example.warehouselimmingjun.HomeScreen
-import com.example.warehouselimmingjun.R
 
 class AddNewItemForm : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {

@@ -5,9 +5,6 @@ import android.os.Bundle
 import android.widget.Button
 import android.widget.ImageButton
 import androidx.appcompat.app.AppCompatActivity
-import com.example.warehouselimmingjun.EditItem
-import com.example.warehouselimmingjun.HomeScreen
-import com.example.warehouselimmingjun.R
 
 class ItemInfo : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {

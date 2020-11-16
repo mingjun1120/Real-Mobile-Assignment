@@ -4,10 +4,6 @@ import android.content.Intent
 import android.os.Bundle
 import android.widget.ImageButton
 import androidx.appcompat.app.AppCompatActivity
-import com.example.warehouselimmingjun.HomeScreen
-import com.example.warehouselimmingjun.R
-import com.example.warehouselimmingjun.StockInList
-import com.example.warehouselimmingjun.stockInForm
 
 class StockIn : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {

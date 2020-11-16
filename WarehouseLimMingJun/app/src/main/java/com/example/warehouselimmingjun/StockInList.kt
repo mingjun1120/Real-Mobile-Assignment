@@ -6,8 +6,6 @@ import android.widget.ImageButton
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.RecyclerView
 import com.example.warehouselimmimgjun.adapter.ItemAdapter
-import com.example.warehouselimmingjun.R
-import com.example.warehouselimmingjun.StockIn
 import com.example.warehouselimmingjun.data.Datasource
 
 class StockInList : AppCompatActivity() {
