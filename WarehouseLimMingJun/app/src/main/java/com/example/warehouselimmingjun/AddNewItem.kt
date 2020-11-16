@@ -10,7 +10,7 @@ class AddNewItem : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_add_new_item)
 
-        val backBtn = findViewById<ImageButton>(R.id.buttonBack6)
+        val backBtn = findViewById<ImageButton>(R.id.backButton)
         backBtn.setOnClickListener{
             val intent = Intent(this, HomeScreen::class.java)
             startActivity(intent)
