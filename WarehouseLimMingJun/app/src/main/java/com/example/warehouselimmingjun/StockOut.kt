@@ -10,7 +10,7 @@ class StockOut : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_stock_out)
 
-        val backBtn = findViewById<ImageButton>(R.id.buttonBack4)
+        val backBtn = findViewById<ImageButton>(R.id.backButton)
         backBtn.setOnClickListener{
             val intent = Intent(this, HomeScreen::class.java)
             startActivity(intent)
