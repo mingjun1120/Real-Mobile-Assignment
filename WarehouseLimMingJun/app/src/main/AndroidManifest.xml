@@ -9,13 +9,22 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.WarehouseLimMingJun">
-        <activity android:name=".HomeScreen"></activity>
+        <activity android:name=".HomeScreen" />
         <activity android:name=".ChangePassword" />
         <activity android:name=".EditProfile" />
         <activity android:name=".Profile" />
         <activity android:name=".RegisterActivity" />
         <activity android:name=".Login" />
-        <activity android:name=".MainActivity">
+        <activity android:name=".AddNewItem" />
+        <activity android:name=".AddNewItemForm" />
+        <activity android:name=".StockIn" />
+        <activity android:name=".StockOut" />
+        <activity android:name=".StockInList" />
+        <activity android:name=".EditItem" />
+        <activity android:name=".ItemInfo" />
+        <activity android:name=".stockInForm" />
+        <activity android:name=".stockOutForm" />
+        <activity android:name=".MainActivity" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
