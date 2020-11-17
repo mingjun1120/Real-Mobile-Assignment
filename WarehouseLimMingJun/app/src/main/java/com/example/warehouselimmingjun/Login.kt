@@ -79,7 +79,7 @@ class Login : AppCompatActivity() {
         }
         else if (!checkPwd)
         {
-            myPwd.error = "Password too weak!"
+            myPwd.error = "Invalid input for Password!"
         }
         else
         {
