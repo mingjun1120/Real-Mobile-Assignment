@@ -14,25 +14,27 @@ class RegisterActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_register)
 
-        val login = findViewById<Button>(R.id.login_button)
+        val login = findViewById<Button>(R.id.login_link)
         login.setOnClickListener(){
             val intent = Intent(this,  Login::class.java)
             startActivity(intent)
         }
 
-        val register = findViewById<Button>(R.id.login_link)
+        val register = findViewById<Button>(R.id.signUp_button)
         register.setOnClickListener(){
             val intent = Intent(this,  Login::class.java)
             val myEmail = findViewById<EditText>(R.id.editTextTextEmailAddress)
             val myPwd = findViewById<EditText>(R.id.editTextTextPwd)
+            val myName = findViewById<EditText>(R.id.Username)
             val checkEmail = myEmail.text.toString().isValidEmail()
             val checkPwd = myPwd.text.toString().isValidPasswordFormat()
 
             // To print error message if false happen for email and pwd
             validateEmail(checkEmail, myEmail)
             validatePwd(checkPwd, myPwd)
+            val checkName = validateName(myName)
 
-            if(checkEmail && checkPwd)
+            if(checkEmail && checkPwd && checkName)
             {
                 startActivity(intent)
             }
@@ -53,6 +55,19 @@ class RegisterActivity : AppCompatActivity() {
                 "$")
         return passwordREGEX.matcher(this).matches()
     }
+
+//    private fun String.tt(): Boolean {
+//        val passwordREGEX = Pattern.compile("^" +
+//                "(?=.*[0-9])" +         //at least 1 digit/
+//                "(?=.*[a-z])" +         //at least 1 lower case letter/
+//                "(?=.*[A-Z])" +         //at least 1 upper case letter/
+//                "(?=.*[a-zA-Z])" +      //any letter
+//                "(?=.*[@#$%^&+=])" +    //at least 1 special character/
+//                "(.*\\s.*){1,2}" +      //1 or 2 more white spaces only
+//                ".{7,}" +               //at least 7 characters/
+//                "$")
+//        return passwordREGEX.matcher(this).matches()
+//    }
 
     private fun validateEmail(checkEmail: Boolean, myEmail: EditText) {
 
@@ -83,5 +98,28 @@ class RegisterActivity : AppCompatActivity() {
         {
             myPwd.error = null
         }
+    }
+
+    private fun validateName(myName: EditText): Boolean {
+
+        val myPattern: Regex = Regex("^" + "(.*[A-Za-z])")
+
+        if (myName.text.toString().isEmpty()) {
+            myName.error = "Field can't be empty!"
+        }
+        else if (!(myPattern.matches(myName.text.toString()))) {
+            myName.error = "Only English alphabet characters!"
+        }
+        else if (myName.text.toString().length !in 3..10) {
+            myName.error = "At least 3 to 10 characters long!"
+        }
+        else if (myName.text.toString().contains(" ")) {
+            myName.error = "No whitespace!"
+        }
+        else {
+            myName.error = null
+            return true
+        }
+        return false
     }
 }
