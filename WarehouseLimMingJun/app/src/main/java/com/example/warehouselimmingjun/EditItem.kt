@@ -11,7 +11,7 @@ class EditItem : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_edit_item)
 
-        val backBtn = findViewById<ImageButton>(R.id.buttonBack2)
+        val backBtn = findViewById<ImageButton>(R.id.backButton)
         backBtn.setOnClickListener{
             val intent = Intent(this, ItemInfo::class.java)
             startActivity(intent)

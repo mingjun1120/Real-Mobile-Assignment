@@ -11,7 +11,7 @@ class stockOutForm : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_stock_out_form)
 
-        val backBtn = findViewById<ImageButton>(R.id.buttonBack5)
+        val backBtn = findViewById<ImageButton>(R.id.backButton)
         backBtn.setOnClickListener{
             val intent = Intent(this, StockInList::class.java)
             startActivity(intent)

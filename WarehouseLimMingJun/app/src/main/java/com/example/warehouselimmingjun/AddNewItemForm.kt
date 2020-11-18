@@ -11,7 +11,7 @@ class AddNewItemForm : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_add_new_item_form)
 
-        val backBtn = findViewById<ImageButton>(R.id.buttonBack8)
+        val backBtn = findViewById<ImageButton>(R.id.backButton)
         backBtn.setOnClickListener{
             val intent = Intent(this, AddNewItem::class.java)
             startActivity(intent)

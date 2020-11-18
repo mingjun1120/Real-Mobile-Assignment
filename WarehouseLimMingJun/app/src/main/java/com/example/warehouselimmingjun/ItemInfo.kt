@@ -11,13 +11,13 @@ class ItemInfo : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_item_info)
 
-        val backBtn = findViewById<ImageButton>(R.id.buttonBack)
+        val backBtn = findViewById<ImageButton>(R.id.backButton)
         backBtn.setOnClickListener{
             val intent = Intent(this, HomeScreen::class.java)
             startActivity(intent)
         }
 
-        val editBtn = findViewById<Button>(R.id.button)
+        val editBtn = findViewById<ImageButton>(R.id.imageButton3)
         editBtn.setOnClickListener{
             val intent = Intent(this, EditItem::class.java)
             startActivity(intent)
