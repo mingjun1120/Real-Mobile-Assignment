@@ -8,19 +8,11 @@ import android.widget.Button
 import android.widget.EditText
 import androidx.appcompat.app.AppCompatActivity
 import java.util.regex.Pattern
-import android.database.sqlite.SQLiteDatabase
-import com.example.warehouselimmingjun.DBHelper.DBHelper
-import com.example.warehouselimmingjun.model.Register
 
 class RegisterActivity : AppCompatActivity() {
-
-    internal lateinit var dbHelper: DBHelper
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_register)
-
-        dbHelper = DBHelper(this)
 
         val login = findViewById<Button>(R.id.login_link)
         login.setOnClickListener(){
@@ -30,18 +22,13 @@ class RegisterActivity : AppCompatActivity() {
 
         val register = findViewById<Button>(R.id.signUp_button)
         register.setOnClickListener(){
-
             val intent = Intent(this,  Login::class.java)
             val myEmail = findViewById<EditText>(R.id.editTextTextEmailAddress)
             val myPwd = findViewById<EditText>(R.id.editTextTextPwd)
             val myName = findViewById<EditText>(R.id.Username)
             val checkEmail = myEmail.text.toString().isValidEmail()
             val checkPwd = myPwd.text.toString().isValidPasswordFormat()
-            val register = Register(
-                  myEmail.toString(),
-                  myName.toString(),
-                  myPwd.toString()
-            )
+
             // To print error message if false happen for email and pwd
             validateEmail(checkEmail, myEmail)
             validatePwd(checkPwd, myPwd)
@@ -49,7 +36,6 @@ class RegisterActivity : AppCompatActivity() {
 
             if(checkEmail && checkPwd && checkName)
             {
-                dbHelper.addregister(register)
                 startActivity(intent)
             }
         }
