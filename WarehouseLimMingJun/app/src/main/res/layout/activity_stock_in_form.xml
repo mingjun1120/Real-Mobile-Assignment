@@ -110,7 +110,6 @@
         android:importantForAutofill="no"
         android:inputType="number"
         android:textAlignment="center"
-        app:backgroundTint=""
         app:layout_constraintBottom_toBottomOf="@+id/imageView2"
         app:layout_constraintStart_toStartOf="@+id/imageView2" />
 
