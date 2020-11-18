@@ -102,19 +102,20 @@ class RegisterActivity : AppCompatActivity() {
 
     private fun validateName(myName: EditText): Boolean {
 
-        val myPattern: Regex = Regex("^" + "(.*[A-Za-z])")
+        //val myPattern: Regex = Regex("^" + "(.*[A-Za-z])")
+        val myPattern: Regex = Regex("^[a-zA-Z]*\$")
 
         if (myName.text.toString().isEmpty()) {
             myName.error = "Field can't be empty!"
+        }
+        else if (myName.text.toString().contains(" ")) {
+            myName.error = "No whitespace!"
         }
         else if (!(myPattern.matches(myName.text.toString()))) {
             myName.error = "Only English alphabet characters!"
         }
         else if (myName.text.toString().length !in 3..10) {
             myName.error = "At least 3 to 10 characters long!"
-        }
-        else if (myName.text.toString().contains(" ")) {
-            myName.error = "No whitespace!"
         }
         else {
             myName.error = null
