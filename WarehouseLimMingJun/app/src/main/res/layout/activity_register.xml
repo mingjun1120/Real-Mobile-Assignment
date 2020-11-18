@@ -26,7 +26,7 @@
         android:text="@string/password"
         android:textColor="@color/BlueDark"
         android:textSize="14sp"
-        app:layout_constraintBottom_toTopOf="@+id/editTextTextPwd"
+        app:layout_constraintBottom_toTopOf="@+id/textInputLayoutSignUp"
         app:layout_constraintStart_toStartOf="parent" />
 
     <TextView
@@ -78,31 +78,40 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView4" />
 
-    <EditText
-        android:id="@+id/editTextTextPwd"
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/textInputLayoutSignUp"
         android:layout_width="0dp"
-        android:layout_height="32dp"
+        android:layout_height="57dp"
         android:layout_marginStart="55dp"
         android:layout_marginTop="196dp"
         android:layout_marginEnd="55dp"
-        android:autofillHints=""
-        android:background="@drawable/round_corner_texture"
-        android:ems="10"
-        android:hint="@string/Password"
-        android:inputType="textPassword"
-        android:textAlignment="center"
-        app:backgroundTint="@color/BlueDarkOpa"
+        android:paddingVertical="0dp"
+        app:boxBackgroundColor="@color/BlueDarkOpa"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView4" />
+        app:layout_constraintTop_toBottomOf="@+id/textView4"
+        app:passwordToggleEnabled="true"
+        app:placeholderText="@string/Password">
+
+        <EditText
+            android:id="@+id/editTextTextPwd"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:autofillHints=""
+            android:ems="10"
+            android:gravity="center_horizontal"
+            android:inputType="textPassword"
+            tools:ignore="LabelFor" />
+    </com.google.android.material.textfield.TextInputLayout>
+
 
     <Button
         android:id="@+id/signUp_button"
         android:layout_width="0dp"
         android:layout_height="58dp"
         android:layout_marginStart="60dp"
-        android:layout_marginTop="264dp"
+        android:layout_marginTop="280dp"
         android:fontFamily="sans-serif"
         android:text="@string/sign_up"
         android:textAllCaps="false"
@@ -164,15 +173,6 @@
         android:textColor="@color/RedPink"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toEndOf="@+id/already_have_an_account" />
-    <!--    <LinearLayout-->
-<!--        android:layout_width="363dp"-->
-<!--        android:layout_height="242dp"-->
-<!--        android:orientation="vertical"-->
-<!--        app:layout_constraintEnd_toEndOf="parent"-->
-<!--        app:layout_constraintStart_toStartOf="parent"-->
-<!--        tools:layout_editor_absoluteY="319dp">-->
 
-
-<!--    </LinearLayout>-->
 
 </androidx.constraintlayout.widget.ConstraintLayout>
