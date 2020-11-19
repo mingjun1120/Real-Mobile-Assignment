@@ -37,16 +37,16 @@ class RegisterActivity : AppCompatActivity() {
             val myName = findViewById<EditText>(R.id.Username)
             val checkEmail = myEmail.text.toString().isValidEmail()
             val checkPwd = myPwd.text.toString().isValidPasswordFormat()
-            val register = Register(
-                  myEmail.toString(),
-                  myName.toString(),
-                  myPwd.toString()
-            )
+
             // To print error message if false happen for email and pwd
             validateEmail(checkEmail, myEmail)
             validatePwd(checkPwd, myPwd)
             val checkName = validateName(myName)
-
+            val register = Register(
+                myEmail.text.toString(),
+                myPwd.text.toString(),
+                myName.text.toString()
+            )
             if(checkEmail && checkPwd && checkName)
             {
                 dbHelper.addregister(register)

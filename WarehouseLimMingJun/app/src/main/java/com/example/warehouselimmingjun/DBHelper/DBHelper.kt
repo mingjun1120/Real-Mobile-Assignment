@@ -17,7 +17,7 @@ class DBHelper(context : Context):SQLiteOpenHelper(context,DATABASE_NAME, null,D
         }
 
     override fun onCreate(db: SQLiteDatabase?) {
-        val CREATE_TABLE_QUERY : String = ("CREATE TABLE  $TABLE_NAME ($COL_EMAIL INTEGER PRIMARY KEY, $COL_PASS TEXT, $COL_NAME TEXT)")
+        val CREATE_TABLE_QUERY : String = ("CREATE TABLE  $TABLE_NAME ($COL_EMAIL TEXT PRIMARY KEY, $COL_PASS TEXT, $COL_NAME TEXT)")
         db!!.execSQL(CREATE_TABLE_QUERY);
     }
 
