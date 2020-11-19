@@ -7,10 +7,9 @@ import android.util.Patterns
 import android.widget.Button
 import android.widget.EditText
 import androidx.appcompat.app.AppCompatActivity
-import java.util.regex.Pattern
-import android.database.sqlite.SQLiteDatabase
 import com.example.warehouselimmingjun.DBHelper.DBHelper
 import com.example.warehouselimmingjun.model.Register
+import java.util.regex.Pattern
 
 class RegisterActivity : AppCompatActivity() {
 
@@ -133,6 +132,7 @@ class RegisterActivity : AppCompatActivity() {
         }
         else {
             myName.error = null
+            //myName.setText(myName.text.toString().toLowerCase().capitalize())
             return true
         }
         return false
