@@ -23,7 +23,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="40dp"
-        android:layout_marginTop="85dp"
+        android:layout_marginTop="90dp"
         android:text="@string/stock_out"
         android:textColor="#253A4B"
         android:textSize="30sp"
