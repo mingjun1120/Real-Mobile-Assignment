@@ -11,7 +11,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="40dp"
-        android:layout_marginTop="85dp"
+        android:layout_marginTop="90dp"
         android:text="@string/add_new_item"
         android:textColor="#253A4B"
         android:textSize="30sp"
@@ -33,21 +33,62 @@
 
     <ImageView
         android:id="@+id/background"
-        android:layout_width="380dp"
+        android:layout_width="wrap_content"
         android:layout_height="510dp"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="8dp"
+        android:layout_marginTop="4dp"
         android:contentDescription="@string/background_pinkroundsquare"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.488"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/addNewItem"
         app:srcCompat="@drawable/rectangle_53" />
 
     <TextView
+        android:id="@+id/image"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="28dp"
+        android:layout_marginTop="12dp"
+        android:text="@string/image"
+        android:textColor="#253A4B"
+        android:textSize="24sp"
+        app:layout_constraintStart_toStartOf="@+id/background"
+        app:layout_constraintTop_toBottomOf="@+id/sizeText" />
+
+    <ImageButton
+        android:id="@+id/photo_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="168dp"
+        android:layout_marginTop="32dp"
+        android:background="@color/Transparent"
+        android:contentDescription="@string/cameraicon"
+        app:layout_constraintStart_toStartOf="@+id/background"
+        app:layout_constraintTop_toBottomOf="@+id/image"
+        app:srcCompat="@android:drawable/ic_menu_camera" />
+
+    <EditText
+        android:id="@+id/ProductNameText"
+        android:layout_width="325dp"
+        android:layout_height="32dp"
+        android:layout_marginStart="28dp"
+        android:layout_marginTop="4dp"
+        android:background="@drawable/round_corner_border"
+        android:ems="10"
+        android:hint="@string/eg_t_shirt"
+        android:importantForAutofill="no"
+        android:inputType="textPersonName"
+        android:labelFor="@id/productName"
+        android:textAlignment="center"
+        app:layout_constraintStart_toStartOf="@+id/background"
+        app:layout_constraintTop_toBottomOf="@+id/productName" />
+
+    <TextView
         android:id="@+id/productID"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="24dp"
-        android:layout_marginTop="12dp"
+        android:layout_marginStart="28dp"
+        android:layout_marginTop="28dp"
         android:text="@string/product_id"
         android:textColor="#253A4B"
         android:textSize="24sp"
@@ -59,19 +100,35 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="200dp"
-        android:layout_marginTop="12dp"
+        android:layout_marginTop="28dp"
         android:text="@string/location"
         android:textColor="#253A4B"
         android:textSize="24sp"
         app:layout_constraintStart_toStartOf="@+id/background"
         app:layout_constraintTop_toTopOf="@+id/background" />
 
+    <EditText
+        android:id="@+id/ProductIDText"
+        android:layout_width="138dp"
+        android:layout_height="32dp"
+        android:layout_marginStart="28dp"
+        android:layout_marginTop="4dp"
+        android:background="@drawable/round_corner_border"
+        android:ems="10"
+        android:hint="@string/eg_st0001m"
+        android:importantForAutofill="no"
+        android:inputType="textCapCharacters"
+        android:labelFor="@id/productID"
+        android:textAlignment="center"
+        app:layout_constraintStart_toStartOf="@+id/background"
+        app:layout_constraintTop_toBottomOf="@+id/productID" />
+
     <TextView
         android:id="@+id/productName"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="24dp"
-        android:layout_marginTop="16dp"
+        android:layout_marginStart="28dp"
+        android:layout_marginTop="12dp"
         android:text="@string/product_name"
         android:textColor="#253A4B"
         android:textSize="24sp"
@@ -79,88 +136,113 @@
         app:layout_constraintTop_toBottomOf="@+id/LocationText" />
 
     <TextView
-        android:id="@+id/quantity1"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="24dp"
-        android:layout_marginTop="16dp"
-        android:text="@string/quantity"
-        android:textColor="#253A4B"
-        android:textSize="24sp"
-        app:layout_constraintStart_toStartOf="@+id/background"
-        app:layout_constraintTop_toBottomOf="@+id/ProductNameText" />
-
-    <TextView
-        android:id="@+id/category"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="24dp"
-        android:layout_marginTop="16dp"
-        android:text="@string/category"
-        android:textColor="#253A4B"
-        android:textSize="24sp"
-        app:layout_constraintStart_toStartOf="@+id/background"
-        app:layout_constraintTop_toBottomOf="@+id/QuantityText" />
-
-    <TextView
-        android:id="@+id/image"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="24dp"
-        android:layout_marginTop="40dp"
-        android:text="@string/image"
-        android:textColor="#253A4B"
-        android:textSize="24sp"
-        app:layout_constraintStart_toStartOf="@+id/background"
-        app:layout_constraintTop_toBottomOf="@+id/size" />
-
-    <TextView
-        android:id="@+id/size"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
-        android:layout_marginEnd="120dp"
-        android:text="@string/size"
-        android:textColor="#253A4B"
-        android:textSize="24sp"
-        app:layout_constraintEnd_toEndOf="@+id/background"
-        app:layout_constraintTop_toBottomOf="@+id/PriceText" />
-
-    <TextView
         android:id="@+id/price"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
-        android:layout_marginEnd="24dp"
+        android:layout_marginTop="12dp"
+        android:layout_marginEnd="18dp"
         android:text="@string/price_per_unit"
         android:textColor="#253A4B"
         android:textSize="24sp"
         app:layout_constraintEnd_toEndOf="@+id/background"
         app:layout_constraintTop_toBottomOf="@+id/ProductNameText" />
 
-    <ImageButton
-        android:id="@+id/photo_button"
+    <TextView
+        android:id="@+id/quantity1"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="168dp"
-        android:layout_marginTop="52dp"
-        android:background="@color/Transparent"
-        android:contentDescription="@string/cameraicon"
-        app:layout_constraintStart_toStartOf="@+id/background"
-        app:layout_constraintTop_toBottomOf="@+id/image"
-        app:srcCompat="@android:drawable/ic_menu_camera" />
-
-    <ImageButton
-        android:id="@+id/confirmButton"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="24dp"
+        android:layout_marginStart="28dp"
         android:layout_marginTop="12dp"
-        android:background="@color/Transparent"
-        android:contentDescription="@string/confirmbtn"
+        android:text="@string/quantity"
+        android:textColor="#253A4B"
+        android:textSize="24sp"
         app:layout_constraintStart_toStartOf="@+id/background"
-        app:layout_constraintTop_toBottomOf="@+id/background"
-        app:srcCompat="@drawable/group_64" />
+        app:layout_constraintTop_toBottomOf="@+id/ProductNameText" />
+
+    <EditText
+        android:id="@+id/QuantityText"
+        android:layout_width="114dp"
+        android:layout_height="32dp"
+        android:layout_marginStart="28dp"
+        android:layout_marginTop="4dp"
+        android:background="@drawable/round_corner_border"
+        android:ems="10"
+        android:hint="@string/eg_22"
+        android:importantForAutofill="no"
+        android:inputType="number"
+        android:textAlignment="center"
+        app:layout_constraintStart_toStartOf="@+id/background"
+        app:layout_constraintTop_toBottomOf="@+id/quantity1" />
+
+    <EditText
+        android:id="@+id/PriceText"
+        android:layout_width="128dp"
+        android:layout_height="32dp"
+        android:layout_marginTop="4dp"
+        android:layout_marginEnd="32dp"
+        android:background="@drawable/round_corner_border"
+        android:ems="10"
+        android:hint="@string/eg_25_00"
+        android:importantForAutofill="no"
+        android:inputType="numberDecimal"
+        android:textAlignment="center"
+        app:layout_constraintEnd_toEndOf="@+id/background"
+        app:layout_constraintTop_toBottomOf="@+id/price" />
+
+    <TextView
+        android:id="@+id/size"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="12dp"
+        android:layout_marginEnd="114dp"
+        android:text="@string/size"
+        android:textColor="#253A4B"
+        android:textSize="24sp"
+        app:layout_constraintEnd_toEndOf="@+id/background"
+        app:layout_constraintTop_toBottomOf="@+id/PriceText" />
+
+    <EditText
+        android:id="@+id/sizeText"
+        android:layout_width="128dp"
+        android:layout_height="32dp"
+        android:layout_marginTop="4dp"
+        android:layout_marginEnd="32dp"
+        android:background="@drawable/round_corner_border"
+        android:ems="10"
+        android:hint="@string/eg_m"
+        android:importantForAutofill="no"
+        android:inputType="textCapCharacters"
+        android:textAlignment="center"
+        app:layout_constraintEnd_toEndOf="@+id/background"
+        app:layout_constraintTop_toBottomOf="@+id/size" />
+
+    <TextView
+        android:id="@+id/category"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="28dp"
+        android:layout_marginTop="12dp"
+        android:text="@string/category"
+        android:textColor="#253A4B"
+        android:textSize="24sp"
+        app:layout_constraintStart_toStartOf="@+id/background"
+        app:layout_constraintTop_toBottomOf="@+id/QuantityText" />
+
+    <EditText
+        android:id="@+id/LocationText"
+        android:layout_width="138dp"
+        android:layout_height="32dp"
+        android:layout_marginTop="4dp"
+        android:layout_marginEnd="30dp"
+        android:background="@drawable/round_corner_border"
+        android:ems="10"
+        android:hint="@string/eg_lot123"
+        android:importantForAutofill="no"
+        android:inputType="text"
+        android:labelFor="@id/location"
+        android:textAlignment="center"
+        app:layout_constraintEnd_toEndOf="@+id/background"
+        app:layout_constraintTop_toBottomOf="@+id/location" />
 
     <ImageButton
         android:id="@+id/clearButton"
@@ -174,92 +256,16 @@
         app:layout_constraintTop_toBottomOf="@+id/background"
         app:srcCompat="@drawable/group_65" />
 
-    <EditText
-        android:id="@+id/ProductIDText"
-        android:layout_width="138dp"
-        android:layout_height="32dp"
+    <ImageButton
+        android:id="@+id/confirmButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:layout_marginStart="24dp"
-        android:background="@drawable/round_corner_texture"
-        android:layout_marginTop="4dp"
-        android:ems="10"
-        android:hint="@string/eg_st0001m"
-        android:importantForAutofill="no"
-        android:inputType="textPersonName"
-        android:labelFor="@id/productID"
-        app:backgroundTint="@color/BlueDarkOpa"
+        android:layout_marginTop="12dp"
+        android:background="@color/Transparent"
+        android:contentDescription="@string/confirmbtn"
         app:layout_constraintStart_toStartOf="@+id/background"
-        app:layout_constraintTop_toBottomOf="@+id/productID" />
-
-    <EditText
-        android:id="@+id/ProductNameText"
-        android:layout_width="337dp"
-        android:layout_height="32dp"
-        android:layout_marginStart="24dp"
-        android:background="@drawable/round_corner_texture"
-        android:ems="10"
-        android:hint="@string/eg_t_shirt"
-        android:importantForAutofill="no"
-        android:inputType="textPersonName"
-        android:labelFor="@id/productName"
-        app:backgroundTint="@color/BlueDarkOpa"
-        app:layout_constraintStart_toStartOf="@+id/background"
-        app:layout_constraintTop_toBottomOf="@+id/productName" />
-
-    <EditText
-        android:id="@+id/LocationText"
-        android:layout_width="138dp"
-        android:layout_height="32dp"
-        android:layout_marginEnd="40dp"
-        android:background="@drawable/round_corner_texture"
-        android:ems="10"
-        android:hint="@string/eg_lot123"
-        android:importantForAutofill="no"
-        android:inputType="textPersonName"
-        android:labelFor="@id/location"
-        app:backgroundTint="@color/BlueDarkOpa"
-        app:layout_constraintEnd_toEndOf="@+id/background"
-        app:layout_constraintTop_toBottomOf="@+id/location" />
-
-    <EditText
-        android:id="@+id/QuantityText"
-        android:layout_width="114dp"
-        android:layout_height="32dp"
-        android:layout_marginStart="24dp"
-        android:background="@drawable/round_corner_texture"
-        android:ems="10"
-        android:hint="@string/quantity"
-        android:importantForAutofill="no"
-        android:inputType="number"
-        app:backgroundTint="@color/BlueDarkOpa"
-        app:layout_constraintStart_toStartOf="@+id/background"
-        app:layout_constraintTop_toBottomOf="@+id/quantity1" />
-
-    <EditText
-        android:id="@+id/PriceText"
-        android:layout_width="128dp"
-        android:layout_height="32dp"
-        android:layout_marginEnd="40dp"
-        android:ems="10"
-        android:hint="@string/eg_25_00"
-        android:importantForAutofill="no"
-        android:inputType="numberDecimal"
-        android:background="@drawable/round_corner_texture"
-        app:backgroundTint="@color/BlueDarkOpa"
-        app:layout_constraintEnd_toEndOf="@+id/background"
-        app:layout_constraintTop_toBottomOf="@+id/price" />
-
-    <EditText
-        android:id="@+id/editText"
-        android:layout_width="128dp"
-        android:layout_height="32dp"
-        android:layout_marginEnd="40dp"
-        android:ems="10"
-        android:hint="@string/eg_m"
-        android:importantForAutofill="no"
-        android:inputType="textPersonName"
-        android:background="@drawable/round_corner_texture"
-        app:backgroundTint="@color/BlueDarkOpa"
-        app:layout_constraintEnd_toEndOf="@+id/background"
-        app:layout_constraintTop_toBottomOf="@+id/size" />
+        app:layout_constraintTop_toBottomOf="@+id/background"
+        app:srcCompat="@drawable/group_64" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
