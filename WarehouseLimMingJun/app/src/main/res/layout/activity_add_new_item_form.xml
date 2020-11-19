@@ -53,7 +53,7 @@
         android:textColor="#253A4B"
         android:textSize="24sp"
         app:layout_constraintStart_toStartOf="@+id/background"
-        app:layout_constraintTop_toBottomOf="@+id/sizeText" />
+        app:layout_constraintTop_toBottomOf="@+id/spinner1" />
 
     <ImageButton
         android:id="@+id/photo_button"
@@ -201,18 +201,30 @@
         app:layout_constraintEnd_toEndOf="@+id/background"
         app:layout_constraintTop_toBottomOf="@+id/PriceText" />
 
-    <EditText
-        android:id="@+id/sizeText"
-        android:layout_width="128dp"
+<!--    <EditText-->
+<!--        android:id="@+id/sizeText"-->
+<!--        android:layout_width="128dp"-->
+<!--        android:layout_height="32dp"-->
+<!--        android:layout_marginTop="4dp"-->
+<!--        android:layout_marginEnd="32dp"-->
+<!--        android:background="@drawable/round_corner_border"-->
+<!--        android:ems="10"-->
+<!--        android:hint="@string/eg_m"-->
+<!--        android:importantForAutofill="no"-->
+<!--        android:inputType="textCapCharacters"-->
+<!--        android:textAlignment="center"-->
+<!--        app:layout_constraintEnd_toEndOf="@+id/background"-->
+<!--        app:layout_constraintTop_toBottomOf="@+id/size" />-->
+
+
+    <Spinner
+        android:id="@+id/spinner1"
+        android:layout_width="80dp"
         android:layout_height="32dp"
         android:layout_marginTop="4dp"
-        android:layout_marginEnd="32dp"
+        android:layout_marginEnd="78dp"
+        android:spinnerMode="dropdown"
         android:background="@drawable/round_corner_border"
-        android:ems="10"
-        android:hint="@string/eg_m"
-        android:importantForAutofill="no"
-        android:inputType="textCapCharacters"
-        android:textAlignment="center"
         app:layout_constraintEnd_toEndOf="@+id/background"
         app:layout_constraintTop_toBottomOf="@+id/size" />
 
