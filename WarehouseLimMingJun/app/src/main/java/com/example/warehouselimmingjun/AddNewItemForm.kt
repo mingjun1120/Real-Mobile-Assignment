@@ -2,25 +2,35 @@ package com.example.warehouselimmingjun
 
 import android.content.Intent
 import android.os.Bundle
-import android.widget.EditText
-import android.widget.ImageButton
-import android.widget.Toast
+import android.view.View
+import android.widget.*
 import androidx.appcompat.app.AppCompatActivity
 
-class AddNewItemForm : AppCompatActivity() {
+class AddNewItemForm : AppCompatActivity(), AdapterView.OnItemSelectedListener {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_add_new_item_form)
 
+        // BACK BUTTON
         val backBtn = findViewById<ImageButton>(R.id.backButton)
         backBtn.setOnClickListener{
             val intent = Intent(this, AddNewItem::class.java)
             startActivity(intent)
         }
 
+        //SPINNER BUTTON FOR CHOOSING SIZE
+        val spinner = findViewById<Spinner>(R.id.spinner1)
+        val adapter = ArrayAdapter.createFromResource(
+            this, R.array.numbers, android.R.layout.simple_spinner_item
+        )
+        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
+        spinner.adapter = adapter
+        spinner.onItemSelectedListener = this
+
+        // CONFIRM BUTTON
         val confirmBtn = findViewById<ImageButton>(R.id.confirmButton)
         confirmBtn.setOnClickListener{
-            Toast.makeText(this,"Added!", Toast.LENGTH_SHORT).show()
+            Toast.makeText(this, "Added!", Toast.LENGTH_SHORT).show()
             val intent = Intent(this, HomeScreen::class.java)
 
             val myProductID = findViewById<EditText>(R.id.ProductIDText)
@@ -32,10 +42,10 @@ class AddNewItemForm : AppCompatActivity() {
             val myProductQty = findViewById<EditText>(R.id.QuantityText)
             val checkProductQty = validateProductQty(myProductQty)
 
-            val myProductPrice = findViewById<EditText>(R.id.sizeText)
-            val checkProductPrice = validateProductPrice(myProductPrice)
+//            val myProductPrice = findViewById<EditText>(R.id.sizeText)
+//            val checkProductPrice = validateProductPrice(myProductPrice)
 
-            if(checkProductID && checkProductName && checkProductQty && checkProductPrice)
+            if(checkProductID && checkProductName && checkProductQty)
             {
                 startActivity(intent)
             }
@@ -72,7 +82,7 @@ class AddNewItemForm : AppCompatActivity() {
         if (myProductName.text.toString().isEmpty()) {
             myProductName.error = "Field can't be empty!"
         }
-        else if (myProductName.text.toString().first() == myProductName.text.toString().capitalize().first()) {
+        else if (myProductName.text.toString().first() != myProductName.text.toString().first().toUpperCase()) {
             myProductName.error = "1st character must be uppercase!"
         }
         else if (!(myPattern.matches(myProductName.text.toString()))) {
@@ -122,5 +132,16 @@ class AddNewItemForm : AppCompatActivity() {
             return true
         }
         return false
+    }
+
+    override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long)
+    {
+//        val text = parent!!.getItemAtPosition(position).toString()
+//        val bb = parent.getItemAtPosition(position).toString()
+//        Toast.makeText(parent.context, bb, Toast.LENGTH_SHORT).show()
+    }
+
+    override fun onNothingSelected(parent: AdapterView<*>?) {
+        TODO("Not yet implemented")
     }
 }
