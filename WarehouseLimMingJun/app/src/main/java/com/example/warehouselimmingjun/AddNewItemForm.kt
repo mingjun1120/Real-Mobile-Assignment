@@ -76,7 +76,7 @@ class AddNewItemForm : AppCompatActivity(), AdapterView.OnItemSelectedListener {
             myProductID.error = "Only uppercase and numeric characters!"
         }
         else if (!(myPattern.matches(myProductID.text.toString()))) {
-            myProductID.error = "Format wrong! eg. ST0000(S,M,L,XL) - ST9999(S,M,L,XL)"
+            myProductID.error = "Format wrong! Ex: ST0001(Size) = ST0001M"
         }
         else {
             myProductID.error = null
@@ -143,7 +143,7 @@ class AddNewItemForm : AppCompatActivity(), AdapterView.OnItemSelectedListener {
 
     private fun validateProductLoc(myProductLoc: EditText): Boolean {
 
-        val myPattern: Regex = Regex("^[L][O][C][0-9]{4}[A-Z]\$")
+        val myPattern: Regex = Regex("^[L][O][C][0-9]{3}[A-Z]\$")
         val myPattern2: Regex = Regex("^[^A-Z0-9]+\$")
 
         if (myProductLoc.text.toString().isEmpty()) {
@@ -157,7 +157,7 @@ class AddNewItemForm : AppCompatActivity(), AdapterView.OnItemSelectedListener {
         }
         else if (!(myPattern.matches(myProductLoc.text.toString()))) {
             //myProductLoc.error = "Format: LOC + number(0-9) + section(A-Z)"
-            myProductLoc.error = "Format wrong! eg. LOC000A - LOC999Z."
+            myProductLoc.error = "Format wrong! Ex: LOC000A - LOC999Z."
         }
         else {
             myProductLoc.error = null
@@ -168,9 +168,9 @@ class AddNewItemForm : AppCompatActivity(), AdapterView.OnItemSelectedListener {
 
     override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long)
     {
-        //val text = parent!!.getItemAtPosition(position).toString()
+        val text = parent!!.getItemAtPosition(position).toString()
         //val bb = parent.getItemAtPosition(position).toString()
-        //Toast.makeText(parent.context, bb, Toast.LENGTH_SHORT).show()
+        Toast.makeText(parent.context, text, Toast.LENGTH_SHORT).show()
     }
 
     override fun onNothingSelected(parent: AdapterView<*>?) {
