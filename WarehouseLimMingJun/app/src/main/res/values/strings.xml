@@ -67,9 +67,9 @@
     <string name="price_per_unit">Price per Unit</string>
     <string name="location">Location</string>
     <string name="image">Image</string>
-    <string name="eg_lot123">Eg. LOC001A</string>
-    <string name="eg_st0001m">Eg. ST0001M</string>
-    <string name="eg_t_shirt">Eg. Hello Kitty Shirt</string>
+    <string name="eg_lot123">Eg: LOC001A</string>
+    <string name="eg_st0001m">Eg: ST0001M</string>
+    <string name="eg_t_shirt">Eg: Hello Kitty Shirt</string>
     <string name="cameraicon">cameraIcon</string>
     <string name="eg_25_00">Eg. 25.00</string>
     <string name="eg_m">Eg. M</string>
@@ -78,11 +78,37 @@
     <string name="eg_22">Eg: 22</string>
 
     <string name="spinner_shirt_size">Spinner Example</string>
+    <string name="eg_adidas_original_superstar">Eg: Adidas Original Superstar</string>
+    <string name="eg_sh00019">Eg: SH00014</string>
+    <string name="eg_350_00">Eg: 350.00</string>
+    <string name="eg_lot001a">Eg: LOT001A</string>
     <string-array name="numbers">
         <item>S</item>
         <item>M</item>
         <item>L</item>
         <item>XL</item>
+    </string-array>
+    <string-array name="shoeNumbers">
+        <item>4</item>
+        <item>4.5</item>
+        <item>5</item>
+        <item>5.5</item>
+        <item>6</item>
+        <item>6.5</item>
+        <item>7</item>
+        <item>7.5</item>
+        <item>8</item>
+        <item>8.5</item>
+        <item>9</item>
+        <item>9.5</item>
+        <item>10</item>
+        <item>10.5</item>
+        <item>11</item>
+        <item>11.5</item>
+        <item>12</item>
+        <item>12.5</item>
+        <item>13</item>
+        <item>13.5</item>
     </string-array>
 
 </resources>
