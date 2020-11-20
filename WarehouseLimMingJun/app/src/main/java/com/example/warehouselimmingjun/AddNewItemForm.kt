@@ -144,7 +144,7 @@ class AddNewItemForm : AppCompatActivity(), AdapterView.OnItemSelectedListener {
 
     private fun validateProductLoc(myProductLoc: EditText): Boolean {
 
-        val myPattern: Regex = Regex("^[L][O][C][0-9]+[A-Z]\$")
+        val myPattern: Regex = Regex("^[L][O][C][0-9]{4}[A-Z]\$")
         val myPattern2: Regex = Regex("^[^A-Z0-9]+\$")
 
         if (myProductLoc.text.toString().isEmpty()) {
@@ -157,7 +157,8 @@ class AddNewItemForm : AppCompatActivity(), AdapterView.OnItemSelectedListener {
             myProductLoc.error = "Only uppercase and numeric characters!"
         }
         else if (!(myPattern.matches(myProductLoc.text.toString()))) {
-            myProductLoc.error = "Format: LOC + number(0-9) + section(A-Z)"
+            //myProductLoc.error = "Format: LOC + number(0-9) + section(A-Z)"
+            myProductLoc.error = "eg. LOC0000A - LOC9999Z."
         }
         else {
             myProductLoc.error = null
