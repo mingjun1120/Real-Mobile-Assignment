@@ -42,10 +42,10 @@ class AddNewItemForm : AppCompatActivity(), AdapterView.OnItemSelectedListener {
             val myProductQty = findViewById<EditText>(R.id.QuantityText)
             val checkProductQty = validateProductQty(myProductQty)
 
-//            val myProductPrice = findViewById<EditText>(R.id.sizeText)
-//            val checkProductPrice = validateProductPrice(myProductPrice)
+            val myProductPrice = findViewById<EditText>(R.id.PriceText)
+            val checkProductPrice = validateProductPrice(myProductPrice)
 
-            if(checkProductID && checkProductName && checkProductQty)
+            if(checkProductID && checkProductName && checkProductQty && checkProductPrice)
             {
                 startActivity(intent)
             }
