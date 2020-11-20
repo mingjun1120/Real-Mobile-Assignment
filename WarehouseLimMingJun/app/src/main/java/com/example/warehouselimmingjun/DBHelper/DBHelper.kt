@@ -4,6 +4,8 @@ import android.content.ContentValues
 import android.content.Context
 import android.database.sqlite.SQLiteDatabase
 import android.database.sqlite.SQLiteOpenHelper
+import android.provider.ContactsContract
+import com.example.warehouselimmingjun.Login
 import com.example.warehouselimmingjun.model.Register
 
 class DBHelper(context : Context):SQLiteOpenHelper(context,DATABASE_NAME, null,DATABASE_VER) {
@@ -39,4 +41,20 @@ class DBHelper(context : Context):SQLiteOpenHelper(context,DATABASE_NAME, null,D
         db.close()
 
     }
+
+    fun Login(email:String, pass:String):Boolean
+    {
+        val db = readableDatabase
+        val query = "select * from $TABLE_NAME where $COL_EMAIL = '$email' and $COL_PASS = '$pass'"
+        val cursor = db.rawQuery(query, null)
+
+        if (cursor.count<=0)
+        {
+            cursor.close()
+            return false
+        }
+        cursor.close()
+        return true
+    }
+
 }

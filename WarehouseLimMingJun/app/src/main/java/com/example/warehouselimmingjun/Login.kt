@@ -7,10 +7,17 @@ import android.util.Patterns.EMAIL_ADDRESS
 import android.widget.Button
 import android.widget.EditText
 import android.widget.TextView
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import com.example.warehouselimmingjun.DBHelper.DBHelper
+import com.example.warehouselimmingjun.model.Register
+import com.google.android.material.snackbar.Snackbar
 import java.util.regex.Pattern
 
 class Login : AppCompatActivity() {
+
+     lateinit var dbHelper: DBHelper
+
     override fun onCreate(savedInstanceState: Bundle?) {
 
         super.onCreate(savedInstanceState)
@@ -18,30 +25,35 @@ class Login : AppCompatActivity() {
 
         val login = findViewById<Button>(R.id.login_button)
 
-        login.setOnClickListener{
+        dbHelper = DBHelper(this)
+
+        login.setOnClickListener {
             val intent = Intent(this, HomeScreen::class.java)
             val myEmail = findViewById<EditText>(R.id.editTextTextEmailAddress)
             val myPwd = findViewById<EditText>(R.id.editTextTextPwd)
-            val checkEmail = myEmail.text.toString().isValidEmail()
-            val checkPwd = myPwd.text.toString().isValidPasswordFormat()
+            //val checkEmail = myEmail.text.toString().isValidEmail()
+            //val checkPwd = myPwd.text.toString().isValidPasswordFormat()
 
             // To print error message if false happen for email and pwd
-            validateEmail(checkEmail, myEmail)
-            validatePwd(checkPwd, myPwd)
+            //validateEmail(checkEmail, myEmail)
+            //validatePwd(checkPwd, myPwd)
 
-            if(checkEmail && checkPwd)
+            if (dbHelper.Login(myEmail.text.toString(), myPwd.text.toString()))
             {
+                Snackbar.make(it, "Login Success", Snackbar.LENGTH_LONG).show()
                 startActivity(intent)
             }
+            else
+                Snackbar.make(it, "Email or Password is incorrect", Snackbar.LENGTH_LONG).show()
         }
-        val register = findViewById<TextView>(R.id.register_link)
-        register.setOnClickListener{
-            val intent = Intent(this,  RegisterActivity::class.java)
-            startActivity(intent)
-        }
-    }
+            val register = findViewById<TextView>(R.id.register_link)
+            register.setOnClickListener {
+                val intent2 = Intent(this, RegisterActivity::class.java)
+                startActivity(intent2)
+            }
 
-    private fun String.isValidEmail() = !TextUtils.isEmpty(this) && EMAIL_ADDRESS.matcher(this).matches()
+    }
+ /*   private fun String.isValidEmail() = !TextUtils.isEmpty(this) && EMAIL_ADDRESS.matcher(this).matches()
 
     private fun String.isValidPasswordFormat(): Boolean {
         val passwordREGEX = Pattern.compile("^" +
@@ -72,7 +84,7 @@ class Login : AppCompatActivity() {
         }
     }
 
-    private fun validatePwd(checkPwd: Boolean, myPwd: EditText) {
+   private fun validatePwd(checkPwd: Boolean, myPwd: EditText) {
         if (myPwd.text.toString().isEmpty())
         {
             myPwd.error = "Field can't be empty"
@@ -86,4 +98,7 @@ class Login : AppCompatActivity() {
             myPwd.error = null
         }
     }
+
+ */
+
 }
