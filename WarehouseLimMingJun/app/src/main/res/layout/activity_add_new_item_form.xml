@@ -251,7 +251,7 @@
         android:ems="10"
         android:hint="@string/eg_lot123"
         android:importantForAutofill="no"
-        android:inputType="text"
+        android:inputType="textCapCharacters"
         android:labelFor="@id/location"
         android:textAlignment="center"
         app:layout_constraintEnd_toEndOf="@+id/background"
