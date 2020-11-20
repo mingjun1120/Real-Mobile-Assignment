@@ -63,7 +63,6 @@ class AddNewItemForm : AppCompatActivity(), AdapterView.OnItemSelectedListener {
 
     private fun validateProductID(myProductID: EditText): Boolean {
 
-
         val myPattern: Regex = Regex("^[S][T][0-9]{4}(S|M|L|XL)\$")
         val myPattern2: Regex = Regex("^[^A-Z0-9]+\$")
 
@@ -158,7 +157,7 @@ class AddNewItemForm : AppCompatActivity(), AdapterView.OnItemSelectedListener {
         }
         else if (!(myPattern.matches(myProductLoc.text.toString()))) {
             //myProductLoc.error = "Format: LOC + number(0-9) + section(A-Z)"
-            myProductLoc.error = "Format wrong! eg. LOC0000A - LOC9999Z."
+            myProductLoc.error = "Format wrong! eg. LOC000A - LOC999Z."
         }
         else {
             myProductLoc.error = null
@@ -166,8 +165,6 @@ class AddNewItemForm : AppCompatActivity(), AdapterView.OnItemSelectedListener {
         }
         return false
     }
-
-
 
     override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long)
     {
