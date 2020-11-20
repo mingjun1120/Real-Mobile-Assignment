@@ -24,7 +24,7 @@ class StockIn : AppCompatActivity() {
 
         val shoeBtn = findViewById<ImageButton>(R.id.buttonShoe)
         shoeBtn.setOnClickListener{
-            val intent = Intent(this, stockInForm::class.java)
+            val intent = Intent(this, StockInList::class.java)
             startActivity(intent)
         }
     }
