@@ -24,7 +24,7 @@ class AddNewItem : AppCompatActivity() {
 
         val shoeBtn = findViewById<ImageButton>(R.id.imageButton2)
         shoeBtn.setOnClickListener{
-            val intent = Intent(this, AddNewItemForm::class.java)
+            val intent = Intent(this, AddNewItemFormShoe::class.java)
             startActivity(intent)
         }
     }
