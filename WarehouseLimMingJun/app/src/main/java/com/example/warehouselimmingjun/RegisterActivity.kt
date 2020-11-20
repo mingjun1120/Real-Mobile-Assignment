@@ -9,6 +9,7 @@ import android.widget.EditText
 import androidx.appcompat.app.AppCompatActivity
 import com.example.warehouselimmingjun.DBHelper.DBHelper
 import com.example.warehouselimmingjun.model.Register
+import com.google.android.material.snackbar.Snackbar
 import java.util.regex.Pattern
 
 class RegisterActivity : AppCompatActivity() {
@@ -48,8 +49,15 @@ class RegisterActivity : AppCompatActivity() {
             )
             if(checkEmail && checkPwd && checkName)
             {
-                dbHelper.addregister(register)
-                startActivity(intent)
+                if (dbHelper.checkEmailExist(myEmail.text.toString()))
+                {
+                    Snackbar.make(it, "Email already Exists, Please enter a new Email", Snackbar.LENGTH_LONG).show()
+
+                }
+                else {
+                    dbHelper.addregister(register)
+                    startActivity(intent)
+                }
             }
         }
     }
