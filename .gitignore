@@ -83,3 +83,4 @@ lint/generated/
 lint/outputs/
 lint/tmp/
 # lint/reports/
+WarehouseLimMingJun/app/src/main/res/layout/activity_main.xml

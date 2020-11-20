@@ -19,7 +19,7 @@
         app:srcCompat="?attr/actionModeCloseDrawable" />
 
     <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/recycler_view"
+        android:id="@+id/imageRecyclerView"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_marginTop="85dp"

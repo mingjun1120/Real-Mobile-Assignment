@@ -4,73 +4,44 @@ import android.content.Context
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Button
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.example.warehouselimmingjun.R
-import com.example.warehouselimmingjun.model.Product
+import com.example.warehouselimmingjun.model.ItemList
 
-/**
- * Adapter for the [RecyclerView] in [Stock In list]. Displays [Product] data object.
- */
-class ItemAdapter(
+class ItemAdapter (
     private val context: Context,
-    private val dataset: List<Product>
-) : RecyclerView.Adapter<ItemAdapter.ItemViewHolder>() {
-
-    // Provide a reference to the views for each data item
-    // Complex data items may need more than one view per item, and
-    // you provide access to all the views for a data item in a view holder.
-    // Each data item is just an Affirmation object.
-    class ItemViewHolder(itemView: View, var mListener:OnItemClickListener): RecyclerView.ViewHolder(itemView),
-        View.OnClickListener {
-        val textView: TextView = itemView.findViewById(R.id.item_title)
-        val imageView: ImageView = itemView.findViewById(R.id.item_image)
-
-        init {
-            itemView.setOnClickListener(this)
-        }
-
-        override fun onClick(v: View?) {
-            if(mListener != null){
-                mListener.setOnClickListener((adapterPosition))
+    private val images : List<ItemList>,
+    val listener : (ItemList) -> Unit
+): RecyclerView.Adapter<ItemAdapter.ImageViewHolder>() {
+    inner class ImageViewHolder(view: View) : RecyclerView.ViewHolder(view) {
+        val icon: ImageView = view.findViewById<ImageView>(R.id.icon_list)
+        val name: TextView = view.findViewById<TextView>(R.id.title_text_view)
+        val desc: TextView = view.findViewById<TextView>(R.id.detail_text_view)
+        val addBtn: Button = view.findViewById(R.id.button)
+        fun bindmodel(item: ItemList) {
+            icon.setImageResource(item.icons!!)
+            name.text = item.title
+            desc.text = item.detail
+            addBtn.setOnClickListener {
+                listener(item)
             }
         }
     }
 
-    private lateinit var mListener: OnItemClickListener
-    /**
-     * Create new views (invoked by the layout manager)
-     */
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ItemViewHolder {
-        // create a new view
-        val adapterLayout = LayoutInflater.from(parent.context)
-            .inflate(R.layout.product_list, parent, false)
-
-        return ItemViewHolder(adapterLayout, mListener)
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ImageViewHolder {
+        return ImageViewHolder(
+            LayoutInflater.from(context).inflate(R.layout.product_list, parent, false)
+        )
     }
 
-    /**
-     * Replace the contents of a view (invoked by the layout manager)
-     */
-    override fun onBindViewHolder(holder: ItemViewHolder, position: Int) {
-        val item = dataset[position]
-        holder.textView.text = context.resources.getString(item.stringResourceId)
-        holder.imageView.setImageResource(item.imageResourceId)
-
-
+    override fun onBindViewHolder(holder: ImageViewHolder, position: Int) {
+        holder.bindmodel(images[position])
     }
 
-    /**
-     * Return the size of your dataset (invoked by the layout manager)
-     */
-    override fun getItemCount() = dataset.size
-
-    interface OnItemClickListener{
-        fun setOnClickListener(pos:Int)
-    }
-
-    fun setOnItemClickListener(mlistener:OnItemClickListener){
-        this.mListener = mListener
+    override fun getItemCount(): Int {
+        return images.size
     }
 }

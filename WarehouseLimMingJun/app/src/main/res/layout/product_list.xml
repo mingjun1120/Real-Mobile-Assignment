@@ -1,30 +1,59 @@
 <?xml version="1.0" encoding="utf-8"?>
-<com.google.android.material.card.MaterialCardView xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:layout_margin="8dp">
+    app:cardCornerRadius="8dp"
+    app:cardElevation="5dp"
+    app:cardPreventCornerOverlap="true"
+    app:cardUseCompatPadding="true">
 
-    <LinearLayout
+    <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="85dp"
-        android:orientation="vertical">
+        android:paddingBottom="4dp"
+        android:focusable="true">
 
         <ImageView
-            android:id="@+id/item_image"
-            android:layout_width="match_parent"
-            android:layout_height="194dp"
-            android:importantForAccessibility="no"
-            android:scaleType="centerCrop" />
+            android:id="@+id/icon_list"
+            android:layout_width="75dp"
+            android:layout_height="75dp"
+            android:layout_marginStart="5dp"
+            android:layout_marginTop="6dp"
+
+            android:contentDescription="@string/itemimage"
+            android:src="@drawable/shirt" />
 
         <TextView
-            android:id="@+id/item_title"
+            android:id="@+id/title_text_view"
+            android:layout_width="100dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="110dp"
+            android:layout_marginTop="8dp"
+            android:text="@string/title_text"
+            android:textSize="16sp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/detail_text_view"
+            android:layout_width="150dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="110dp"
+            android:layout_marginTop="35dp"
+            android:text="@string/detail_text" />
+
+        <Button
+            android:id="@+id/button"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:padding="16dp"
-            android:textAppearance="?attr/textAppearanceHeadline6" />
+            android:layout_marginStart="300dp"
+            android:layout_marginTop="15dp"
+            android:focusable="false"
 
-    </LinearLayout>
+            android:text="@string/add"
+            app:backgroundTint="#07D955" />
 
-</com.google.android.material.card.MaterialCardView>
+    </RelativeLayout>
+
+</androidx.cardview.widget.CardView>

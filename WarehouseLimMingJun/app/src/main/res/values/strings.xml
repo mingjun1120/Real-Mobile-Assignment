@@ -76,6 +76,9 @@
     <string name="item_information">Item Information</string>
     <string name="itemimage">itemImage</string>
     <string name="eg_22">Eg: 22</string>
+    <string name="title_text">Title Text</string>
+    <string name="detail_text">Detail Text</string>
+    <string name="add">Add</string>
 
     <string name="spinner_shirt_size">Spinner Example</string>
     <string-array name="numbers">
