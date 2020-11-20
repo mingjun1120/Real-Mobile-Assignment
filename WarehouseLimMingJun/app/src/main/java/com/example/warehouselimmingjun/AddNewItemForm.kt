@@ -30,7 +30,7 @@ class AddNewItemForm : AppCompatActivity(), AdapterView.OnItemSelectedListener {
         // CONFIRM BUTTON
         val confirmBtn = findViewById<ImageButton>(R.id.confirmButton)
         confirmBtn.setOnClickListener{
-            Toast.makeText(this, "Added!", Toast.LENGTH_SHORT).show()
+
             val intent = Intent(this, HomeScreen::class.java)
 
             val myProductID = findViewById<EditText>(R.id.ProductIDText)
@@ -45,9 +45,13 @@ class AddNewItemForm : AppCompatActivity(), AdapterView.OnItemSelectedListener {
             val myProductPrice = findViewById<EditText>(R.id.PriceText)
             val checkProductPrice = validateProductPrice(myProductPrice)
 
-            if(checkProductID && checkProductName && checkProductQty && checkProductPrice)
+            val myProductLoc = findViewById<EditText>(R.id.LocationText)
+            val checkProductLoc = validateProductLoc(myProductLoc)
+
+            if(checkProductID && checkProductName && checkProductQty && checkProductPrice && checkProductLoc)
             {
                 startActivity(intent)
+                Toast.makeText(this, "Added!", Toast.LENGTH_SHORT).show()
             }
         }
 
@@ -57,19 +61,26 @@ class AddNewItemForm : AppCompatActivity(), AdapterView.OnItemSelectedListener {
         }
     }
 
-    private fun validateProductPrice(myProductPrice: EditText): Boolean {
+    private fun validateProductID(myProductID: EditText): Boolean {
 
-        if (myProductPrice.text.toString().isEmpty()) {
-            myProductPrice.error = "Field can't be empty!"
+
+        val myPattern: Regex = Regex("^[S][T][0-9]+(S|M|L|XL)\$")
+        val myPattern2: Regex = Regex("^[^A-Z0-9]+\$")
+
+        if (myProductID.text.toString().isEmpty()) {
+            myProductID.error = "Field can't be empty!"
         }
-        else if (myProductPrice.text.toString().contains(" ")) {
-            myProductPrice.error = "No whitespace!"
+        else if (myProductID.text.toString().contains(" ")) {
+            myProductID.error = "No whitespace!"
         }
-        else if ((myProductPrice.text.toString().toDoubleOrNull()) == null) {
-            myProductPrice.error = "Only decimal numbers!"
+        else if (myPattern2.matches(myProductID.text.toString())) {
+            myProductID.error = "Only uppercase and numeric characters!"
+        }
+        else if (!(myPattern.matches(myProductID.text.toString()))) {
+            myProductID.error = "Format: ST + number(0-9) + size(S, M, L, XL)"
         }
         else {
-            myProductPrice.error = null
+            myProductID.error = null
             return true
         }
         return false
@@ -95,27 +106,6 @@ class AddNewItemForm : AppCompatActivity(), AdapterView.OnItemSelectedListener {
         return false
     }
 
-    private fun validateProductID(myProductID: EditText): Boolean {
-
-        val myPattern: Regex = Regex("^[A-Z][A-Z0-9*]*\$")  //SD004M
-
-        if (myProductID.text.toString().isEmpty()) {
-            myProductID.error = "Field can't be empty!"
-        }
-        else if (myProductID.text.toString().contains(" ")) {
-            myProductID.error = "No whitespace!"
-        }
-        else if (!(myPattern.matches(myProductID.text.toString()))) {
-            myProductID.error = "Only uppercase & numeric characters!"
-        }
-        else {
-            myProductID.error = null
-            return true
-        }
-        return false
-    }
-
-
     private fun validateProductQty(myProductQty: EditText): Boolean {
 
         if (myProductQty.text.toString().isEmpty()) {
@@ -134,11 +124,55 @@ class AddNewItemForm : AppCompatActivity(), AdapterView.OnItemSelectedListener {
         return false
     }
 
+    private fun validateProductPrice(myProductPrice: EditText): Boolean {
+
+        if (myProductPrice.text.toString().isEmpty()) {
+            myProductPrice.error = "Field can't be empty!"
+        }
+        else if (myProductPrice.text.toString().contains(" ")) {
+            myProductPrice.error = "No whitespace!"
+        }
+        else if ((myProductPrice.text.toString().toDoubleOrNull()) == null) {
+            myProductPrice.error = "Only decimal numbers!"
+        }
+        else {
+            myProductPrice.error = null
+            return true
+        }
+        return false
+    }
+
+    private fun validateProductLoc(myProductLoc: EditText): Boolean {
+
+        val myPattern: Regex = Regex("^[L][O][C][0-9]+[A-Z]\$")
+        val myPattern2: Regex = Regex("^[^A-Z0-9]+\$")
+
+        if (myProductLoc.text.toString().isEmpty()) {
+            myProductLoc.error = "Field can't be empty!"
+        }
+        else if (myProductLoc.text.toString().contains(" ")) {
+            myProductLoc.error = "No whitespace!"
+        }
+        else if (myPattern2.matches(myProductLoc.text.toString())) {
+            myProductLoc.error = "Only uppercase and numeric characters!"
+        }
+        else if (!(myPattern.matches(myProductLoc.text.toString()))) {
+            myProductLoc.error = "Format: LOC + number(0-9) + section(A-Z)"
+        }
+        else {
+            myProductLoc.error = null
+            return true
+        }
+        return false
+    }
+
+
+
     override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long)
     {
-//        val text = parent!!.getItemAtPosition(position).toString()
-//        val bb = parent.getItemAtPosition(position).toString()
-//        Toast.makeText(parent.context, bb, Toast.LENGTH_SHORT).show()
+        //val text = parent!!.getItemAtPosition(position).toString()
+        //val bb = parent.getItemAtPosition(position).toString()
+        //Toast.makeText(parent.context, bb, Toast.LENGTH_SHORT).show()
     }
 
     override fun onNothingSelected(parent: AdapterView<*>?) {
