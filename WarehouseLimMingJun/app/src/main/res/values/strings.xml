@@ -67,7 +67,7 @@
     <string name="price_per_unit">Price per Unit</string>
     <string name="location">Location</string>
     <string name="image">Image</string>
-    <string name="eg_lot123">Eg. LOC12A</string>
+    <string name="eg_lot123">Eg. LOC001A</string>
     <string name="eg_st0001m">Eg. ST0001M</string>
     <string name="eg_t_shirt">Eg. Hello Kitty Shirt</string>
     <string name="cameraicon">cameraIcon</string>
