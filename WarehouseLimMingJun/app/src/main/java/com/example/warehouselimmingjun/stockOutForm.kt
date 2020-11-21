@@ -41,7 +41,7 @@ class stockOutForm : AppCompatActivity() {
                 builder.setPositiveButton("Confirm",
                     DialogInterface.OnClickListener { dialog, id ->
                         Toast.makeText(this,"Stock sent out successfully!", Toast.LENGTH_SHORT).show()
-                        val intent = Intent(this, MainActivity::class.java)
+                        val intent = Intent(this, HomeScreen::class.java)
                         startActivity(intent)
                     })
 

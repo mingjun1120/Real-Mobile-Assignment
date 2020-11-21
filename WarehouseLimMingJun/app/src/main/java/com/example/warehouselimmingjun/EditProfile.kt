@@ -48,7 +48,7 @@ class EditProfile : AppCompatActivity() {
                 builder.setPositiveButton("Confirm",
                     DialogInterface.OnClickListener { dialog, id ->
                         Toast.makeText(this,"Profile updated successfully!", Toast.LENGTH_SHORT).show()
-                        val intent = Intent(this, MainActivity::class.java)
+                        val intent = Intent(this, Profile::class.java)
                         startActivity(intent)
                     })
 
