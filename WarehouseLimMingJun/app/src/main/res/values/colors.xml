@@ -13,4 +13,6 @@
     <color name="BlueDarkOpa">#1A253A4B</color>
     <color name="Transparent">#00000000</color>
     <color name="RedPinkOpa11">#1CF23B5F</color>
+    <color name="BlueDarkOpa50">#80253a4b</color>
+    <color name="BlueDarkOpa80">#CC253a4b</color>
 </resources>
