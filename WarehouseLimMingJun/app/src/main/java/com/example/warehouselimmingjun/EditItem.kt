@@ -2,6 +2,7 @@ package com.example.warehouselimmingjun
 
 import android.content.Intent
 import android.os.Bundle
+import android.widget.EditText
 import android.widget.ImageButton
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
@@ -26,7 +27,17 @@ class EditItem : AppCompatActivity() {
 
         val clearBtn = findViewById<ImageButton>(R.id.clearButton)
         clearBtn.setOnClickListener{
+            val myProductName = findViewById<EditText>(R.id.ProductNameText)
+            myProductName.setText("")
 
+            val myProductQty = findViewById<EditText>(R.id.QuantityText)
+            myProductQty.setText("")
+
+            val myLocation = findViewById<EditText>(R.id.LocationText)
+            myLocation.setText("")
+
+            val myProductPrice = findViewById<EditText>(R.id.PriceText)
+            myProductPrice.setText("")
         }
     }
 }

@@ -57,7 +57,23 @@ class AddNewItemForm : AppCompatActivity(), AdapterView.OnItemSelectedListener {
 
         val clearBtn = findViewById<ImageButton>(R.id.clearButton)
         clearBtn.setOnClickListener{
+            val myProductID = findViewById<EditText>(R.id.ProductIDText)
+            myProductID.setText("")
 
+            val myProductName = findViewById<EditText>(R.id.ProductNameText)
+            myProductName.setText("")
+
+            val myProductQty = findViewById<EditText>(R.id.QuantityText)
+            myProductQty.setText("")
+
+            val myLocation = findViewById<EditText>(R.id.LocationText)
+            myLocation.setText("")
+
+            val myProductPrice = findViewById<EditText>(R.id.PriceText)
+            myProductPrice.setText("")
+
+            adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
+            spinner.adapter = adapter
         }
     }
 

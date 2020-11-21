@@ -35,7 +35,8 @@ class stockOutForm : AppCompatActivity() {
 
         val clearBtn1 = findViewById<ImageButton>(R.id.clearButton)
         clearBtn1.setOnClickListener{
-
+            val myProductQty = findViewById<EditText>(R.id.QuantityText)
+            myProductQty.setText("")
         }
     }
 
