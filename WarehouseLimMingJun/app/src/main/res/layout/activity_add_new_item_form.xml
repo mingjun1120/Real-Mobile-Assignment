@@ -281,4 +281,17 @@
         app:layout_constraintTop_toBottomOf="@+id/background"
         app:srcCompat="@drawable/group_64" />
 
+    <TextView
+        android:id="@+id/shirtCategory"
+        android:layout_width="53dp"
+        android:layout_height="26dp"
+        android:layout_marginStart="32dp"
+        android:layout_marginTop="6dp"
+        android:text="@string/shirtCategory"
+        android:textColor="@color/BlueDarkOpa80"
+        android:textSize="20sp"
+        android:textStyle="italic"
+        app:layout_constraintStart_toStartOf="@+id/background"
+        app:layout_constraintTop_toBottomOf="@+id/category" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>
