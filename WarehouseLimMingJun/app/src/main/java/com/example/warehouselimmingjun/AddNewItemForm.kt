@@ -11,9 +11,9 @@ class AddNewItemForm : AppCompatActivity(), AdapterView.OnItemSelectedListener {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_add_new_item_form)
 
-        val category =intent.getStringExtra("Category")
-        val categoryText = findViewById<TextView>(R.id.CategoryText)
-        categoryText.text = category
+//        val category =intent.getStringExtra("Category")
+//        val categoryText = findViewById<TextView>(R.id.CategoryText)
+//        categoryText.text = category
 
         // BACK BUTTON
         val backBtn = findViewById<ImageButton>(R.id.backButton)
@@ -189,7 +189,7 @@ class AddNewItemForm : AppCompatActivity(), AdapterView.OnItemSelectedListener {
     override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long)
     {
         val text = parent!!.getItemAtPosition(position).toString()
-        Toast.makeText(this@AddNewItemForm, text, Toast.LENGTH_SHORT).show()
+        Toast.makeText(parent.context, text, Toast.LENGTH_SHORT).show()
         //val bb = parent.getItemAtPosition(position).toString()
         //Toast.makeText(parent.context, text, Toast.LENGTH_SHORT).show()
     }

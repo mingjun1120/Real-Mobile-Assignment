@@ -277,6 +277,20 @@
         app:layout_constraintTop_toBottomOf="@+id/background"
         app:srcCompat="@drawable/group_64" />
 
+<!--    <TextView-->
+<!--        android:id="@+id/CategoryText"-->
+<!--        android:layout_width="114dp"-->
+<!--        android:layout_height="32dp"-->
+<!--        android:text=""-->
+<!--        android:textSize="20sp"-->
+<!--        android:textColor="#253A4B"-->
+<!--        tools:layout_editor_absoluteX="51dp"-->
+<!--        tools:layout_editor_absoluteY="445dp"-->
+<!--        android:layout_marginStart="28dp"-->
+<!--        android:layout_marginTop="4dp"-->
+<!--        app:layout_constraintStart_toStartOf="@+id/background"-->
+<!--        app:layout_constraintTop_toBottomOf="@+id/category"/>-->
+
     <TextView
         android:id="@+id/shoeCategory"
         android:layout_width="53dp"
