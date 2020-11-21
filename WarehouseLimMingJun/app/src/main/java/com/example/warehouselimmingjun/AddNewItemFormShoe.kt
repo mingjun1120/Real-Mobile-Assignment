@@ -72,7 +72,7 @@ class AddNewItemFormShoe : AppCompatActivity(), AdapterView.OnItemSelectedListen
             val myProductPrice = findViewById<EditText>(R.id.PriceText)
             myProductPrice.setText("")
 
-            adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
+            //adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
             spinner.adapter = adapter
         }
     }
