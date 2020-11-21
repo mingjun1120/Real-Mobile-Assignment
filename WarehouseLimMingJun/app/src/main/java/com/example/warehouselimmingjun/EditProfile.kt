@@ -1,5 +1,6 @@
 package com.example.warehouselimmingjun
 
+import android.content.DialogInterface
 import android.content.Intent
 import android.os.Bundle
 import android.text.TextUtils
@@ -7,6 +8,8 @@ import android.util.Patterns
 import android.widget.Button
 import android.widget.EditText
 import android.widget.ImageButton
+import android.widget.Toast
+import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 
 class EditProfile : AppCompatActivity() {
@@ -22,7 +25,7 @@ class EditProfile : AppCompatActivity() {
 
         val updateBtn = findViewById<Button>(R.id.btn_to_upd_profileEdit)
         updateBtn.setOnClickListener{
-            val intent = Intent(this, Profile::class.java)
+            //val intent = Intent(this, Profile::class.java)
             val myEmail = findViewById<EditText>(R.id.editTextTextEmailAddress)
             val myName = findViewById<EditText>(R.id.Username)
 
@@ -34,7 +37,32 @@ class EditProfile : AppCompatActivity() {
 
             if(checkEmail && checkName)
             {
-                startActivity(intent)
+                val builder = AlertDialog.Builder(this)
+                //set title for alert dialog
+                builder.setTitle("Edit Profile Confirmation")
+                //set message for alert dialog
+                builder.setMessage("Confirm Edit Profile?")
+                //builder.setIcon(android.R.drawable.ic_dialog_alert)
+
+                //performing positive action
+                builder.setPositiveButton("Confirm",
+                    DialogInterface.OnClickListener { dialog, id ->
+                        Toast.makeText(this,"Profile updated successfully!", Toast.LENGTH_SHORT).show()
+                        val intent = Intent(this, MainActivity::class.java)
+                        startActivity(intent)
+                    })
+
+                //performing negative action
+                builder.setNegativeButton("Cancel",
+                    DialogInterface.OnClickListener { dialog, id ->
+                        Toast.makeText(this, "Cancelled Edit Profile!", Toast.LENGTH_SHORT).show()
+                    });
+
+                //Create the AlertDialog
+                val alertDialog: AlertDialog = builder.create()
+                //set other dialog properties
+                alertDialog.setCancelable(false)
+                alertDialog.show()
             }
         }
     }

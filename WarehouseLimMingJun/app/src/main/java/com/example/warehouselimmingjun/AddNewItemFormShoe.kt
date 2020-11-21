@@ -1,10 +1,12 @@
 package com.example.warehouselimmingjun
 
+import android.content.DialogInterface
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
 import android.widget.*
+import androidx.appcompat.app.AlertDialog
 
 class AddNewItemFormShoe : AppCompatActivity(), AdapterView.OnItemSelectedListener {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -50,30 +52,78 @@ class AddNewItemFormShoe : AppCompatActivity(), AdapterView.OnItemSelectedListen
 
             if(checkProductID && checkProductName && checkProductQty && checkProductPrice && checkProductLoc)
             {
-                startActivity(intent)
-                Toast.makeText(this, "Added!", Toast.LENGTH_SHORT).show()
+                val builder = AlertDialog.Builder(this)
+                //set title for alert dialog
+                builder.setTitle("Add New Item Confirmation")
+                //set message for alert dialog
+                builder.setMessage("Confirm Add New Item?")
+                //builder.setIcon(android.R.drawable.ic_dialog_alert)
+
+                //performing positive action
+                builder.setPositiveButton("Confirm",
+                    DialogInterface.OnClickListener { dialog, id ->
+                        Toast.makeText(this,"New item added successfully!", Toast.LENGTH_SHORT).show()
+                        val intent = Intent(this, MainActivity::class.java)
+                        startActivity(intent)
+                    })
+
+                //performing negative action
+                builder.setNegativeButton("Cancel",
+                    DialogInterface.OnClickListener { dialog, id ->
+                        Toast.makeText(this, "Cancelled Add New Item!", Toast.LENGTH_SHORT).show()
+                    });
+
+                //Create the AlertDialog
+                val alertDialog: AlertDialog = builder.create()
+                //set other dialog properties
+                alertDialog.setCancelable(false)
+                alertDialog.show()
             }
         }
 
         val clearBtn = findViewById<ImageButton>(R.id.clearButton)
         clearBtn.setOnClickListener{
-            val myProductID = findViewById<EditText>(R.id.ProductIDText)
-            myProductID.setText("")
+            val builder = AlertDialog.Builder(this)
+            //set title for alert dialog
+            builder.setTitle("Clear Action Confirmation")
+            //set message for alert dialog
+            builder.setMessage("Sure to clear data?")
+            //builder.setIcon(android.R.drawable.ic_dialog_alert)
 
-            val myProductName = findViewById<EditText>(R.id.ProductNameText)
-            myProductName.setText("")
+            //performing positive action
+            builder.setPositiveButton("Yes",
+                DialogInterface.OnClickListener { dialog, id ->
+                    Toast.makeText(this, "Cleared!", Toast.LENGTH_SHORT).show()
+                    val myProductID = findViewById<EditText>(R.id.ProductIDText)
+                    myProductID.setText("")
 
-            val myProductQty = findViewById<EditText>(R.id.QuantityText)
-            myProductQty.setText("")
+                    val myProductName = findViewById<EditText>(R.id.ProductNameText)
+                    myProductName.setText("")
 
-            val myLocation = findViewById<EditText>(R.id.LocationText)
-            myLocation.setText("")
+                    val myProductQty = findViewById<EditText>(R.id.QuantityText)
+                    myProductQty.setText("")
 
-            val myProductPrice = findViewById<EditText>(R.id.PriceText)
-            myProductPrice.setText("")
+                    val myLocation = findViewById<EditText>(R.id.LocationText)
+                    myLocation.setText("")
 
-            //adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
-            spinner.adapter = adapter
+                    val myProductPrice = findViewById<EditText>(R.id.PriceText)
+                    myProductPrice.setText("")
+
+                    //adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
+                    spinner.adapter = adapter
+                })
+
+            //performing negative action
+            builder.setNegativeButton("No",
+                DialogInterface.OnClickListener { dialog, id ->
+                    //Toast.makeText(this, "Cancel Clear!", Toast.LENGTH_SHORT).show()
+                });
+
+            //Create the AlertDialog
+            val alertDialog: AlertDialog = builder.create()
+            //set other dialog properties
+            alertDialog.setCancelable(false)
+            alertDialog.show()
         }
     }
 

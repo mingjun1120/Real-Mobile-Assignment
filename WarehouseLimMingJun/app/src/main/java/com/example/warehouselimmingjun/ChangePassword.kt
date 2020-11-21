@@ -1,10 +1,13 @@
 package com.example.warehouselimmingjun
 
+import android.content.DialogInterface
 import android.content.Intent
 import android.os.Bundle
 import android.widget.Button
 import android.widget.EditText
 import android.widget.ImageButton
+import android.widget.Toast
+import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import java.util.regex.Pattern
 
@@ -21,7 +24,7 @@ class ChangePassword : AppCompatActivity() {
 
         val saveBtn = findViewById<Button>(R.id.btn_to_save_new_pwd)
         saveBtn.setOnClickListener{
-            val intent = Intent(this, MainActivity::class.java)
+            //val intent = Intent(this, MainActivity::class.java)
             val myPwd = findViewById<EditText>(R.id.newPassword)
             val myConfirmPwd = findViewById<EditText>(R.id.confirm_new_pwd)
 
@@ -34,7 +37,32 @@ class ChangePassword : AppCompatActivity() {
 
             if(checkPwd && checkConfirmPwd)
             {
-                startActivity(intent)
+                val builder = AlertDialog.Builder(this)
+                //set title for alert dialog
+                builder.setTitle("Change Password Confirmation")
+                //set message for alert dialog
+                builder.setMessage("Confirm Change Password?")
+                //builder.setIcon(android.R.drawable.ic_dialog_alert)
+
+                //performing positive action
+                builder.setPositiveButton("Confirm",
+                    DialogInterface.OnClickListener { dialog, id ->
+                        Toast.makeText(this,"Password changed successfully!", Toast.LENGTH_SHORT).show()
+                        val intent = Intent(this, MainActivity::class.java)
+                        startActivity(intent)
+                    })
+
+                //performing negative action
+                builder.setNegativeButton("Cancel",
+                    DialogInterface.OnClickListener { dialog, id ->
+                        Toast.makeText(this, "Cancelled change password!", Toast.LENGTH_SHORT).show()
+                    });
+
+                //Create the AlertDialog
+                val alertDialog: AlertDialog = builder.create()
+                //set other dialog properties
+                alertDialog.setCancelable(false)
+                alertDialog.show()
             }
         }
     }
