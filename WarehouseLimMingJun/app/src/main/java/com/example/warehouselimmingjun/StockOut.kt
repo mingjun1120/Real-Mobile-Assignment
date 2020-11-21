@@ -18,13 +18,13 @@ class StockOut : AppCompatActivity() {
 
         val shirtBtn = findViewById<ImageButton>(R.id.buttonShirt)
         shirtBtn.setOnClickListener{
-            val intent = Intent(this, StockInList::class.java)
+            val intent = Intent(this, StockOutList::class.java)
             startActivity(intent)
         }
 
         val shoeBtn = findViewById<ImageButton>(R.id.buttonShoe)
         shoeBtn.setOnClickListener{
-            val intent = Intent(this, stockOutForm::class.java)
+            val intent = Intent(this, StockOutList::class.java)
             startActivity(intent)
         }
     }

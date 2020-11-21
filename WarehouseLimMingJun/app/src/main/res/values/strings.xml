@@ -85,6 +85,7 @@
     <string name="eg_sh00019">Eg: SH00014</string>
     <string name="eg_350_00">Eg: 350.00</string>
     <string name="eg_lot001a">Eg: LOT001A</string>
+    <string name="out">out</string>
     <string-array name="numbers">
         <item>S</item>
         <item>M</item>
