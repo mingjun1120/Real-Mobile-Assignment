@@ -184,7 +184,7 @@ class AddNewItemFormShoe : AppCompatActivity(), AdapterView.OnItemSelectedListen
 
     override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
         val text = parent!!.getItemAtPosition(position).toString()
-        Toast.makeText(this@AddNewItemFormShoe, text, Toast.LENGTH_SHORT).show()
+        Toast.makeText(parent.context, text, Toast.LENGTH_SHORT).show()
     }
 
     override fun onNothingSelected(parent: AdapterView<*>?) {
