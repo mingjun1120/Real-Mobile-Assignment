@@ -88,6 +88,8 @@
     <string name="out">out</string>
     <string name="edit">edit</string>
     <string name="delete">delete</string>
+    <string name="shoeCategory">Shoe</string>
+    <string name="shirtCategory">Shirt</string>
     <string-array name="numbers">
         <item>S</item>
         <item>M</item>
