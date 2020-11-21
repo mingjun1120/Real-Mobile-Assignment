@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".AddNewItemForm">
+    tools:context=".AddNewItemFormShoe">
 
     <TextView
         android:id="@+id/addNewItem"
@@ -75,7 +75,7 @@
         android:layout_marginTop="4dp"
         android:background="@drawable/round_corner_border"
         android:ems="10"
-        android:hint="@string/eg_t_shirt"
+        android:hint="@string/eg_adidas_original_superstar"
         android:importantForAutofill="no"
         android:inputType="textPersonName"
         android:labelFor="@id/productName"
@@ -115,7 +115,7 @@
         android:layout_marginTop="4dp"
         android:background="@drawable/round_corner_border"
         android:ems="10"
-        android:hint="@string/eg_st0001m"
+        android:hint="@string/eg_sh00019"
         android:importantForAutofill="no"
         android:inputType="textCapCharacters"
         android:labelFor="@id/productID"
@@ -182,7 +182,7 @@
         android:layout_marginEnd="32dp"
         android:background="@drawable/round_corner_border"
         android:ems="10"
-        android:hint="@string/eg_25_00"
+        android:hint="@string/eg_350_00"
         android:importantForAutofill="no"
         android:inputType="numberDecimal"
         android:textAlignment="center"
@@ -201,29 +201,13 @@
         app:layout_constraintEnd_toEndOf="@+id/background"
         app:layout_constraintTop_toBottomOf="@+id/PriceText" />
 
-<!--    <EditText-->
-<!--        android:id="@+id/sizeText"-->
-<!--        android:layout_width="128dp"-->
-<!--        android:layout_height="32dp"-->
-<!--        android:layout_marginTop="4dp"-->
-<!--        android:layout_marginEnd="32dp"-->
-<!--        android:background="@drawable/round_corner_border"-->
-<!--        android:ems="10"-->
-<!--        android:hint="@string/eg_m"-->
-<!--        android:importantForAutofill="no"-->
-<!--        android:inputType="textCapCharacters"-->
-<!--        android:textAlignment="center"-->
-<!--        app:layout_constraintEnd_toEndOf="@+id/background"-->
-<!--        app:layout_constraintTop_toBottomOf="@+id/size" />-->
-
-
     <Spinner
         android:id="@+id/spinner1"
         android:layout_width="80dp"
         android:layout_height="32dp"
         android:layout_marginTop="4dp"
         android:layout_marginEnd="78dp"
-        android:spinnerMode="dropdown"
+        android:spinnerMode="dialog"
         android:textAlignment="center"
         android:background="@drawable/round_corner_border"
         app:layout_constraintEnd_toEndOf="@+id/background"
@@ -249,7 +233,7 @@
         android:layout_marginEnd="30dp"
         android:background="@drawable/round_corner_border"
         android:ems="10"
-        android:hint="@string/eg_lot123"
+        android:hint="@string/eg_lot001a"
         android:importantForAutofill="no"
         android:inputType="textCapCharacters"
         android:labelFor="@id/location"

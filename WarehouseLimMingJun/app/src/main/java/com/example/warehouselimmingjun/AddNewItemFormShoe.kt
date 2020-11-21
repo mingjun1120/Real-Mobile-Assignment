@@ -1,15 +1,15 @@
 package com.example.warehouselimmingjun
 
 import android.content.Intent
+import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
 import android.widget.*
-import androidx.appcompat.app.AppCompatActivity
 
-class AddNewItemForm : AppCompatActivity(), AdapterView.OnItemSelectedListener {
+class AddNewItemFormShoe : AppCompatActivity(), AdapterView.OnItemSelectedListener {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_add_new_item_form)
+        setContentView(R.layout.activity_add_new_item_form_shoe)
 
         // BACK BUTTON
         val backBtn = findViewById<ImageButton>(R.id.backButton)
@@ -21,7 +21,7 @@ class AddNewItemForm : AppCompatActivity(), AdapterView.OnItemSelectedListener {
         //SPINNER BUTTON FOR CHOOSING SIZE
         val spinner = findViewById<Spinner>(R.id.spinner1)
         val adapter = ArrayAdapter.createFromResource(
-            this, R.array.numbers, android.R.layout.simple_spinner_item
+            this, R.array.shoeNumbers, android.R.layout.simple_spinner_item
         )
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
         spinner.adapter = adapter
@@ -63,7 +63,7 @@ class AddNewItemForm : AppCompatActivity(), AdapterView.OnItemSelectedListener {
 
     private fun validateProductID(myProductID: EditText): Boolean {
 
-        val myPattern: Regex = Regex("^[S][T][0-9]{4}(S|M|L|XL)\$")
+        val myPattern: Regex = Regex("^[S][H][0-9]{4}[0-9]{1,2}[P]?\$")
         val myPattern2: Regex = Regex("^[^A-Z0-9]+\$")
 
         if (myProductID.text.toString().isEmpty()) {
@@ -76,7 +76,7 @@ class AddNewItemForm : AppCompatActivity(), AdapterView.OnItemSelectedListener {
             myProductID.error = "Only uppercase and numeric characters!"
         }
         else if (!(myPattern.matches(myProductID.text.toString()))) {
-            myProductID.error = "Format wrong! Ex: ST0001(Size) = ST0001M"
+            myProductID.error = "Format wrong! eg: SH0001(Size) =  SH00014"
         }
         else {
             myProductID.error = null
@@ -143,7 +143,7 @@ class AddNewItemForm : AppCompatActivity(), AdapterView.OnItemSelectedListener {
 
     private fun validateProductLoc(myProductLoc: EditText): Boolean {
 
-        val myPattern: Regex = Regex("^[L][O][C][0-9]{3}[A-Z]\$")
+        val myPattern: Regex = Regex("^[L][O][T][0-9]{3}[A-Z]\$")
         val myPattern2: Regex = Regex("^[^A-Z0-9]+\$")
 
         if (myProductLoc.text.toString().isEmpty()) {
@@ -157,7 +157,7 @@ class AddNewItemForm : AppCompatActivity(), AdapterView.OnItemSelectedListener {
         }
         else if (!(myPattern.matches(myProductLoc.text.toString()))) {
             //myProductLoc.error = "Format: LOC + number(0-9) + section(A-Z)"
-            myProductLoc.error = "Format wrong! Ex: LOC000A - LOC999Z."
+            myProductLoc.error = "Format wrong! eg. LOC000A - LOC999Z."
         }
         else {
             myProductLoc.error = null
@@ -166,12 +166,9 @@ class AddNewItemForm : AppCompatActivity(), AdapterView.OnItemSelectedListener {
         return false
     }
 
-    override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long)
-    {
+    override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
         val text = parent!!.getItemAtPosition(position).toString()
-        Toast.makeText(this@AddNewItemForm, text, Toast.LENGTH_SHORT).show()
-        //val bb = parent.getItemAtPosition(position).toString()
-        //Toast.makeText(parent.context, text, Toast.LENGTH_SHORT).show()
+        Toast.makeText(this@AddNewItemFormShoe, text, Toast.LENGTH_SHORT).show()
     }
 
     override fun onNothingSelected(parent: AdapterView<*>?) {
