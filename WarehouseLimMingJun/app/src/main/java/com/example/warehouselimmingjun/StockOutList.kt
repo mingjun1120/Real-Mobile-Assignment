@@ -20,7 +20,7 @@ class StockOutList : AppCompatActivity() {
 
         val recyclerView = findViewById<RecyclerView>(R.id.imageRecyclerView)
         recyclerView.layoutManager = LinearLayoutManager(this)
-        recyclerView.adapter = ItemAdapter(this, itemList) {
+        recyclerView.adapter = ItemOutAdapter(this, itemList) {
             //addBtn.setOnClickListener{
             val intent = Intent(this, stockOutForm::class.java)
             startActivity(intent)
