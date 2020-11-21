@@ -8,6 +8,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.warehouselimmimgjun.adapter.ItemAdapter
+import com.example.warehouselimmingjun.adapter.InfoAdapter
 import com.example.warehouselimmingjun.model.ItemList
 
 class ItemInfo : AppCompatActivity(), AdapterView.OnItemSelectedListener {
@@ -36,7 +37,7 @@ class ItemInfo : AppCompatActivity(), AdapterView.OnItemSelectedListener {
 
         val recyclerView = findViewById<RecyclerView>(R.id.imageRecyclerView)
         recyclerView.layoutManager = LinearLayoutManager(this)
-        recyclerView.adapter = ItemAdapter(this, itemList) {
+        recyclerView.adapter = InfoAdapter(this, itemList) {
             //addBtn.setOnClickListener{
             val intent = Intent(this, EditItem::class.java)
             startActivity(intent)
