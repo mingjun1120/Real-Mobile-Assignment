@@ -19,12 +19,14 @@ class AddNewItem : AppCompatActivity() {
         val shirtBtn = findViewById<ImageButton>(R.id.imageButton)
         shirtBtn.setOnClickListener{
             val intent = Intent(this, AddNewItemForm::class.java)
+            intent.putExtra("Category", "Shirt")
             startActivity(intent)
         }
 
         val shoeBtn = findViewById<ImageButton>(R.id.imageButton2)
         shoeBtn.setOnClickListener{
-            val intent = Intent(this, AddNewItemFormShoe::class.java)
+            val intent = Intent(this, AddNewItemForm::class.java)
+            intent.putExtra("Category", "Shoe")
             startActivity(intent)
         }
     }
