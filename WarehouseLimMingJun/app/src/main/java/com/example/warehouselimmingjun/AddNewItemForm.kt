@@ -11,9 +11,9 @@ class AddNewItemForm : AppCompatActivity(), AdapterView.OnItemSelectedListener {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_add_new_item_form)
 
-        val category =intent.getStringExtra("Category")
-        val categoryText = findViewById<TextView>(R.id.CategoryText)
-        categoryText.text = category
+//        val category =intent.getStringExtra("Category")
+//        val categoryText = findViewById<TextView>(R.id.CategoryText)
+//        categoryText.text = category
 
         // BACK BUTTON
         val backBtn = findViewById<ImageButton>(R.id.backButton)
