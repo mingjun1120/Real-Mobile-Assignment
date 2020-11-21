@@ -14,7 +14,7 @@ class StockInList : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_stock_in_list)
 
-        val backBtn = findViewById<ImageButton>(R.id.buttonBack3)
+        val backBtn = findViewById<ImageButton>(R.id.backButton)
         backBtn.setOnClickListener {
             val intent = Intent(this, StockIn::class.java)
             startActivity(intent)
