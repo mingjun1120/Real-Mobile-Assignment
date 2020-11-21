@@ -189,7 +189,7 @@ class AddNewItemForm : AppCompatActivity(), AdapterView.OnItemSelectedListener {
     override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long)
     {
         val text = parent!!.getItemAtPosition(position).toString()
-        Toast.makeText(this@AddNewItemForm, text, Toast.LENGTH_SHORT).show()
+        Toast.makeText(parent.context, text, Toast.LENGTH_SHORT).show()
         //val bb = parent.getItemAtPosition(position).toString()
         //Toast.makeText(parent.context, text, Toast.LENGTH_SHORT).show()
     }
