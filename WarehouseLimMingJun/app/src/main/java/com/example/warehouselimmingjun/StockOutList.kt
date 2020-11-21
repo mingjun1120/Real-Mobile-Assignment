@@ -6,6 +6,7 @@ import android.os.Bundle
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.warehouselimmimgjun.adapter.ItemAdapter
+import com.example.warehouselimmingjun.adapter.ItemOutAdapter
 import com.example.warehouselimmingjun.model.ItemList
 
 class StockOutList : AppCompatActivity() {
