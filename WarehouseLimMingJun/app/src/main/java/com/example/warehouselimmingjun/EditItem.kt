@@ -22,32 +22,49 @@ class EditItem : AppCompatActivity() {
 
         val confirmBtn = findViewById<ImageButton>(R.id.confirmButton)
         confirmBtn.setOnClickListener{
-            val builder = AlertDialog.Builder(this)
-            //set title for alert dialog
-            builder.setTitle("Edit Item Information Confirmation")
-            //set message for alert dialog
-            builder.setMessage("Confirm Edit Item Information?")
-            //builder.setIcon(android.R.drawable.ic_dialog_alert)
 
-            //performing positive action
-            builder.setPositiveButton("Confirm",
-                DialogInterface.OnClickListener { dialog, id ->
-                    Toast.makeText(this,"Item edit successfully!", Toast.LENGTH_SHORT).show()
-                    val intent = Intent(this, HomeScreen::class.java)
-                    startActivity(intent)
-                })
+            val myProductName = findViewById<EditText>(R.id.ProductNameText)
+            val checkProductName = validateProductName(myProductName)
 
-            //performing negative action
-            builder.setNegativeButton("Cancel",
-                DialogInterface.OnClickListener { dialog, id ->
-                    Toast.makeText(this, "Cancelled Edit Item Information!", Toast.LENGTH_SHORT).show()
-                });
+            val myProductQty = findViewById<EditText>(R.id.QuantityText)
+            val checkProductQty = validateProductQty(myProductQty)
 
-            //Create the AlertDialog
-            val alertDialog: AlertDialog = builder.create()
-            //set other dialog properties
-            alertDialog.setCancelable(false)
-            alertDialog.show()
+            val myProductPrice = findViewById<EditText>(R.id.PriceText)
+            val checkProductPrice = validateProductPrice(myProductPrice)
+
+            // Need to check which category first only can validate(This is for validate shirt location only!)
+            val myProductLoc = findViewById<EditText>(R.id.LocationText)
+            val checkProductLoc = validateProductLoc(myProductLoc)
+
+            if (checkProductName && checkProductQty && checkProductPrice && checkProductLoc)
+            {
+                val builder = AlertDialog.Builder(this)
+                //set title for alert dialog
+                builder.setTitle("Edit Item Information Confirmation")
+                //set message for alert dialog
+                builder.setMessage("Confirm Edit Item Information?")
+                //builder.setIcon(android.R.drawable.ic_dialog_alert)
+
+                //performing positive action
+                builder.setPositiveButton("Confirm",
+                    DialogInterface.OnClickListener { dialog, id ->
+                        Toast.makeText(this,"Item edit successfully!", Toast.LENGTH_SHORT).show()
+                        val intent = Intent(this, HomeScreen::class.java)
+                        startActivity(intent)
+                    })
+
+                //performing negative action
+                builder.setNegativeButton("Cancel",
+                    DialogInterface.OnClickListener { dialog, id ->
+                        Toast.makeText(this, "Cancelled Edit Item Information!", Toast.LENGTH_SHORT).show()
+                    });
+
+                //Create the AlertDialog
+                val alertDialog: AlertDialog = builder.create()
+                //set other dialog properties
+                alertDialog.setCancelable(false)
+                alertDialog.show()
+            }
         }
 
         val clearBtn = findViewById<ImageButton>(R.id.clearButton)
@@ -84,9 +101,90 @@ class EditItem : AppCompatActivity() {
 
             //Create the AlertDialog
             val alertDialog:AlertDialog = builder.create()
-            //set other dialog properties
+            //Set other dialog properties
             alertDialog.setCancelable(false)
             alertDialog.show()
         }
+    }
+
+    private fun validateProductName(myProductName: EditText): Boolean {
+
+        val myPattern: Regex = Regex("^[A-Z][A-Za-z()* ]*\$")
+
+        if (myProductName.text.toString().isEmpty()) {
+            myProductName.error = "Field can't be empty!"
+        }
+        else if (myProductName.text.toString().first() != myProductName.text.toString().first().toUpperCase()) {
+            myProductName.error = "1st character must be uppercase!"
+        }
+        else if (!(myPattern.matches(myProductName.text.toString()))) {
+            myProductName.error = "No special characters! Eg:!@#"
+        }
+        else {
+            myProductName.error = null
+            return true
+        }
+        return false
+    }
+
+    private fun validateProductQty(myProductQty: EditText): Boolean {
+
+        if (myProductQty.text.toString().isEmpty()) {
+            myProductQty.error = "Field can't be empty!"
+        }
+        else if (myProductQty.text.toString().contains(" ")) {
+            myProductQty.error = "No whitespace!"
+        }
+        else if (!(myProductQty.text.toString().matches("-?\\d+(\\.\\d+)?".toRegex()))) {
+            myProductQty.error = "Only numeric characters!"
+        }
+        else {
+            myProductQty.error = null
+            return true
+        }
+        return false
+    }
+
+    private fun validateProductPrice(myProductPrice: EditText): Boolean {
+
+        if (myProductPrice.text.toString().isEmpty()) {
+            myProductPrice.error = "Field can't be empty!"
+        }
+        else if (myProductPrice.text.toString().contains(" ")) {
+            myProductPrice.error = "No whitespace!"
+        }
+        else if ((myProductPrice.text.toString().toDoubleOrNull()) == null) {
+            myProductPrice.error = "Only decimal numbers!"
+        }
+        else {
+            myProductPrice.error = null
+            return true
+        }
+        return false
+    }
+
+    private fun validateProductLoc(myProductLoc: EditText): Boolean {
+
+        val myPattern: Regex = Regex("^[L][O][C][0-9]{3}[A-Z]\$")
+        val myPattern2: Regex = Regex("^[^A-Z0-9]+\$")
+
+        if (myProductLoc.text.toString().isEmpty()) {
+            myProductLoc.error = "Field can't be empty!"
+        }
+        else if (myProductLoc.text.toString().contains(" ")) {
+            myProductLoc.error = "No whitespace!"
+        }
+        else if (myPattern2.matches(myProductLoc.text.toString())) {
+            myProductLoc.error = "Only uppercase and numeric characters!"
+        }
+        else if (!(myPattern.matches(myProductLoc.text.toString()))) {
+            //myProductLoc.error = "Format: LOC + number(0-9) + section(A-Z)"
+            myProductLoc.error = "Format wrong! Ex: LOC000A - LOC999Z."
+        }
+        else {
+            myProductLoc.error = null
+            return true
+        }
+        return false
     }
 }
