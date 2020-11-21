@@ -18,9 +18,9 @@ class ItemInfo : AppCompatActivity(), AdapterView.OnItemSelectedListener {
 
         val spinner = findViewById<Spinner>(R.id.categoryspinner)
         val adapter = ArrayAdapter.createFromResource(
-            this, R.array.category, android.R.layout.simple_spinner_item
+            this, R.array.category, R.layout.custom_spinner
         )
-        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
+        adapter.setDropDownViewResource(R.layout.custom_spinner_dropdown)
         spinner.adapter = adapter
         spinner.onItemSelectedListener = this
 
