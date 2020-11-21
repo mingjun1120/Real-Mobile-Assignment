@@ -23,9 +23,9 @@ class AddNewItemFormShoe : AppCompatActivity(), AdapterView.OnItemSelectedListen
         //SPINNER BUTTON FOR CHOOSING SIZE
         val spinner = findViewById<Spinner>(R.id.spinner1)
         val adapter = ArrayAdapter.createFromResource(
-            this, R.array.shoeNumbers, android.R.layout.simple_spinner_item
+            this, R.array.shoeNumbers, R.layout.custom_spinner
         )
-        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
+        adapter.setDropDownViewResource(R.layout.custom_spinner_dropdown)
         spinner.adapter = adapter
         spinner.onItemSelectedListener = this
 
