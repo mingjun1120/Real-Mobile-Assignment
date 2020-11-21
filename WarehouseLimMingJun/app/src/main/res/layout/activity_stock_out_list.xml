@@ -8,15 +8,15 @@
 
     <ImageButton
         android:id="@+id/backButton"
-        android:layout_width="43dp"
-        android:layout_height="39dp"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="16dp"
-        android:background="@color/Transparent"
-        android:contentDescription="@string/btnback"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="27dp"
+        android:layout_marginTop="30dp"
+        android:background="@android:color/transparent"
+        android:contentDescription="@string/backbutton"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="?attr/actionModeCloseDrawable" />
+        app:srcCompat="@drawable/left_arrow" />
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/imageRecyclerView"
