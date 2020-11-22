@@ -1,14 +1,21 @@
 package com.example.warehouselimmingjun
 
+import android.app.Activity
 import android.content.DialogInterface
 import android.content.Intent
+import android.graphics.BitmapFactory
 import android.os.Bundle
 import android.view.View
 import android.widget.*
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 
+
 class AddNewItemForm : AppCompatActivity(), AdapterView.OnItemSelectedListener {
+
+    private val PHOTO = 1
+    private val image: ImageView? = null
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_add_new_item_form)
@@ -32,6 +39,15 @@ class AddNewItemForm : AppCompatActivity(), AdapterView.OnItemSelectedListener {
         adapter.setDropDownViewResource(R.layout.custom_spinner_dropdown)
         spinner.adapter = adapter
         spinner.onItemSelectedListener = this
+
+        //IMAGE BUTTON FOR SELECTING IMAGE
+        val image = findViewById<ImageView>(R.id.productImage) // Image to be selected
+        val pickImageButton = findViewById<ImageButton>(R.id.photo_button)
+        pickImageButton.setOnClickListener {
+            val photoPickerIntent = Intent(Intent.ACTION_PICK)
+            photoPickerIntent.type = "image/*"
+            startActivityForResult(photoPickerIntent, PHOTO)
+        }
 
         // CONFIRM BUTTON
         val confirmBtn = findViewById<ImageButton>(R.id.confirmButton)
@@ -66,7 +82,8 @@ class AddNewItemForm : AppCompatActivity(), AdapterView.OnItemSelectedListener {
                 //performing positive action
                 builder.setPositiveButton("Confirm",
                     DialogInterface.OnClickListener { dialog, id ->
-                        Toast.makeText(this,"New item added successfully!", Toast.LENGTH_SHORT).show()
+                        Toast.makeText(this, "New item added successfully!", Toast.LENGTH_SHORT)
+                            .show()
                         val intent = Intent(this, HomeScreen::class.java)
                         startActivity(intent)
                     })
@@ -85,6 +102,7 @@ class AddNewItemForm : AppCompatActivity(), AdapterView.OnItemSelectedListener {
             }
         }
 
+        //CLEAR BUTTON
         val clearBtn = findViewById<ImageButton>(R.id.clearButton)
         clearBtn.setOnClickListener{
             val builder = AlertDialog.Builder(this)
@@ -246,5 +264,33 @@ class AddNewItemForm : AppCompatActivity(), AdapterView.OnItemSelectedListener {
 
     override fun onNothingSelected(parent: AdapterView<*>?) {
         TODO("Not yet implemented")
+    }
+
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+
+        if (requestCode == PHOTO && resultCode == Activity.RESULT_OK) {
+            if (data == null) {
+                //Display an error
+                Toast.makeText(this, "No image selected!", Toast.LENGTH_SHORT).show()
+                return;
+            }
+            val inputStream = contentResolver.openInputStream(data.data!!)
+            val selectedImage = BitmapFactory.decodeStream(inputStream)
+            image!!.setImageBitmap(selectedImage)
+            //imageStore(selectedImage)
+
+            //when (requestCode) {
+            //SELECT_PHOTO -> if (resultCode == RESULT_OK) {
+                //try {
+                //    val imageUri: Uri = imageReturnedIntent.getData()
+                //    val imageStream: InputStream? = contentResolver.openInputStream(imageUri)
+                //    val selectedImage = BitmapFactory.decodeStream(imageStream)
+                //    imageView.setImageBitmap(selectedImage)
+                //} catch (e: FileNotFoundException) {
+                //    e.printStackTrace()
+                //}
+            //}
+        }
     }
 }
