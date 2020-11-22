@@ -307,4 +307,13 @@
         app:layout_constraintStart_toStartOf="@+id/background"
         app:layout_constraintTop_toBottomOf="@+id/category" />
 
+    <ImageView
+        android:id="@+id/productImage"
+        android:layout_width="99dp"
+        android:layout_height="98dp"
+        android:layout_marginStart="29dp"
+        app:layout_constraintStart_toStartOf="@+id/background"
+        app:layout_constraintTop_toBottomOf="@+id/image"
+        tools:srcCompat="@tools:sample/avatars" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>
