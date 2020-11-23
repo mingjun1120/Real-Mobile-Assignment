@@ -13,7 +13,6 @@ import androidx.appcompat.app.AlertDialog
 class AddNewItemFormShoe : AppCompatActivity(), AdapterView.OnItemSelectedListener {
 
     private val PHOTO = 1
-    private val image: ImageView? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -268,11 +267,14 @@ class AddNewItemFormShoe : AppCompatActivity(), AdapterView.OnItemSelectedListen
                 Toast.makeText(this, "No image selected!", Toast.LENGTH_SHORT).show()
                 return;
             }
-            val inputStream = contentResolver.openInputStream(data.data!!)
-            val selectedImage = BitmapFactory.decodeStream(inputStream)
-            image!!.setImageBitmap(selectedImage)
-            //imageStore(selectedImage)
 
+            val productImage = findViewById<ImageView>(R.id.productImage)
+            productImage.setImageURI(data.data)
+
+            //val inputStream = contentResolver.openInputStream(data.data!!)
+            //val selectedImage = BitmapFactory.decodeStream(inputStream)
+            //image!!.setImageBitmap(selectedImage)
+            //imageStore(selectedImage)
         }
     }
 }
