@@ -14,7 +14,6 @@ import androidx.appcompat.app.AppCompatActivity
 class AddNewItemForm : AppCompatActivity(), AdapterView.OnItemSelectedListener {
 
     private val PHOTO = 1
-    private val image: ImageView? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -46,6 +45,7 @@ class AddNewItemForm : AppCompatActivity(), AdapterView.OnItemSelectedListener {
         pickImageButton.setOnClickListener {
             val photoPickerIntent = Intent(Intent.ACTION_PICK)
             photoPickerIntent.type = "image/*"
+            //photoPickerIntent.putExtra(Intent.EXTRA_LOCAL_ONLY, true);
             startActivityForResult(photoPickerIntent, PHOTO)
         }
 
@@ -277,9 +277,12 @@ class AddNewItemForm : AppCompatActivity(), AdapterView.OnItemSelectedListener {
                 Toast.makeText(this, "No image selected!", Toast.LENGTH_SHORT).show()
                 return;
             }
-            val inputStream = contentResolver.openInputStream(data.data!!)
-            val selectedImage = BitmapFactory.decodeStream(inputStream)
-            image!!.setImageBitmap(selectedImage)
+            val productImage = findViewById<ImageView>(R.id.productImage)
+            productImage.setImageURI(data.data)
+
+            //val inputStream = contentResolver.openInputStream(data.data!!)
+            //val selectedImage = BitmapFactory.decodeStream(inputStream)
+            //image!!.setImageBitmap(selectedImage)
             //imageStore(selectedImage)
 
             //when (requestCode) {
