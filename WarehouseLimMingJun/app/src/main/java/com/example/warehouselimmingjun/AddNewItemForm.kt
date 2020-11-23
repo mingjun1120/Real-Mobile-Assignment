@@ -133,6 +133,8 @@ class AddNewItemForm : AppCompatActivity(), AdapterView.OnItemSelectedListener {
 
                     //adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
                     spinner.adapter = adapter
+
+                    image.setImageDrawable(null)
                 })
 
             //performing negative action
