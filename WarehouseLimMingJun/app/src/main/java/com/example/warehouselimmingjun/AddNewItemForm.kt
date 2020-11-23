@@ -70,7 +70,10 @@ class AddNewItemForm : AppCompatActivity(), AdapterView.OnItemSelectedListener {
             val myProductLoc = findViewById<EditText>(R.id.LocationText)
             val checkProductLoc = validateProductLoc(myProductLoc)
 
-            if(checkProductID && checkProductName && checkProductQty && checkProductPrice && checkProductLoc)
+            val productImage = findViewById<ImageView>(R.id.productImage)
+            val checkProductImg = validateProductImg(productImage)
+
+            if(checkProductID && checkProductName && checkProductQty && checkProductPrice && checkProductLoc && checkProductImg)
             {
                 val builder = AlertDialog.Builder(this)
                 //set title for alert dialog
@@ -254,6 +257,16 @@ class AddNewItemForm : AppCompatActivity(), AdapterView.OnItemSelectedListener {
             return true
         }
         return false
+    }
+
+    private fun validateProductImg(productImage: ImageView?): Boolean {
+
+        if (productImage?.drawable == null)
+        {
+            Toast.makeText(this, "No image selected!", Toast.LENGTH_SHORT).show()
+            return false
+        }
+        return true
     }
 
     override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long)
