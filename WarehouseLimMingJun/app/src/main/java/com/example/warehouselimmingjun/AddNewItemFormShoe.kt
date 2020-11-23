@@ -96,6 +96,7 @@ class AddNewItemFormShoe : AppCompatActivity(), AdapterView.OnItemSelectedListen
             }
         }
 
+        //CLEAR BUTTON
         val clearBtn = findViewById<ImageButton>(R.id.clearButton)
         clearBtn.setOnClickListener{
             val builder = AlertDialog.Builder(this)
@@ -126,6 +127,8 @@ class AddNewItemFormShoe : AppCompatActivity(), AdapterView.OnItemSelectedListen
 
                     //adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
                     spinner.adapter = adapter
+
+                    image.setImageDrawable(null)
                 })
 
             //performing negative action
