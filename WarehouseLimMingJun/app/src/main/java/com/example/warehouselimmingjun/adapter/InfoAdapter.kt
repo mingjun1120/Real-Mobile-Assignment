@@ -1,13 +1,18 @@
 package com.example.warehouselimmingjun.adapter
 
 import android.content.Context
+import android.content.DialogInterface
+import android.content.Intent
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
 import android.widget.ImageView
 import android.widget.TextView
+import android.widget.Toast
+import androidx.appcompat.app.AlertDialog
 import androidx.recyclerview.widget.RecyclerView
+import com.example.warehouselimmingjun.HomeScreen
 import com.example.warehouselimmingjun.R
 import com.example.warehouselimmingjun.model.ItemList
 
@@ -29,9 +34,32 @@ class InfoAdapter (
             editBtn.setOnClickListener {
                 listener(item)
             }
-            /*deleteBtn.setOnClickListener {
-                listener(item)
-            }*/
+            deleteBtn.setOnClickListener {
+                val builder = AlertDialog.Builder(context)
+                //set title for alert dialog
+                builder.setTitle("Delete Item Confirmation")
+                //set message for alert dialog
+                builder.setMessage("Confirm Delete Item?")
+                //builder.setIcon(android.R.drawable.ic_dialog_alert)
+
+                //performing positive action
+                builder.setPositiveButton("Confirm",
+                    DialogInterface.OnClickListener { dialog, id ->
+                        Toast.makeText(context, "Item deleted successful!", Toast.LENGTH_SHORT).show()
+                    })
+
+                //performing negative action
+                builder.setNegativeButton("Cancel",
+                    DialogInterface.OnClickListener { dialog, id ->
+                        Toast.makeText(context, "Cancellation successful!", Toast.LENGTH_SHORT).show()
+                    });
+
+                //Create the AlertDialog
+                val alertDialog: AlertDialog = builder.create()
+                //set other dialog properties
+                alertDialog.setCancelable(false)
+                alertDialog.show()
+            }
         }
     }
 
