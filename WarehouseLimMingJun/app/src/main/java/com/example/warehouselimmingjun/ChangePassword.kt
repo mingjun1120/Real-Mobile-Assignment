@@ -34,6 +34,7 @@ class ChangePassword : AppCompatActivity() {
             // To print error message if false happen for email and pwd
             validatePwd(checkPwd, myPwd)
             validateConfirmPwd(checkConfirmPwd, myConfirmPwd)
+            
 
             if(checkPwd && checkConfirmPwd)
             {

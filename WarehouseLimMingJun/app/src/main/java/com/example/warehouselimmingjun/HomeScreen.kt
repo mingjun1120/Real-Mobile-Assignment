@@ -26,6 +26,10 @@ class HomeScreen : AppCompatActivity()
                         //val intent = Intent(Intent.ACTION_VIEW, Uri.parse("http://resocoder.com"))
                         //startActivity(intent)
                         val intent = Intent(this, Profile::class.java)
+                        val sessionId = getIntent().getStringExtra("emailAddress")
+                        val sessionId1 = getIntent().getStringExtra("name")
+                        intent.putExtra("emailAddress", sessionId);
+                        intent.putExtra("name", sessionId1);
                         startActivity(intent)
                         //Toast.makeText(this@HomeScreen, "Profile", Toast.LENGTH_SHORT).show()
                         true

@@ -2,23 +2,27 @@ package com.example.warehouselimmingjun.DBHelper
 
 import android.content.ContentValues
 import android.content.Context
+import android.database.Cursor
 import android.database.sqlite.SQLiteDatabase
+import android.database.sqlite.SQLiteException
 import android.database.sqlite.SQLiteOpenHelper
 import android.util.Log
+import com.example.warehouselimmingjun.model.Login
 import com.example.warehouselimmingjun.model.Register
 
 class DBHelper(context: Context):SQLiteOpenHelper(context, DATABASE_NAME, null, DATABASE_VER) {
     companion object {
-            private val DATABASE_VER = 1
-            private val DATABASE_NAME = "WAREHOUSE.db"
-            private val TABLE_NAME="Register"
-            private val COL_EMAIL="Email"
-            private val COL_PASS="Pass"
-            private val COL_NAME="Name"
-        }
+        private val DATABASE_VER = 1
+        private val DATABASE_NAME = "WAREHOUSE.db"
+        private val TABLE_NAME = "Register"
+        private val COL_EMAIL = "Email"
+        private val COL_PASS = "Pass"
+        private val COL_NAME = "Name"
+    }
 
     override fun onCreate(db: SQLiteDatabase?) {
-        val CREATE_TABLE_QUERY : String = ("CREATE TABLE  $TABLE_NAME ($COL_EMAIL TEXT PRIMARY KEY, $COL_PASS TEXT, $COL_NAME TEXT)")
+        val CREATE_TABLE_QUERY: String =
+            ("CREATE TABLE  $TABLE_NAME ($COL_EMAIL TEXT PRIMARY KEY, $COL_PASS TEXT, $COL_NAME TEXT)")
         db!!.execSQL(CREATE_TABLE_QUERY);
     }
 
@@ -28,8 +32,7 @@ class DBHelper(context: Context):SQLiteOpenHelper(context, DATABASE_NAME, null, 
     }
 
     //CRUD
-    fun addregister(register: Register)
-    {
+    fun addregister(register: Register) {
         val db = this.writableDatabase
         val values = ContentValues()
         values.put(COL_EMAIL, register.email)
@@ -41,29 +44,26 @@ class DBHelper(context: Context):SQLiteOpenHelper(context, DATABASE_NAME, null, 
 
     }
 
-    fun Login(email: String, pass: String):Boolean
-    {
+
+    fun Login(email: String, pass: String): Boolean {
         val db = readableDatabase
         val query = "select * from $TABLE_NAME where $COL_EMAIL = '$email' and $COL_PASS = '$pass'"
         val cursor = db.rawQuery(query, null)
-
-        if (cursor.count<=0)
-        {
+        if (cursor.count <= 0) {
             cursor.close()
             return false
         }
+
         cursor.close()
         return true
     }
 
-    fun checkEmailExist(email: String): Boolean
-    {
+    fun checkEmailExist(email: String): Boolean {
         val db = readableDatabase
         val query = "SELECT * FROM $TABLE_NAME WHERE $COL_EMAIL ='$email'"
         val cursor = db.rawQuery(query, null)
 
-        if (cursor.count>0)
-        {
+        if (cursor.count > 0) {
             cursor.close()
             return true
         }
@@ -71,4 +71,32 @@ class DBHelper(context: Context):SQLiteOpenHelper(context, DATABASE_NAME, null, 
         return false
     }
 
-}
+    fun getEmail(email: String):String? {
+        //val empList:ArrayList<Register> = ArrayList()
+        val db = this.readableDatabase
+        val query = "SELECT $COL_NAME FROM $TABLE_NAME where $COL_EMAIL = '$email'"
+        var cursor: Cursor? = null
+
+        try{
+            cursor = db.rawQuery(query, null)
+        }catch (e: SQLiteException) {
+            Log.i("dbhelper.kt","SQLite exception")
+            db.execSQL(query)
+            return null
+        }
+
+        var userName: String? = null
+        var userEmail: String
+        var password: String
+            if (cursor.moveToFirst()) {
+                do {
+                    //password = cursor.getString(cursor.getColumnIndex("Pass"))
+                    userName = cursor.getString(cursor.getColumnIndex("Name"))
+                    //userEmail = cursor.getString(cursor.getColumnIndex("Email"))
+                    //val emp= Register(name = userName)
+                    //empList.add(emp)
+                } while (cursor.moveToNext())
+            }
+            return userName
+        }
+    }
