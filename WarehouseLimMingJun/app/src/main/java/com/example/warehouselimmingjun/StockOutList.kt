@@ -17,7 +17,7 @@ class StockOutList : AppCompatActivity() {
 
         val backBtn = findViewById<ImageButton>(R.id.backButton)
         backBtn.setOnClickListener {
-            val intent = Intent(this, StockIn::class.java)
+            val intent = Intent(this, StockOut::class.java)
             startActivity(intent)
         }
 
