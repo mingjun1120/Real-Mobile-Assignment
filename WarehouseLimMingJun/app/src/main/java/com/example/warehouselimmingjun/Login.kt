@@ -22,15 +22,17 @@ class Login : AppCompatActivity() {
 
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_login)
-
         val login = findViewById<Button>(R.id.login_button)
 
         dbHelper = DBHelper(this)
+        //val email: List<Register> = dbHelper.getEmail()
 
         login.setOnClickListener {
             val intent = Intent(this, HomeScreen::class.java)
             val myEmail = findViewById<EditText>(R.id.editTextTextEmailAddress)
             val myPwd = findViewById<EditText>(R.id.editTextTextPwd)
+            val name =  dbHelper.getEmail(myEmail.text.toString())
+
             //val checkEmail = myEmail.text.toString().isValidEmail()
             //val checkPwd = myPwd.text.toString().isValidPasswordFormat()
 
@@ -41,6 +43,8 @@ class Login : AppCompatActivity() {
             if (dbHelper.Login(myEmail.text.toString(), myPwd.text.toString()))
             {
                 Snackbar.make(it, "Login Success", Snackbar.LENGTH_LONG).show()
+                intent.putExtra("emailAddress", myEmail.text.toString())
+                intent.putExtra("name", name)
                 startActivity(intent)
             }
             else
@@ -102,3 +106,4 @@ class Login : AppCompatActivity() {
  */
 
 }
+
