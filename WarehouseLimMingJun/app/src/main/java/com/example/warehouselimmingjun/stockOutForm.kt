@@ -3,6 +3,7 @@ package com.example.warehouselimmingjun
 import android.content.DialogInterface
 import android.content.Intent
 import android.os.Bundle
+import android.text.SpannableStringBuilder
 import android.widget.EditText
 import android.widget.ImageButton
 import android.widget.Toast
@@ -18,6 +19,22 @@ class stockOutForm : AppCompatActivity() {
         backBtn.setOnClickListener{
             val intent = Intent(this, StockOutList::class.java)
             startActivity(intent)
+        }
+
+        val plusButton = findViewById<ImageButton>(R.id.plusButton)
+        plusButton.setOnClickListener {
+            val myQty = findViewById<EditText>(R.id.QuantityText)
+
+            if (myQty.text.toString().isNotEmpty())
+            {
+                var number = myQty.text.toString().toInt()
+                number++
+                myQty.text = SpannableStringBuilder(number.toString())
+            }
+            else{
+                val num = 1
+                myQty.text = SpannableStringBuilder(num.toString())
+            }
         }
 
         val confirmBtn1 = findViewById<ImageButton>(R.id.confirmButton)
