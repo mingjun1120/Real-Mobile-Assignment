@@ -3,6 +3,7 @@ package com.example.warehouselimmingjun
 import android.content.DialogInterface
 import android.content.Intent
 import android.os.Bundle
+import android.text.SpannableStringBuilder
 import android.widget.EditText
 import android.widget.ImageButton
 import android.widget.Toast
@@ -18,6 +19,22 @@ class stockInForm : AppCompatActivity() {
         backBtn.setOnClickListener{
             val intent = Intent(this, StockInList::class.java)
             startActivity(intent)
+        }
+
+        val plusButton = findViewById<ImageButton>(R.id.plusButton)
+        plusButton.setOnClickListener {
+            val myQty = findViewById<EditText>(R.id.QuantityText)
+
+            if (myQty.text.toString().isNotEmpty())
+            {
+                var number = myQty.text.toString().toInt()
+                number++
+                myQty.text = SpannableStringBuilder(number.toString())
+            }
+            else{
+                val num = 1
+                myQty.text = SpannableStringBuilder(num.toString())
+            }
         }
 
         val confirmBtn = findViewById<ImageButton>(R.id.confirmButton)
@@ -80,7 +97,7 @@ class stockInForm : AppCompatActivity() {
             builder.setNegativeButton("No",
                 DialogInterface.OnClickListener { dialog, id ->
                     //Toast.makeText(this, "Cancel Clear!", Toast.LENGTH_SHORT).show()
-                });
+                })
 
             //Create the AlertDialog
             val alertDialog:AlertDialog = builder.create()
