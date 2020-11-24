@@ -14,7 +14,6 @@ import androidx.appcompat.app.AppCompatActivity
 class AddNewItemForm : AppCompatActivity(), AdapterView.OnItemSelectedListener {
 
     private val PHOTO = 1
-    private val image: ImageView? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -46,6 +45,7 @@ class AddNewItemForm : AppCompatActivity(), AdapterView.OnItemSelectedListener {
         pickImageButton.setOnClickListener {
             val photoPickerIntent = Intent(Intent.ACTION_PICK)
             photoPickerIntent.type = "image/*"
+            //photoPickerIntent.putExtra(Intent.EXTRA_LOCAL_ONLY, true);
             startActivityForResult(photoPickerIntent, PHOTO)
         }
 
@@ -70,7 +70,10 @@ class AddNewItemForm : AppCompatActivity(), AdapterView.OnItemSelectedListener {
             val myProductLoc = findViewById<EditText>(R.id.LocationText)
             val checkProductLoc = validateProductLoc(myProductLoc)
 
-            if(checkProductID && checkProductName && checkProductQty && checkProductPrice && checkProductLoc)
+            val productImage = findViewById<ImageView>(R.id.productImage)
+            val checkProductImg = validateProductImg(productImage)
+
+            if(checkProductID && checkProductName && checkProductQty && checkProductPrice && checkProductLoc && checkProductImg)
             {
                 val builder = AlertDialog.Builder(this)
                 //set title for alert dialog
@@ -256,6 +259,16 @@ class AddNewItemForm : AppCompatActivity(), AdapterView.OnItemSelectedListener {
         return false
     }
 
+    private fun validateProductImg(productImage: ImageView?): Boolean {
+
+        if (productImage?.drawable == null)
+        {
+            Toast.makeText(this, "No image selected!", Toast.LENGTH_SHORT).show()
+            return false
+        }
+        return true
+    }
+
     override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long)
     {
         val text = parent!!.getItemAtPosition(position).toString()
@@ -277,9 +290,12 @@ class AddNewItemForm : AppCompatActivity(), AdapterView.OnItemSelectedListener {
                 Toast.makeText(this, "No image selected!", Toast.LENGTH_SHORT).show()
                 return;
             }
-            val inputStream = contentResolver.openInputStream(data.data!!)
-            val selectedImage = BitmapFactory.decodeStream(inputStream)
-            image!!.setImageBitmap(selectedImage)
+            val productImage = findViewById<ImageView>(R.id.productImage)
+            productImage.setImageURI(data.data)
+
+            //val inputStream = contentResolver.openInputStream(data.data!!)
+            //val selectedImage = BitmapFactory.decodeStream(inputStream)
+            //image!!.setImageBitmap(selectedImage)
             //imageStore(selectedImage)
 
             //when (requestCode) {

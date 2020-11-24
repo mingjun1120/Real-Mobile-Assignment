@@ -13,7 +13,6 @@ import androidx.appcompat.app.AlertDialog
 class AddNewItemFormShoe : AppCompatActivity(), AdapterView.OnItemSelectedListener {
 
     private val PHOTO = 1
-    private val image: ImageView? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -65,7 +64,10 @@ class AddNewItemFormShoe : AppCompatActivity(), AdapterView.OnItemSelectedListen
             val myProductLoc = findViewById<EditText>(R.id.LocationText)
             val checkProductLoc = validateProductLoc(myProductLoc)
 
-            if(checkProductID && checkProductName && checkProductQty && checkProductPrice && checkProductLoc)
+            val productImage = findViewById<ImageView>(R.id.productImage)
+            val checkProductImg = validateProductImg(productImage)
+
+            if(checkProductID && checkProductName && checkProductQty && checkProductPrice && checkProductLoc && checkProductImg)
             {
                 val builder = AlertDialog.Builder(this)
                 //set title for alert dialog
@@ -250,6 +252,16 @@ class AddNewItemFormShoe : AppCompatActivity(), AdapterView.OnItemSelectedListen
         return false
     }
 
+    private fun validateProductImg(productImage: ImageView?): Boolean {
+
+        if (productImage?.drawable == null)
+        {
+            Toast.makeText(this, "No image selected!", Toast.LENGTH_SHORT).show()
+            return false
+        }
+        return true
+    }
+
     override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
         val text = parent!!.getItemAtPosition(position).toString()
         Toast.makeText(parent.context, text, Toast.LENGTH_SHORT).show()
@@ -268,11 +280,14 @@ class AddNewItemFormShoe : AppCompatActivity(), AdapterView.OnItemSelectedListen
                 Toast.makeText(this, "No image selected!", Toast.LENGTH_SHORT).show()
                 return;
             }
-            val inputStream = contentResolver.openInputStream(data.data!!)
-            val selectedImage = BitmapFactory.decodeStream(inputStream)
-            image!!.setImageBitmap(selectedImage)
-            //imageStore(selectedImage)
 
+            val productImage = findViewById<ImageView>(R.id.productImage)
+            productImage.setImageURI(data.data)
+
+            //val inputStream = contentResolver.openInputStream(data.data!!)
+            //val selectedImage = BitmapFactory.decodeStream(inputStream)
+            //image!!.setImageBitmap(selectedImage)
+            //imageStore(selectedImage)
         }
     }
 }
