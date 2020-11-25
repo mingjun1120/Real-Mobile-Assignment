@@ -4,8 +4,12 @@ import android.app.Activity
 import android.content.DialogInterface
 import android.content.Intent
 import android.graphics.BitmapFactory
+import android.os.Build
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.text.Editable
+import android.text.Selection
+import android.text.TextWatcher
 import android.view.View
 import android.widget.*
 import androidx.appcompat.app.AlertDialog
@@ -18,12 +22,30 @@ class AddNewItemFormShoe : AppCompatActivity(), AdapterView.OnItemSelectedListen
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_add_new_item_form_shoe)
 
+        if (Build.VERSION.SDK_INT > 25)
+        {
+            val myProductID = findViewById<EditText>(R.id.ProductIDText)
+            myProductID.tooltipText = "Format is SH(Shoe) + 0001(Number) = ST0001"
+
+            val myProductLoc = findViewById<EditText>(R.id.LocationText)
+            myProductLoc.tooltipText = "Format is LOT(Shoe location) + 001(Number) + A(Section) = LOT001A"
+
+        }
+
         // BACK BUTTON
         val backBtn = findViewById<ImageButton>(R.id.backButton)
         backBtn.setOnClickListener{
             val intent = Intent(this, AddNewItem::class.java)
             startActivity(intent)
         }
+
+        // SET PREFIX CONSTANT FOR PRODUCT ID
+        val myProductID = findViewById<EditText>(R.id.ProductIDText)
+        AddConstantTextInEditText(myProductID, "SH")
+
+        // SET PREFIX CONSTANT FOR PRODUCT LOCATION
+        val myProductLoc = findViewById<EditText>(R.id.LocationText)
+        AddConstantTextInEditText(myProductLoc, "LOT")
 
         //SPINNER BUTTON FOR CHOOSING SIZE
         val spinner = findViewById<Spinner>(R.id.spinner1)
@@ -149,7 +171,8 @@ class AddNewItemFormShoe : AppCompatActivity(), AdapterView.OnItemSelectedListen
 
     private fun validateProductID(myProductID: EditText): Boolean {
 
-        val myPattern: Regex = Regex("^[S][H][0-9]{4}[0-9]{1,2}[P]?\$")
+        //val myPattern: Regex = Regex("^[S][H][0-9]{4}[0-9]{1,2}[P]?\$")
+        val myPattern: Regex = Regex("^[S][H][0-9]{4}\$")
         val myPattern2: Regex = Regex("^[^A-Z0-9]+\$")
 
         if (myProductID.text.toString().isEmpty()) {
@@ -162,7 +185,7 @@ class AddNewItemFormShoe : AppCompatActivity(), AdapterView.OnItemSelectedListen
             myProductID.error = "Only uppercase and numeric characters!"
         }
         else if (!(myPattern.matches(myProductID.text.toString()))) {
-            myProductID.error = "Format wrong! eg: SH0001(Size) =  SH00014"
+            myProductID.error = "Format wrong! eg: SH0001 to SH9999"
         }
         else {
             myProductID.error = null
@@ -243,7 +266,7 @@ class AddNewItemFormShoe : AppCompatActivity(), AdapterView.OnItemSelectedListen
         }
         else if (!(myPattern.matches(myProductLoc.text.toString()))) {
             //myProductLoc.error = "Format: LOC + number(0-9) + section(A-Z)"
-            myProductLoc.error = "Format wrong! eg. LOC000A - LOC999Z."
+            myProductLoc.error = "Format wrong! eg. LOT000A - LOT999Z."
         }
         else {
             myProductLoc.error = null
@@ -264,7 +287,7 @@ class AddNewItemFormShoe : AppCompatActivity(), AdapterView.OnItemSelectedListen
 
     override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
         val text = parent!!.getItemAtPosition(position).toString()
-        Toast.makeText(parent.context, text, Toast.LENGTH_SHORT).show()
+        //Toast.makeText(parent.context, text, Toast.LENGTH_SHORT).show()
     }
 
     override fun onNothingSelected(parent: AdapterView<*>?) {
@@ -289,5 +312,20 @@ class AddNewItemFormShoe : AppCompatActivity(), AdapterView.OnItemSelectedListen
             //image!!.setImageBitmap(selectedImage)
             //imageStore(selectedImage)
         }
+    }
+
+    private fun AddConstantTextInEditText(edt: EditText, text: String?) {
+        edt.setText(text)
+        Selection.setSelection(edt.text, edt.text.length)
+        edt.addTextChangedListener(object : TextWatcher {
+            override fun onTextChanged(s: CharSequence, start: Int, before: Int, count: Int) {}
+            override fun beforeTextChanged(s: CharSequence, start: Int, count: Int, after: Int) {}
+            override fun afterTextChanged(s: Editable) {
+                if (!s.toString().startsWith(text!!)) {
+                    edt.setText(text)
+                    Selection.setSelection(edt.text, edt.text.length)
+                }
+            }
+        })
     }
 }
