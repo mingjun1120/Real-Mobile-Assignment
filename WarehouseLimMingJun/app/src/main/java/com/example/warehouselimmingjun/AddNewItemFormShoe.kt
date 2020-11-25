@@ -243,7 +243,7 @@ class AddNewItemFormShoe : AppCompatActivity(), AdapterView.OnItemSelectedListen
         }
         else if (!(myPattern.matches(myProductLoc.text.toString()))) {
             //myProductLoc.error = "Format: LOC + number(0-9) + section(A-Z)"
-            myProductLoc.error = "Format wrong! eg. LOC000A - LOC999Z."
+            myProductLoc.error = "Format wrong! eg. LOT000A - LOT999Z."
         }
         else {
             myProductLoc.error = null
@@ -264,7 +264,7 @@ class AddNewItemFormShoe : AppCompatActivity(), AdapterView.OnItemSelectedListen
 
     override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
         val text = parent!!.getItemAtPosition(position).toString()
-        Toast.makeText(parent.context, text, Toast.LENGTH_SHORT).show()
+     //   Toast.makeText(parent.context, text, Toast.LENGTH_SHORT).show()
     }
 
     override fun onNothingSelected(parent: AdapterView<*>?) {
