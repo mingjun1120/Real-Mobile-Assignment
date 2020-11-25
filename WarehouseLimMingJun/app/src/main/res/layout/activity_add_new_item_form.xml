@@ -120,6 +120,7 @@
         android:inputType="textCapCharacters"
         android:labelFor="@id/productID"
         android:textAlignment="center"
+        android:tooltipText="@string/eg_st0001m"
         app:layout_constraintStart_toStartOf="@+id/background"
         app:layout_constraintTop_toBottomOf="@+id/productID" />
 
@@ -253,6 +254,7 @@
         android:inputType="textCapCharacters"
         android:labelFor="@id/location"
         android:textAlignment="center"
+        android:tooltipText="@string/eg_lot123"
         app:layout_constraintEnd_toEndOf="@+id/background"
         app:layout_constraintTop_toBottomOf="@+id/location" />
 

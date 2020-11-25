@@ -3,8 +3,11 @@ package com.example.warehouselimmingjun
 import android.app.Activity
 import android.content.DialogInterface
 import android.content.Intent
-import android.graphics.BitmapFactory
+import android.os.Build
 import android.os.Bundle
+import android.text.Editable
+import android.text.Selection
+import android.text.TextWatcher
 import android.view.View
 import android.widget.*
 import androidx.appcompat.app.AlertDialog
@@ -19,6 +22,16 @@ class AddNewItemForm : AppCompatActivity(), AdapterView.OnItemSelectedListener {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_add_new_item_form)
 
+        if (Build.VERSION.SDK_INT > 25)
+        {
+            val myProductID = findViewById<EditText>(R.id.ProductIDText)
+            myProductID.tooltipText = "Format is ST(Shirt) + 0001(Number) + XL(Size) = ST0001XL"
+
+            val myProductLoc = findViewById<EditText>(R.id.LocationText)
+            myProductLoc.tooltipText = "Format is LOC(Shirt location) + 001(Number) + A(Section) = LOC001A"
+
+        }
+
 //        val category =intent.getStringExtra("Category")
 //        val categoryText = findViewById<TextView>(R.id.CategoryText)
 //        categoryText.text = category
@@ -29,6 +42,14 @@ class AddNewItemForm : AppCompatActivity(), AdapterView.OnItemSelectedListener {
             val intent = Intent(this, AddNewItem::class.java)
             startActivity(intent)
         }
+
+        // SET PREFIX CONSTANT FOR PRODUCT ID
+        val myProductID = findViewById<EditText>(R.id.ProductIDText)
+        AddConstantTextInEditText(myProductID, "ST")
+
+        // SET PREFIX CONSTANT FOR PRODUCT LOCATION
+        val myProductLoc = findViewById<EditText>(R.id.LocationText)
+        AddConstantTextInEditText(myProductLoc, "LOC")
 
         //SPINNER BUTTON FOR CHOOSING SIZE
         val spinner = findViewById<Spinner>(R.id.spinner1)
@@ -310,5 +331,20 @@ class AddNewItemForm : AppCompatActivity(), AdapterView.OnItemSelectedListener {
                 //}
             //}
         }
+    }
+
+    private fun AddConstantTextInEditText(edt: EditText, text: String?) {
+        edt.setText(text)
+        Selection.setSelection(edt.text, edt.text.length)
+        edt.addTextChangedListener(object : TextWatcher {
+            override fun onTextChanged(s: CharSequence, start: Int, before: Int, count: Int) {}
+            override fun beforeTextChanged(s: CharSequence, start: Int, count: Int, after: Int) {}
+            override fun afterTextChanged(s: Editable) {
+                if (!s.toString().startsWith(text!!)) {
+                    edt.setText(text)
+                    Selection.setSelection(edt.text, edt.text.length)
+                }
+            }
+        })
     }
 }
