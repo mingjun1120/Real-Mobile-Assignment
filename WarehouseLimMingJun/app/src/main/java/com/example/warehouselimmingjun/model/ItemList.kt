@@ -1,6 +1,6 @@
 package com.example.warehouselimmingjun.model
 
-class ItemList {
+class   ItemList {
 
     var icons:Int ? = 0
     var title:String ? = null
