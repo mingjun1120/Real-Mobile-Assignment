@@ -3,25 +3,33 @@ package com.example.warehouselimmingjun
 import android.app.Activity
 import android.content.DialogInterface
 import android.content.Intent
+import android.graphics.drawable.BitmapDrawable
 import android.os.Build
 import android.os.Bundle
 import android.text.Editable
 import android.text.Selection
+import android.text.TextUtils
 import android.text.TextWatcher
 import android.view.View
 import android.widget.*
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
+import com.example.warehouselimmingjun.DBHelper.DBHelper
+import com.example.warehouselimmingjun.DBHelper.DBHelper_item
+import com.example.warehouselimmingjun.DBHelper.Utils
+import com.example.warehouselimmingjun.model.Item
+import com.example.warehouselimmingjun.model.Register
 
 
 class AddNewItemForm : AppCompatActivity(), AdapterView.OnItemSelectedListener {
-
+    internal lateinit var dbHelper: DBHelper_item
+    val util: Utils? = null
     private val PHOTO = 1
-
+    var productImage: ImageView? = null
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_add_new_item_form)
-
+        dbHelper = DBHelper_item(this)
         if (Build.VERSION.SDK_INT > 25)
         {
             val myProductID = findViewById<EditText>(R.id.ProductIDText)
@@ -91,18 +99,34 @@ class AddNewItemForm : AppCompatActivity(), AdapterView.OnItemSelectedListener {
             val myProductLoc = findViewById<EditText>(R.id.LocationText)
             val checkProductLoc = validateProductLoc(myProductLoc)
 
-            val productImage = findViewById<ImageView>(R.id.productImage)
+            val myProductCategory = findViewById<TextView>(R.id.shirtCategory)
+            var myProductSize: Spinner = findViewById<Spinner>(R.id.spinner1)
+
+            productImage = findViewById<ImageView>(R.id.productImage)
             val checkProductImg = validateProductImg(productImage)
 
+            val bitmap = (productImage!!.drawable as BitmapDrawable).bitmap
+            val item = Item(
+                myProductID.text.toString(),
+                myProductName.text.toString(),
+                myProductQty.text.toString(),
+                myProductCategory.text.toString(),
+                myProductPrice.text.toString(),
+                myProductSize.selectedItem.toString(),
+                myProductLoc.text.toString(),
+                util!!.getBytes(bitmap)
+
+            )
             if(checkProductID && checkProductName && checkProductQty && checkProductPrice && checkProductLoc && checkProductImg)
             {
+
                 val builder = AlertDialog.Builder(this)
                 //set title for alert dialog
                 builder.setTitle("Add New Item Confirmation")
                 //set message for alert dialog
                 builder.setMessage("Confirm Add New Item?")
                 //builder.setIcon(android.R.drawable.ic_dialog_alert)
-
+                dbHelper.addItem(item)
                 //performing positive action
                 builder.setPositiveButton("Confirm",
                     DialogInterface.OnClickListener { dialog, id ->
