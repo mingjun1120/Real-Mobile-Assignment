@@ -1,5 +1,6 @@
 package com.example.warehouselimmingjun.DBHelper
 
+import android.accounts.AccountManager.KEY_PASSWORD
 import android.content.ContentValues
 import android.content.Context
 import android.database.Cursor
@@ -7,8 +8,8 @@ import android.database.sqlite.SQLiteDatabase
 import android.database.sqlite.SQLiteException
 import android.database.sqlite.SQLiteOpenHelper
 import android.util.Log
-import com.example.warehouselimmingjun.model.Login
 import com.example.warehouselimmingjun.model.Register
+
 
 class DBHelper(context: Context):SQLiteOpenHelper(context, DATABASE_NAME, null, DATABASE_VER) {
     companion object {
@@ -41,7 +42,6 @@ class DBHelper(context: Context):SQLiteOpenHelper(context, DATABASE_NAME, null, 
 
         db.insert(TABLE_NAME, null, values)
         db.close()
-
     }
 
 
@@ -72,7 +72,6 @@ class DBHelper(context: Context):SQLiteOpenHelper(context, DATABASE_NAME, null, 
     }
 
     fun getEmail(email: String):String? {
-        //val empList:ArrayList<Register> = ArrayList()
         val db = this.readableDatabase
         val query = "SELECT $COL_NAME FROM $TABLE_NAME where $COL_EMAIL = '$email'"
         var cursor: Cursor? = null
@@ -80,23 +79,51 @@ class DBHelper(context: Context):SQLiteOpenHelper(context, DATABASE_NAME, null, 
         try{
             cursor = db.rawQuery(query, null)
         }catch (e: SQLiteException) {
-            Log.i("dbhelper.kt","SQLite exception")
+            Log.i("dbhelper.kt", "SQLite exception")
             db.execSQL(query)
             return null
         }
 
         var userName: String? = null
-        var userEmail: String
-        var password: String
+
             if (cursor.moveToFirst()) {
                 do {
-                    //password = cursor.getString(cursor.getColumnIndex("Pass"))
                     userName = cursor.getString(cursor.getColumnIndex("Name"))
-                    //userEmail = cursor.getString(cursor.getColumnIndex("Email"))
-                    //val emp= Register(name = userName)
-                    //empList.add(emp)
                 } while (cursor.moveToNext())
             }
             return userName
         }
+    fun checkPassExist(pass: String): Boolean {
+        val db = readableDatabase
+        val query = "SELECT * FROM $TABLE_NAME WHERE $COL_PASS ='$pass'"
+        val cursor = db.rawQuery(query, null)
+
+        if (cursor.count > 0) {
+            cursor.close()
+            return true
+        }
+        cursor.close()
+        return false
     }
+
+    fun updatePass(pass: String, email:String): Boolean {
+        val db = this.writableDatabase
+        val values = ContentValues()
+        values.put(COL_EMAIL, email)
+        values.put(COL_PASS, pass)
+
+        db.update(TABLE_NAME, values, "$COL_EMAIL= ?", arrayOf(email))
+        return true
+        db.close()
+    }
+    fun updateProfile(name: String, email:String): Boolean {
+        val db = this.writableDatabase
+        val values = ContentValues()
+        values.put(COL_EMAIL, email)
+        values.put(COL_NAME, name)
+
+        db.update(TABLE_NAME, values, "$COL_EMAIL= ?", arrayOf(email))
+        return true
+        db.close()
+    }
+}

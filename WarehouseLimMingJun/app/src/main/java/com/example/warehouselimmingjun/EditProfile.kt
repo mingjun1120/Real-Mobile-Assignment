@@ -1,25 +1,44 @@
 package com.example.warehouselimmingjun
 
+import android.content.ContentValues
 import android.content.DialogInterface
 import android.content.Intent
 import android.os.Bundle
 import android.text.TextUtils
 import android.util.Patterns
-import android.widget.Button
-import android.widget.EditText
-import android.widget.ImageButton
-import android.widget.Toast
+import android.widget.*
+import android.widget.Toast.makeText
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
+import com.example.warehouselimmingjun.DBHelper.DBHelper
+import com.google.android.material.snackbar.Snackbar
 
 class EditProfile : AppCompatActivity() {
+
+    internal lateinit var dbHelper: DBHelper
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_edit_profile)
 
+        dbHelper = DBHelper(this)
+        val intent = intent
+        var sessionId = getIntent().getStringExtra("emailAddress")
+        var sessionId1 = getIntent().getStringExtra("name")
+
+        val email = findViewById<TextView>(R.id.editTextTextEmailAddress)
+        val Username = findViewById<TextView>(R.id.Username)
+        val hello_username = findViewById<TextView>(R.id.hello_Username)
+
+        email.text = sessionId
+        hello_username.text = "Hello,$sessionId1"
+        Username.text = sessionId1
+
         val backBtn = findViewById<ImageButton>(R.id.backButton)
         backBtn.setOnClickListener{
             val intent = Intent(this, Profile::class.java)
+            intent.putExtra("emailAddress", sessionId)
+            intent.putExtra("name", sessionId1)
             startActivity(intent)
         }
 
@@ -35,6 +54,7 @@ class EditProfile : AppCompatActivity() {
             validateEmail(checkEmail, myEmail)
             val checkName = validateName(myName)
 
+
             if(checkEmail && checkName)
             {
                 val builder = AlertDialog.Builder(this)
@@ -43,15 +63,23 @@ class EditProfile : AppCompatActivity() {
                 //set message for alert dialog
                 builder.setMessage("Confirm Edit Profile?")
                 //builder.setIcon(android.R.drawable.ic_dialog_alert)
-
+                sessionId = email.text.toString()
+                sessionId1 = Username.text.toString()
                 //performing positive action
-                builder.setPositiveButton("Confirm",
-                    DialogInterface.OnClickListener { dialog, id ->
-                        Toast.makeText(this,"Profile updated successfully!", Toast.LENGTH_SHORT).show()
-                        val intent = Intent(this, Profile::class.java)
-                        startActivity(intent)
-                    })
-
+                if(dbHelper.updateProfile(sessionId1.toString(),sessionId.toString())) {
+                    builder.setPositiveButton("Confirm",
+                        DialogInterface.OnClickListener { dialog, id ->
+                            Toast.makeText(
+                                this,
+                                "Profile updated successfully!",
+                                Toast.LENGTH_SHORT
+                            ).show()
+                            val intent = Intent(this, Profile::class.java)
+                            intent.putExtra("emailAddress", sessionId)
+                            intent.putExtra("name", sessionId1)
+                            startActivity(intent)
+                        })
+                }
                 //performing negative action
                 builder.setNegativeButton("Cancel",
                     DialogInterface.OnClickListener { dialog, id ->

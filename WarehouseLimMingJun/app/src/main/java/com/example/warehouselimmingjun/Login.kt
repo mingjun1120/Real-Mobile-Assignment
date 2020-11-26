@@ -25,7 +25,6 @@ class Login : AppCompatActivity() {
         val login = findViewById<Button>(R.id.login_button)
 
         dbHelper = DBHelper(this)
-        //val email: List<Register> = dbHelper.getEmail()
 
         login.setOnClickListener {
             val intent = Intent(this, HomeScreen::class.java)

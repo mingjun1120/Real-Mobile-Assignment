@@ -3,22 +3,35 @@ package com.example.warehouselimmingjun
 import android.content.DialogInterface
 import android.content.Intent
 import android.os.Bundle
-import android.widget.Button
-import android.widget.EditText
-import android.widget.ImageButton
-import android.widget.Toast
+import android.widget.*
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
+import com.example.warehouselimmingjun.DBHelper.DBHelper
+import com.google.android.material.snackbar.Snackbar
 import java.util.regex.Pattern
 
 class ChangePassword : AppCompatActivity() {
+
+    internal lateinit var dbHelper: DBHelper
+
     override fun onCreate(savedInstanceState: Bundle?) {
+
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_change_password)
+
+        dbHelper = DBHelper(this)
+
+        val sessionId = getIntent().getStringExtra("emailAddress")
+        val sessionId1 = getIntent().getStringExtra("name")
+
+        val hello_username = findViewById<TextView>(R.id.hello_Username)
+        hello_username.text = "Hello,$sessionId1"
 
         val backBtn = findViewById<ImageButton>(R.id.backButton)
         backBtn.setOnClickListener{
             val intent = Intent(this, Profile::class.java)
+            intent.putExtra("emailAddress", sessionId)
+            intent.putExtra("name", sessionId1)
             startActivity(intent)
         }
 
@@ -32,13 +45,49 @@ class ChangePassword : AppCompatActivity() {
             val checkConfirmPwd = myConfirmPwd.text.toString() == myPwd.text.toString()
 
             // To print error message if false happen for email and pwd
+            if (dbHelper.checkPassExist(myPwd.text.toString()))
+            {
+                val builder = AlertDialog.Builder(this)
+                Snackbar.make(it, "New Password Cannot Same With Old Password", Snackbar.LENGTH_LONG).show()
+
+                //set title for alert dialog
+                builder.setTitle("New Password Cannot Same With Old Password")
+                //set message for alert dialog
+                builder.setMessage("Please Enter Again!")
+                //builder.setIcon(android.R.drawable.ic_dialog_alert)
+
+                //performing positive action
+                builder.setPositiveButton("OK",
+                    DialogInterface.OnClickListener { dialog, id ->
+                        val intent = Intent(this, ChangePassword::class.java)
+                        intent.putExtra("emailAddress", sessionId)
+                        intent.putExtra("name", sessionId1)
+                        startActivity(intent)
+                    })
+
+                //performing negative action
+                builder.setNegativeButton("Cancel",
+                    DialogInterface.OnClickListener { dialog, id ->
+                        val intent = Intent(this, ChangePassword::class.java)
+                        intent.putExtra("emailAddress", sessionId)
+                        intent.putExtra("name", sessionId1)
+                        startActivity(intent)
+                    });
+
+                //Create the AlertDialog
+                val alertDialog: AlertDialog = builder.create()
+                //set other dialog properties
+                alertDialog.setCancelable(false)
+                alertDialog.show()
+            }
             validatePwd(checkPwd, myPwd)
             validateConfirmPwd(checkConfirmPwd, myConfirmPwd)
-            
+
 
             if(checkPwd && checkConfirmPwd)
             {
                 val builder = AlertDialog.Builder(this)
+
                 //set title for alert dialog
                 builder.setTitle("Change Password Confirmation")
                 //set message for alert dialog
@@ -46,12 +95,18 @@ class ChangePassword : AppCompatActivity() {
                 //builder.setIcon(android.R.drawable.ic_dialog_alert)
 
                 //performing positive action
-                builder.setPositiveButton("Confirm",
-                    DialogInterface.OnClickListener { dialog, id ->
-                        Toast.makeText(this,"Password changed successfully!", Toast.LENGTH_SHORT).show()
-                        val intent = Intent(this, MainActivity::class.java)
-                        startActivity(intent)
-                    })
+               if( dbHelper.updatePass(myConfirmPwd.text.toString(),sessionId.toString())) {
+                   builder.setPositiveButton("Confirm",
+                       DialogInterface.OnClickListener { dialog, id ->
+                           Toast.makeText(
+                               this,
+                               "Password changed successfully!",
+                               Toast.LENGTH_SHORT
+                           ).show()
+                           val intent = Intent(this, MainActivity::class.java)
+                           startActivity(intent)
+                       })
+               }
 
                 //performing negative action
                 builder.setNegativeButton("Cancel",
