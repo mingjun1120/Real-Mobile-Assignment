@@ -8,11 +8,15 @@ class Item {
     var price:String? = null
     var size:String? = null
     var location:String? = null
-    var image:String? = null
+    var image:ByteArray? = null
+
+    var icons:Int ? = 0
+    var title:String ? = null
+    var detail:String ? = null
 
     constructor(){}
 
-    constructor(id:String,name:String,quantity:String,category:String,price:String,size:String,location:String,image:String)
+    constructor(id:String,name:String,quantity:String,category:String,price:String,size:String,location:String,image:ByteArray)
     {
         this.id = id
         this.name = name
@@ -22,5 +26,13 @@ class Item {
         this.size = size
         this.location = location
         this.image = image
+    }
+
+
+
+    constructor(icons: Int?, title: String?, detail: String?) {
+        this.icons = icons
+        this.title = title
+        this.detail = detail
     }
 }

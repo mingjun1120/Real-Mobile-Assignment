@@ -1,30 +1,41 @@
 package com.example.warehouselimmimgjun.adapter
 
 import android.content.Context
+import android.graphics.Bitmap
+import android.graphics.BitmapFactory
+import android.util.Base64
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
 import android.widget.ImageView
 import android.widget.TextView
+import android.widget.Toast
 import androidx.recyclerview.widget.RecyclerView
 import com.example.warehouselimmingjun.R
-import com.example.warehouselimmingjun.model.ItemList
+import com.example.warehouselimmingjun.model.Item
 
-class ItemAdapter (
+
+class ItemAdapter(
     private val context: Context,
-    private val images : List<ItemList>,
-    val listener : (ItemList) -> Unit
+    private val images: List<Item>,
+    val listener: (Item) -> Unit
 ): RecyclerView.Adapter<ItemAdapter.ImageViewHolder>() {
     inner class ImageViewHolder(view: View) : RecyclerView.ViewHolder(view) {
         val icon: ImageView = view.findViewById<ImageView>(R.id.icon_list)
         val name: TextView = view.findViewById<TextView>(R.id.title_text_view)
         val desc: TextView = view.findViewById<TextView>(R.id.detail_text_view)
         val addBtn: Button = view.findViewById(R.id.button)
-        fun bindmodel(item: ItemList) {
-            icon.setImageResource(item.icons!!)
-            name.text = item.title
-            desc.text = item.detail
+
+        fun bindmodel(item: Item) {
+
+           val options: BitmapFactory.Options? = BitmapFactory.Options()
+           val bitmap = BitmapFactory.decodeByteArray(item.image, 0, item.image!!.size, options)
+
+            icon.setImageBitmap(bitmap)
+            name.text = item.id
+            desc.text = item.name
             addBtn.setOnClickListener {
                 listener(item)
             }

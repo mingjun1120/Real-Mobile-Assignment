@@ -14,10 +14,13 @@ class stockInForm : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_stock_in_form)
-
+        val shirt = getIntent().getStringExtra("Shirt")
+        val shoes = getIntent().getStringExtra("Shoes")
         val backBtn = findViewById<ImageButton>(R.id.backButton)
         backBtn.setOnClickListener{
             val intent = Intent(this, StockInList::class.java)
+            intent.putExtra("Shirt", "shirt")
+            intent.putExtra("Shoes", "shoes")
             startActivity(intent)
         }
 

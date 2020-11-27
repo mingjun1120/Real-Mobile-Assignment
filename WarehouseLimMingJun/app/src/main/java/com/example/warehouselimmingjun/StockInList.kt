@@ -7,30 +7,62 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.warehouselimmimgjun.adapter.ItemAdapter
+import com.example.warehouselimmingjun.DBHelper.DBHelper
+import com.example.warehouselimmingjun.DBHelper.DBHelper_item
+import com.example.warehouselimmingjun.model.Item
 import com.example.warehouselimmingjun.model.ItemList
 
 class StockInList : AppCompatActivity() {
+
+    internal lateinit var dbHelper: DBHelper_item
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_stock_in_list)
+        var shirtList = listOf<Item>()
+        var shoeList = listOf<Item>()
+        dbHelper = DBHelper_item(this)
+
+        val shirt = getIntent().getStringExtra("Shirt")
+        val shoes = getIntent().getStringExtra("Shoes")
 
         val backBtn = findViewById<ImageButton>(R.id.backButton)
         backBtn.setOnClickListener {
             val intent = Intent(this, StockIn::class.java)
             startActivity(intent)
         }
+        val recyclerView = findViewById<RecyclerView>(R.id.imageRecyclerView)
 
-        val itemList = listOf<ItemList>(
+        if(shirt == "shirt"){
+            shirtList = dbHelper.retrieveShirtItem()
+            recyclerView.layoutManager = LinearLayoutManager(this)
+            recyclerView.adapter = ItemAdapter(this, shirtList){
+                val intent = Intent(this, stockInForm::class.java)
+                intent.putExtra("Shirt", "shirt")
+                startActivity(intent)
+            }
+        }
+        else if(shoes == "shoes"){
+            shoeList =  dbHelper.retrieveShoesItem()
+            recyclerView.layoutManager = LinearLayoutManager(this)
+            recyclerView.adapter = ItemAdapter(this, shoeList){
+                val intent = Intent(this, stockInForm::class.java)
+                intent.putExtra("Shoes", "shoes")
+                startActivity(intent)
+            }
+        }
+
+
+       /* val itemList = listOf<ItemList>(
             ItemList(R.drawable.shirt, "ST0001M", "Pink TShirt"),
             ItemList(R.drawable.shirt, "ST0001L", "Pink TShirt")
-        )
+        )*/
 
-        val recyclerView = findViewById<RecyclerView>(R.id.imageRecyclerView)
-        recyclerView.layoutManager = LinearLayoutManager(this)
-        recyclerView.adapter = ItemAdapter(this, itemList) {
+
+
+       // recyclerView.adapter = ItemAdapter(this, itemList) {
             //addBtn.setOnClickListener{
-            val intent = Intent(this, stockInForm::class.java)
-            startActivity(intent)
-        }
+
+
     }
 }

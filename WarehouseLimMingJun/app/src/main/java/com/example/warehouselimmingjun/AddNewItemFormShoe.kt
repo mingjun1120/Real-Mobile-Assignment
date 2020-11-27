@@ -3,6 +3,7 @@ package com.example.warehouselimmingjun
 import android.app.Activity
 import android.content.DialogInterface
 import android.content.Intent
+import android.graphics.Bitmap
 import android.graphics.BitmapFactory
 import android.os.Build
 import androidx.appcompat.app.AppCompatActivity
@@ -13,15 +14,18 @@ import android.text.TextWatcher
 import android.view.View
 import android.widget.*
 import androidx.appcompat.app.AlertDialog
+import androidx.core.graphics.drawable.toBitmap
+import com.example.warehouselimmingjun.DBHelper.DBHelper_item
+import java.io.ByteArrayOutputStream
 
 class AddNewItemFormShoe : AppCompatActivity(), AdapterView.OnItemSelectedListener {
-
+    internal lateinit var dbHelper: DBHelper_item
     private val PHOTO = 1
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_add_new_item_form_shoe)
-
+        dbHelper = DBHelper_item(this)
         if (Build.VERSION.SDK_INT > 25)
         {
             val myProductID = findViewById<EditText>(R.id.ProductIDText)
@@ -29,7 +33,6 @@ class AddNewItemFormShoe : AppCompatActivity(), AdapterView.OnItemSelectedListen
 
             val myProductLoc = findViewById<EditText>(R.id.LocationText)
             myProductLoc.tooltipText = "Format is LOT(Shoe location) + 001(Number) + A(Section) = LOT001A"
-
         }
 
         // BACK BUTTON
@@ -83,11 +86,21 @@ class AddNewItemFormShoe : AppCompatActivity(), AdapterView.OnItemSelectedListen
             val myProductPrice = findViewById<EditText>(R.id.PriceText)
             val checkProductPrice = validateProductPrice(myProductPrice)
 
+            val myProductCategory = findViewById<TextView>(R.id.shoeCategory)
+
             val myProductLoc = findViewById<EditText>(R.id.LocationText)
+
+            var myProductSize: Spinner = findViewById<Spinner>(R.id.spinner1)
+
             val checkProductLoc = validateProductLoc(myProductLoc)
 
             val productImage = findViewById<ImageView>(R.id.productImage)
             val checkProductImg = validateProductImg(productImage)
+
+            val bitmap = productImage.drawable.toBitmap()
+            val stream = ByteArrayOutputStream()
+            bitmap.compress(Bitmap.CompressFormat.JPEG, 100, stream)
+            val image1 = stream.toByteArray()
 
             if(checkProductID && checkProductName && checkProductQty && checkProductPrice && checkProductLoc && checkProductImg)
             {
@@ -102,6 +115,11 @@ class AddNewItemFormShoe : AppCompatActivity(), AdapterView.OnItemSelectedListen
                 builder.setPositiveButton("Confirm",
                     DialogInterface.OnClickListener { dialog, id ->
                         Toast.makeText(this,"New item added successfully!", Toast.LENGTH_SHORT).show()
+                        dbHelper.addItem(myProductID.text.toString(), myProductName.text.toString(),myProductQty.text.toString(), myProductCategory.text.toString(),
+                            myProductPrice.text.toString(),
+                            myProductSize.selectedItem.toString(),
+                            myProductLoc.text.toString(),
+                            image1)
                         val intent = Intent(this, HomeScreen::class.java)
                         startActivity(intent)
                     })

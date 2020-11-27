@@ -115,19 +115,6 @@ class AddNewItemForm : AppCompatActivity(), AdapterView.OnItemSelectedListener {
             bitmap.compress(Bitmap.CompressFormat.JPEG, 100, stream)
             val image1 = stream.toByteArray()
 
-                Toast.makeText(this, image1.toString(), Toast.LENGTH_SHORT).show()
-
-            /*val item = Item(
-                myProductID.text.toString(),
-                myProductName.text.toString(),
-                myProductQty.text.toString(),
-                myProductCategory.text.toString(),
-                myProductPrice.text.toString(),
-                myProductSize.selectedItem.toString(),
-                myProductLoc.text.toString(),
-                image1
-                // util!!.getBytes(bitmap1)
-            )*/
             if(checkProductID && checkProductName && checkProductQty && checkProductPrice && checkProductLoc && checkProductImg)
             {
 
@@ -144,8 +131,7 @@ class AddNewItemForm : AppCompatActivity(), AdapterView.OnItemSelectedListener {
                          myProductPrice.text.toString(),
                          myProductSize.selectedItem.toString(),
                          myProductLoc.text.toString(),
-                         image1.toString())
-
+                         image1)
                      val intent = Intent(this, HomeScreen::class.java)
                      startActivity(intent)
                     })

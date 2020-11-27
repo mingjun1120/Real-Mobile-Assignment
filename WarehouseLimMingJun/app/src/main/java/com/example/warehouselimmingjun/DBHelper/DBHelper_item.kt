@@ -15,7 +15,7 @@ import com.example.warehouselimmingjun.model.Item
 class DBHelper_item(context: Context): SQLiteOpenHelper(context, DATABASE_NAME, null, DATABASE_VER) {
     companion object {
         private val DATABASE_VER = 1
-        private val DATABASE_NAME = "Item.db"
+        private val DATABASE_NAME = "Item1.db"
         private val TABLE_NAME = "Item"
         private val COL_ID = "Id"
         private val COL_NAME = "Name"
@@ -29,8 +29,8 @@ class DBHelper_item(context: Context): SQLiteOpenHelper(context, DATABASE_NAME, 
 
     override fun onCreate(db: SQLiteDatabase?) {
         val CREATE_TABLE_QUERY: String =
-            ("CREATE TABLE $TABLE_NAME ($COL_ID TEXT PRIMARY KEY, $COL_NAME TEXT ,$COL_QUANTITY TEXT, $COL_CATEGORY TEXT, $COL_PRICE TEXT, $COL_SIZE TEXT, $COL_LOCATION TEXT, $COL_IMAGE TEXT)")
-              db!!.execSQL(CREATE_TABLE_QUERY);
+            ("CREATE TABLE $TABLE_NAME ($COL_ID TEXT PRIMARY KEY, $COL_NAME TEXT ,$COL_QUANTITY TEXT, $COL_CATEGORY TEXT, $COL_PRICE TEXT, $COL_SIZE TEXT, $COL_LOCATION TEXT, $COL_IMAGE BLOB)")
+        db!!.execSQL(CREATE_TABLE_QUERY);
     }
 
     override fun onUpgrade(db: SQLiteDatabase?, oldVersion: Int, newVersion: Int) {
@@ -38,7 +38,16 @@ class DBHelper_item(context: Context): SQLiteOpenHelper(context, DATABASE_NAME, 
         onCreate(db!!)
     }
 
-    fun addItem(id: String, name: String, quantity: String, category: String, price: String, size: String,location:String, image:String) {
+    fun addItem(
+        id: String,
+        name: String,
+        quantity: String,
+        category: String,
+        price: String,
+        size: String,
+        location: String,
+        image: ByteArray
+    ) {
         val db = this.writableDatabase
         val values = ContentValues()
         values.put(COL_ID, id)
@@ -54,22 +63,138 @@ class DBHelper_item(context: Context): SQLiteOpenHelper(context, DATABASE_NAME, 
         db.close()
     }
 
-   /* fun getBitmapByName(name: String): ByteArray{
-        val db = this.writableDatabase
-        val select = arrayOf<String>(DBHelper_item.COL_NAME, DBHelper_item.COL_IMAGE)
-        val query = "SELECT ${DBHelper_item.COL_IMAGE} FROM ${DBHelper_item.TABLE_NAME} where ${DBHelper_item.COL_NAME} = '$name'"
-        val cursor = db.rawQuery(query, null)
-        var result: ByteArray? = null
+    fun retrieveShirtItem(): List<Item> {
+        val itemList: ArrayList<Item> = ArrayList<Item>()
+        val query = "SELECT * FROM ${TABLE_NAME} WHERE ${COL_CATEGORY} = 'Shirt'"
+        val db = this.readableDatabase
+        var cursor: Cursor? = null
+        try {
+            cursor = db.rawQuery(query, null)
+        } catch (e: SQLiteException) {
+            db.execSQL(query)
+            return ArrayList()
+        }
+        var id: String
+        var name: String
+        var quantity: String
+        var category: String
+        var price: String
+        var size: String
+        var location: String
+        var image: ByteArray
+        if (cursor.moveToFirst()) {
+            do {
+                id = cursor.getString(cursor.getColumnIndex("Id"))
+                name = cursor.getString(cursor.getColumnIndex("Name"))
+                quantity = cursor.getString(cursor.getColumnIndex("Quantity"))
+                category = cursor.getString(cursor.getColumnIndex("Category"))
+                price = cursor.getString(cursor.getColumnIndex("Price"))
+                size = cursor.getString(cursor.getColumnIndex("Size"))
+                location = cursor.getString(cursor.getColumnIndex("Location"))
+                image = cursor.getBlob(cursor.getColumnIndex("Image"))
+                val item = Item(
+                    id = id,
+                    name = name,
+                    quantity = quantity,
+                    category = category,
+                    price = price,
+                    size = size,
+                    location = location,
+                    image = image
+                )
+                itemList.add(item)
+            } while (cursor.moveToNext())
+        }
+        return itemList
+    }
 
+    fun retrieveShoesItem(): List<Item> {
+        val itemList: ArrayList<Item> = ArrayList<Item>()
+        val query = "SELECT * FROM ${TABLE_NAME} WHERE ${COL_CATEGORY} = 'Shoe'"
+        val db = this.readableDatabase
+        var cursor: Cursor? = null
+        try {
+            cursor = db.rawQuery(query, null)
+        } catch (e: SQLiteException) {
+            db.execSQL(query)
+            return ArrayList()
+        }
+        var id: String
+        var name: String
+        var quantity: String
+        var category: String
+        var price: String
+        var size: String
+        var location: String
+        var image: ByteArray
+        if (cursor.moveToFirst()) {
+            do {
+                id = cursor.getString(cursor.getColumnIndex("Id"))
+                name = cursor.getString(cursor.getColumnIndex("Name"))
+                quantity = cursor.getString(cursor.getColumnIndex("Quantity"))
+                category = cursor.getString(cursor.getColumnIndex("Category"))
+                price = cursor.getString(cursor.getColumnIndex("Price"))
+                size = cursor.getString(cursor.getColumnIndex("Size"))
+                location = cursor.getString(cursor.getColumnIndex("Location"))
+                image = cursor.getBlob(cursor.getColumnIndex("Image"))
+                val item = Item(
+                    id = id,
+                    name = name,
+                    quantity = quantity,
+                    category = category,
+                    price = price,
+                    size = size,
+                    location = location,
+                    image = image
+                )
+                itemList.add(item)
+            } while (cursor.moveToNext())
+        }
+        return itemList
+    }
 
-            if (cursor.moveToFirst()) {
-                do {
-                    result = cursor.getBlob(cursor.getColumnIndex(COL_IMAGE))
-                } while (cursor.moveToNext())
-            }
-
-        return result!!
-
-    }*/
-
+    fun retrieveAllItem(): List<Item> {
+        val itemList: ArrayList<Item> = ArrayList<Item>()
+        val query = "SELECT * FROM ${TABLE_NAME}"
+        val db = this.readableDatabase
+        var cursor: Cursor? = null
+        try {
+            cursor = db.rawQuery(query, null)
+        } catch (e: SQLiteException) {
+            db.execSQL(query)
+            return ArrayList()
+        }
+        var id: String
+        var name: String
+        var quantity: String
+        var category: String
+        var price: String
+        var size: String
+        var location: String
+        var image: ByteArray
+        if (cursor.moveToFirst()) {
+            do {
+                id = cursor.getString(cursor.getColumnIndex("Id"))
+                name = cursor.getString(cursor.getColumnIndex("Name"))
+                quantity = cursor.getString(cursor.getColumnIndex("Quantity"))
+                category = cursor.getString(cursor.getColumnIndex("Category"))
+                price = cursor.getString(cursor.getColumnIndex("Price"))
+                size = cursor.getString(cursor.getColumnIndex("Size"))
+                location = cursor.getString(cursor.getColumnIndex("Location"))
+                image = cursor.getBlob(cursor.getColumnIndex("Image"))
+                val item = Item(
+                    id = id,
+                    name = name,
+                    quantity = quantity,
+                    category = category,
+                    price = price,
+                    size = size,
+                    location = location,
+                    image = image
+                )
+                itemList.add(item)
+            } while (cursor.moveToNext())
+        }
+        return itemList
+    }
 }

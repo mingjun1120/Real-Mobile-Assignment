@@ -7,16 +7,30 @@ import android.widget.*
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.example.warehouselimmimgjun.adapter.ItemAdapter
+import com.example.warehouselimmingjun.DBHelper.DBHelper_item
 import com.example.warehouselimmingjun.adapter.InfoAdapter
-import com.example.warehouselimmingjun.model.ItemList
+import com.example.warehouselimmingjun.model.Item
 
 class ItemInfo : AppCompatActivity(), AdapterView.OnItemSelectedListener {
+    internal lateinit var dbHelper: DBHelper_item
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_item_info)
+        var productList = listOf<Item>()
+        var shoeList = listOf<Item>()
+        var shirtList = listOf<Item>()
+        dbHelper = DBHelper_item(this)
+
+        val backBtn = findViewById<ImageButton>(R.id.backButton)
+        backBtn.setOnClickListener {
+            val intent = Intent(this, HomeScreen::class.java)
+            startActivity(intent)
+        }
+        val recyclerView = findViewById<RecyclerView>(R.id.imageRecyclerView)
 
         val spinner = findViewById<Spinner>(R.id.categoryspinner)
+
         val adapter = ArrayAdapter.createFromResource(
             this, R.array.category, R.layout.custom_spinner
         )
@@ -24,36 +38,49 @@ class ItemInfo : AppCompatActivity(), AdapterView.OnItemSelectedListener {
         spinner.adapter = adapter
         spinner.onItemSelectedListener = this
 
-        val backBtn = findViewById<ImageButton>(R.id.backButton)
-        backBtn.setOnClickListener {
-            val intent = Intent(this, HomeScreen::class.java)
-            startActivity(intent)
+        spinner?.onItemSelectedListener = object : AdapterView.OnItemSelectedListener{
+            override fun onNothingSelected(parent: AdapterView<*>?) {
+
+            }
+
+            override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
+                val selectedItem = parent!!.getItemAtPosition(position).toString()
+                if (selectedItem == "Shirt") {
+                    shirtList = dbHelper.retrieveShirtItem()
+                    recyclerView.layoutManager = LinearLayoutManager(parent.context)
+                    recyclerView.adapter = InfoAdapter(parent.context, shirtList) {
+                        //addBtn.setOnClickListener{
+                        val intent = Intent(parent.context, EditItem::class.java)
+                        startActivity(intent)
+                    }
+                }
+                else if(selectedItem == "Shoe")
+                {
+                    shoeList = dbHelper.retrieveShoesItem()
+                    recyclerView.layoutManager = LinearLayoutManager(parent.context)
+                    recyclerView.adapter = InfoAdapter(parent.context, shoeList) {
+                        //addBtn.setOnClickListener{
+                        val intent = Intent(parent.context, EditItem::class.java)
+                        startActivity(intent)
+                    }
+                }
+                else {
+                    productList = dbHelper.retrieveAllItem()
+                    recyclerView.layoutManager = LinearLayoutManager(parent.context)
+                    recyclerView.adapter = InfoAdapter(parent.context, productList) {
+                        //addBtn.setOnClickListener{
+                        val intent = Intent(parent.context, EditItem::class.java)
+                        startActivity(intent)
+                    }
+                }
+            }
+
         }
 
-        val itemList = listOf<ItemList>(
-            ItemList(R.drawable.shirt, "ST0001M", "Pink TShirt"),
-            ItemList(R.drawable.shirt, "ST0001L", "Pink TShirt")
-        )
-
-        val recyclerView = findViewById<RecyclerView>(R.id.imageRecyclerView)
-        recyclerView.layoutManager = LinearLayoutManager(this)
-        recyclerView.adapter = InfoAdapter(this, itemList) {
-            //addBtn.setOnClickListener{
-            val intent = Intent(this, EditItem::class.java)
-            startActivity(intent)
-        }
     }
 
-        /*val editBtn = findViewById<ImageButton>(R.id.imageButton3)
-        editBtn.setOnClickListener{
-            val intent = Intent(this, EditItem::class.java)
-            startActivity(intent)
-        }*/
-
         override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
-//        val text = parent!!.getItemAtPosition(position).toString()
-//        val bb = parent.getItemAtPosition(position).toString()
-//        Toast.makeText(parent.context, bb, Toast.LENGTH_SHORT).show()
+
         }
 
         override fun onNothingSelected(parent: AdapterView<*>?) {

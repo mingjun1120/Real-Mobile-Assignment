@@ -7,13 +7,24 @@ import android.widget.ImageButton
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.warehouselimmimgjun.adapter.ItemAdapter
+import com.example.warehouselimmingjun.DBHelper.DBHelper_item
 import com.example.warehouselimmingjun.adapter.ItemOutAdapter
+import com.example.warehouselimmingjun.model.Item
 import com.example.warehouselimmingjun.model.ItemList
 
 class StockOutList : AppCompatActivity() {
+
+    internal lateinit var dbHelper: DBHelper_item
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_stock_out_list)
+        var shirtList = listOf<Item>()
+        var shoeList = listOf<Item>()
+        dbHelper = DBHelper_item(this)
+
+        val shirt = getIntent().getStringExtra("Shirt")
+        val shoes = getIntent().getStringExtra("Shoes")
 
         val backBtn = findViewById<ImageButton>(R.id.backButton)
         backBtn.setOnClickListener {
@@ -21,17 +32,25 @@ class StockOutList : AppCompatActivity() {
             startActivity(intent)
         }
 
-        val itemList = listOf<ItemList>(
-            ItemList(R.drawable.shirt, "ST0001M", "Pink TShirt"),
-            ItemList(R.drawable.shirt, "ST0001L", "Pink TShirt")
-        )
-
         val recyclerView = findViewById<RecyclerView>(R.id.imageRecyclerView)
-        recyclerView.layoutManager = LinearLayoutManager(this)
-        recyclerView.adapter = ItemOutAdapter(this, itemList) {
-            //addBtn.setOnClickListener{
-            val intent = Intent(this, stockOutForm::class.java)
-            startActivity(intent)
+
+        if(shirt == "shirt"){
+            shirtList = dbHelper.retrieveShirtItem()
+            recyclerView.layoutManager = LinearLayoutManager(this)
+            recyclerView.adapter = ItemAdapter(this, shirtList){
+                val intent = Intent(this, stockOutForm::class.java)
+                intent.putExtra("Shirt", "shirt")
+                startActivity(intent)
+            }
+        }
+        else if(shoes == "shoes"){
+            shoeList =  dbHelper.retrieveShoesItem()
+            recyclerView.layoutManager = LinearLayoutManager(this)
+            recyclerView.adapter = ItemAdapter(this, shoeList){
+                val intent = Intent(this, stockOutForm::class.java)
+                intent.putExtra("Shoes", "shoes")
+                startActivity(intent)
+            }
         }
     }
 }

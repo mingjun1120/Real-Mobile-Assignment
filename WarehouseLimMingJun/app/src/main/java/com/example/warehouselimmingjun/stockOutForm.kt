@@ -15,9 +15,14 @@ class stockOutForm : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_stock_out_form)
 
+        val shirt = getIntent().getStringExtra("Shirt")
+        val shoes = getIntent().getStringExtra("Shoes")
+
         val backBtn = findViewById<ImageButton>(R.id.backButton)
         backBtn.setOnClickListener{
             val intent = Intent(this, StockOutList::class.java)
+            intent.putExtra("Shirt", "shirt")
+            intent.putExtra("Shoes", "shoes")
             startActivity(intent)
         }
 
