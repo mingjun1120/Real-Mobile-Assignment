@@ -3,7 +3,9 @@ package com.example.warehouselimmingjun
 import android.app.Activity
 import android.content.DialogInterface
 import android.content.Intent
+import android.graphics.Bitmap
 import android.graphics.drawable.BitmapDrawable
+import android.nfc.Tag
 import android.os.Build
 import android.os.Bundle
 import android.text.Editable
@@ -14,18 +16,20 @@ import android.view.View
 import android.widget.*
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.graphics.drawable.toBitmap
 import com.example.warehouselimmingjun.DBHelper.DBHelper
 import com.example.warehouselimmingjun.DBHelper.DBHelper_item
 import com.example.warehouselimmingjun.DBHelper.Utils
 import com.example.warehouselimmingjun.model.Item
 import com.example.warehouselimmingjun.model.Register
+import java.io.ByteArrayOutputStream
+import android.util.Log
 
 
 class AddNewItemForm : AppCompatActivity(), AdapterView.OnItemSelectedListener {
     internal lateinit var dbHelper: DBHelper_item
     val util: Utils? = null
     private val PHOTO = 1
-    var productImage: ImageView? = null
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_add_new_item_form)
@@ -102,11 +106,18 @@ class AddNewItemForm : AppCompatActivity(), AdapterView.OnItemSelectedListener {
             val myProductCategory = findViewById<TextView>(R.id.shirtCategory)
             var myProductSize: Spinner = findViewById<Spinner>(R.id.spinner1)
 
-            productImage = findViewById<ImageView>(R.id.productImage)
+            var productImage = findViewById<ImageView>(R.id.productImage)
             val checkProductImg = validateProductImg(productImage)
+            //val bitmap = (productImage as BitmapDrawable).bitmap
+            val bitmap = productImage.drawable.toBitmap()
 
-            val bitmap = (productImage!!.drawable as BitmapDrawable).bitmap
-            val item = Item(
+            val stream = ByteArrayOutputStream()
+            bitmap.compress(Bitmap.CompressFormat.JPEG, 100, stream)
+            val image1 = stream.toByteArray()
+
+                Toast.makeText(this, image1.toString(), Toast.LENGTH_SHORT).show()
+
+            /*val item = Item(
                 myProductID.text.toString(),
                 myProductName.text.toString(),
                 myProductQty.text.toString(),
@@ -114,9 +125,9 @@ class AddNewItemForm : AppCompatActivity(), AdapterView.OnItemSelectedListener {
                 myProductPrice.text.toString(),
                 myProductSize.selectedItem.toString(),
                 myProductLoc.text.toString(),
-                util!!.getBytes(bitmap)
-
-            )
+                image1
+                // util!!.getBytes(bitmap1)
+            )*/
             if(checkProductID && checkProductName && checkProductQty && checkProductPrice && checkProductLoc && checkProductImg)
             {
 
@@ -126,14 +137,17 @@ class AddNewItemForm : AppCompatActivity(), AdapterView.OnItemSelectedListener {
                 //set message for alert dialog
                 builder.setMessage("Confirm Add New Item?")
                 //builder.setIcon(android.R.drawable.ic_dialog_alert)
-                dbHelper.addItem(item)
+
                 //performing positive action
-                builder.setPositiveButton("Confirm",
-                    DialogInterface.OnClickListener { dialog, id ->
-                        Toast.makeText(this, "New item added successfully!", Toast.LENGTH_SHORT)
-                            .show()
-                        val intent = Intent(this, HomeScreen::class.java)
-                        startActivity(intent)
+                builder.setPositiveButton("Confirm",DialogInterface.OnClickListener { dialog, id -> Toast.makeText(this, "New item added successfully!", Toast.LENGTH_SHORT).show()
+                     dbHelper.addItem(myProductID.text.toString(), myProductName.text.toString(),myProductQty.text.toString(), myProductCategory.text.toString(),
+                         myProductPrice.text.toString(),
+                         myProductSize.selectedItem.toString(),
+                         myProductLoc.text.toString(),
+                          image1.toString())
+
+                     val intent = Intent(this, HomeScreen::class.java)
+                     startActivity(intent)
                     })
 
                 //performing negative action
@@ -317,7 +331,7 @@ class AddNewItemForm : AppCompatActivity(), AdapterView.OnItemSelectedListener {
     override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long)
     {
         val text = parent!!.getItemAtPosition(position).toString()
-        Toast.makeText(parent.context, text, Toast.LENGTH_SHORT).show()
+        //Toast.makeText(parent.context, text, Toast.LENGTH_SHORT).show()
         //val bb = parent.getItemAtPosition(position).toString()
         //Toast.makeText(parent.context, text, Toast.LENGTH_SHORT).show()
     }

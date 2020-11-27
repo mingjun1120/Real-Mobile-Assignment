@@ -8,11 +8,11 @@ class Item {
     var price:String? = null
     var size:String? = null
     var location:String? = null
-    var image:ByteArray? = null
+    var image:String? = null
 
     constructor(){}
 
-    constructor(id:String,name:String,quantity:String,category:String,price:String,size:String,location:String,image:ByteArray)
+    constructor(id:String,name:String,quantity:String,category:String,price:String,size:String,location:String,image:String)
     {
         this.id = id
         this.name = name
