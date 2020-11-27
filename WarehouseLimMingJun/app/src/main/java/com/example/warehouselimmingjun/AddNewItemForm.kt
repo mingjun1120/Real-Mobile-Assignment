@@ -144,7 +144,7 @@ class AddNewItemForm : AppCompatActivity(), AdapterView.OnItemSelectedListener {
                          myProductPrice.text.toString(),
                          myProductSize.selectedItem.toString(),
                          myProductLoc.text.toString(),
-                          image1.toString())
+                         image1.toString())
 
                      val intent = Intent(this, HomeScreen::class.java)
                      startActivity(intent)
