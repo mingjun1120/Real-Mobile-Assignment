@@ -22,7 +22,8 @@ class AddNewItemFormShoe : AppCompatActivity(), AdapterView.OnItemSelectedListen
     internal lateinit var dbHelper: DBHelper_item
     private val PHOTO = 1
 
-    override fun onCreate(savedInstanceState: Bundle?) {
+    override fun onCreate(savedInstanceState: Bundle?)
+    {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_add_new_item_form_shoe)
         dbHelper = DBHelper_item(this)
@@ -72,8 +73,6 @@ class AddNewItemFormShoe : AppCompatActivity(), AdapterView.OnItemSelectedListen
         val confirmBtn = findViewById<ImageButton>(R.id.confirmButton)
         confirmBtn.setOnClickListener{
 
-            val intent = Intent(this, HomeScreen::class.java)
-
             val myProductID = findViewById<EditText>(R.id.ProductIDText)
             val checkProductID = validateProductID(myProductID)
 
@@ -89,15 +88,17 @@ class AddNewItemFormShoe : AppCompatActivity(), AdapterView.OnItemSelectedListen
             val myProductCategory = findViewById<TextView>(R.id.shoeCategory)
 
             val myProductLoc = findViewById<EditText>(R.id.LocationText)
-
-            var myProductSize: Spinner = findViewById<Spinner>(R.id.spinner1)
-
             val checkProductLoc = validateProductLoc(myProductLoc)
+
+            val myProductSize: Spinner = findViewById<Spinner>(R.id.spinner1)
 
             val productImage = findViewById<ImageView>(R.id.productImage)
             val checkProductImg = validateProductImg(productImage)
 
+            //Convert ImageView to BitMap
             val bitmap = productImage.drawable.toBitmap()
+
+            //Compress the bitmap
             val stream = ByteArrayOutputStream()
             bitmap.compress(Bitmap.CompressFormat.JPEG, 100, stream)
             val image1 = stream.toByteArray()
@@ -105,21 +106,22 @@ class AddNewItemFormShoe : AppCompatActivity(), AdapterView.OnItemSelectedListen
             if(checkProductID && checkProductName && checkProductQty && checkProductPrice && checkProductLoc && checkProductImg)
             {
                 val builder = AlertDialog.Builder(this)
-                //set title for alert dialog
+                //Set title for alert dialog
                 builder.setTitle("Add New Item Confirmation")
-                //set message for alert dialog
+                //Set message for alert dialog
                 builder.setMessage("Confirm Add New Item?")
-                //builder.setIcon(android.R.drawable.ic_dialog_alert)
 
                 //performing positive action
-                builder.setPositiveButton("Confirm",
-                    DialogInterface.OnClickListener { dialog, id ->
-                        Toast.makeText(this,"New item added successfully!", Toast.LENGTH_SHORT).show()
-                        dbHelper.addItem(myProductID.text.toString(), myProductName.text.toString(),myProductQty.text.toString(), myProductCategory.text.toString(),
-                            myProductPrice.text.toString(),
-                            myProductSize.selectedItem.toString(),
-                            myProductLoc.text.toString(),
-                            image1)
+                builder.setPositiveButton("Confirm", DialogInterface.OnClickListener { dialog, id ->
+                    Toast.makeText(this,"New item added successfully!", Toast.LENGTH_SHORT).show()
+                    dbHelper.addItem(myProductID.text.toString(),
+                        myProductName.text.toString(),
+                        myProductQty.text.toString(),
+                        myProductCategory.text.toString(),
+                        myProductPrice.text.toString(),
+                        myProductSize.selectedItem.toString(),
+                        myProductLoc.text.toString(),
+                        image1)
                         val intent = Intent(this, HomeScreen::class.java)
                         startActivity(intent)
                     })
@@ -142,11 +144,10 @@ class AddNewItemFormShoe : AppCompatActivity(), AdapterView.OnItemSelectedListen
         val clearBtn = findViewById<ImageButton>(R.id.clearButton)
         clearBtn.setOnClickListener{
             val builder = AlertDialog.Builder(this)
-            //set title for alert dialog
+            //Set title for alert dialog
             builder.setTitle("Clear Action Confirmation")
-            //set message for alert dialog
+            //Set message for alert dialog
             builder.setMessage("Sure to clear data?")
-            //builder.setIcon(android.R.drawable.ic_dialog_alert)
 
             //performing positive action
             builder.setPositiveButton("Yes",
@@ -167,7 +168,6 @@ class AddNewItemFormShoe : AppCompatActivity(), AdapterView.OnItemSelectedListen
                     val myProductPrice = findViewById<EditText>(R.id.PriceText)
                     myProductPrice.setText("")
 
-                    //adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
                     spinner.adapter = adapter
 
                     image.setImageDrawable(null)
