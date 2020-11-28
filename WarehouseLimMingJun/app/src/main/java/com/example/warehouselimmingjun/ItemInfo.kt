@@ -1,22 +1,29 @@
 package com.example.warehouselimmingjun
 
+import android.content.BroadcastReceiver
+import android.content.Context
 import android.content.Intent
+import android.content.IntentFilter
 import android.os.Bundle
 import android.view.View
 import android.widget.*
 import androidx.appcompat.app.AppCompatActivity
+import androidx.localbroadcastmanager.content.LocalBroadcastManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.warehouselimmingjun.DBHelper.DBHelper_item
 import com.example.warehouselimmingjun.adapter.InfoAdapter
 import com.example.warehouselimmingjun.model.Item
 
+
 class ItemInfo : AppCompatActivity(), AdapterView.OnItemSelectedListener {
     internal lateinit var dbHelper: DBHelper_item
 
-    override fun onCreate(savedInstanceState: Bundle?) {
+    override fun onCreate(savedInstanceState: Bundle?)
+    {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_item_info)
+
         var productList = listOf<Item>()
         var shoeList = listOf<Item>()
         var shirtList = listOf<Item>()
@@ -27,8 +34,8 @@ class ItemInfo : AppCompatActivity(), AdapterView.OnItemSelectedListener {
             val intent = Intent(this, HomeScreen::class.java)
             val sessionId = getIntent().getStringExtra("emailAddress")
             val sessionId1 = getIntent().getStringExtra("name")
-            intent.putExtra("emailAddress", sessionId);
-            intent.putExtra("name", sessionId1);
+            intent.putExtra("emailAddress", sessionId)
+            intent.putExtra("name", sessionId1)
             startActivity(intent)
         }
         val recyclerView = findViewById<RecyclerView>(R.id.imageRecyclerView)
@@ -47,19 +54,20 @@ class ItemInfo : AppCompatActivity(), AdapterView.OnItemSelectedListener {
 
             }
 
-            override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
+            override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long)
+            {
                 val selectedItem = parent!!.getItemAtPosition(position).toString()
-                if (selectedItem == "Shirt") {
+                if (selectedItem == "Shirt")
+                {
                     shirtList = dbHelper.retrieveShirtItem()
                     recyclerView.layoutManager = LinearLayoutManager(parent.context)
                     recyclerView.adapter = InfoAdapter(parent.context, shirtList) {
-                        //addBtn.setOnClickListener{
-                        val intent = Intent(parent.context, EditItem::class.java)
-                        val sessionId = getIntent().getStringExtra("emailAddress")
-                        val sessionId1 = getIntent().getStringExtra("name")
-                        intent.putExtra("emailAddress", sessionId);
-                        intent.putExtra("name", sessionId1);
-                        startActivity(intent)
+
+                        val sessionId = intent.getStringExtra("emailAddress")
+                        val sessionId1 = intent.getStringExtra("name")
+                        intent.putExtra("emailAddress", sessionId)
+                        intent.putExtra("name", sessionId1)
+
                     }
                 }
                 else if(selectedItem == "Shoe")
@@ -67,39 +75,34 @@ class ItemInfo : AppCompatActivity(), AdapterView.OnItemSelectedListener {
                     shoeList = dbHelper.retrieveShoesItem()
                     recyclerView.layoutManager = LinearLayoutManager(parent.context)
                     recyclerView.adapter = InfoAdapter(parent.context, shoeList) {
-                        //addBtn.setOnClickListener{
-                        val intent = Intent(parent.context, EditItem::class.java)
-                        val sessionId = getIntent().getStringExtra("emailAddress")
-                        val sessionId1 = getIntent().getStringExtra("name")
-                        intent.putExtra("emailAddress", sessionId);
-                        intent.putExtra("name", sessionId1);
-                        startActivity(intent)
+
+                        val sessionId = intent.getStringExtra("emailAddress")
+                        val sessionId1 = intent.getStringExtra("name")
+                        intent.putExtra("emailAddress", sessionId)
+                        intent.putExtra("name", sessionId1)
                     }
                 }
-                else {
+                else
+                {
                     productList = dbHelper.retrieveAllItem()
                     recyclerView.layoutManager = LinearLayoutManager(parent.context)
                     recyclerView.adapter = InfoAdapter(parent.context, productList) {
-                        //addBtn.setOnClickListener{
-                        val intent = Intent(parent.context, EditItem::class.java)
-                        val sessionId = getIntent().getStringExtra("emailAddress")
-                        val sessionId1 = getIntent().getStringExtra("name")
-                        intent.putExtra("emailAddress", sessionId);
-                        intent.putExtra("name", sessionId1);
-                        startActivity(intent)
+
+                        val sessionId = intent.getStringExtra("emailAddress")
+                        val sessionId1 = intent.getStringExtra("name")
+                        intent.putExtra("emailAddress", sessionId)
+                        intent.putExtra("name", sessionId1)
                     }
                 }
             }
-
         }
+    }
+
+    override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
 
     }
 
-        override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
+    override fun onNothingSelected(parent: AdapterView<*>?) {
 
-        }
-
-        override fun onNothingSelected(parent: AdapterView<*>?) {
-            TODO("Not yet implemented")
-        }
+    }
 }
