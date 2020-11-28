@@ -41,40 +41,27 @@ class StockInList : AppCompatActivity() {
             shirtList = dbHelper.retrieveShirtItem()
             recyclerView.layoutManager = LinearLayoutManager(this)
             recyclerView.adapter = ItemAdapter(this, shirtList){
-                val intent = Intent(this, stockInForm::class.java)
+                //val intent = Intent(this, stockInForm::class.java)
                 intent.putExtra("Shirt", "shirt")
-                val sessionId = getIntent().getStringExtra("emailAddress")
-                val sessionId1 = getIntent().getStringExtra("name")
+                val sessionId = intent.getStringExtra("emailAddress")
+                val sessionId1 = intent.getStringExtra("name")
                 intent.putExtra("emailAddress", sessionId)
                 intent.putExtra("name", sessionId1)
-                startActivity(intent)
+                //startActivity(intent)
             }
         }
         else if(shoes == "shoes"){
             shoeList =  dbHelper.retrieveShoesItem()
             recyclerView.layoutManager = LinearLayoutManager(this)
             recyclerView.adapter = ItemAdapter(this, shoeList){
-                val intent = Intent(this, stockInForm::class.java)
+                //val intent = Intent(this, stockInForm::class.java)
                 intent.putExtra("Shoes", "shoes")
-                val sessionId = getIntent().getStringExtra("emailAddress")
-                val sessionId1 = getIntent().getStringExtra("name")
+                val sessionId = intent.getStringExtra("emailAddress")
+                val sessionId1 = intent.getStringExtra("name")
                 intent.putExtra("emailAddress", sessionId)
                 intent.putExtra("name", sessionId1)
-                startActivity(intent)
+                //startActivity(intent)
             }
         }
-
-
-       /* val itemList = listOf<ItemList>(
-            ItemList(R.drawable.shirt, "ST0001M", "Pink TShirt"),
-            ItemList(R.drawable.shirt, "ST0001L", "Pink TShirt")
-        )*/
-
-
-
-       // recyclerView.adapter = ItemAdapter(this, itemList) {
-            //addBtn.setOnClickListener{
-
-
     }
 }
