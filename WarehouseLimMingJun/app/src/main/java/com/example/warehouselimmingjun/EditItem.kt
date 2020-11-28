@@ -2,25 +2,68 @@ package com.example.warehouselimmingjun
 
 import android.content.DialogInterface
 import android.content.Intent
+import android.graphics.BitmapFactory
 import android.os.Bundle
-import android.widget.EditText
-import android.widget.ImageButton
-import android.widget.Toast
+import android.widget.*
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
+import com.example.warehouselimmingjun.DBHelper.DBHelper_item
 
 class EditItem : AppCompatActivity() {
+    internal lateinit var dbHelper: DBHelper_item
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_edit_item)
+        dbHelper = DBHelper_item(this)
+
+        val intent = intent
+        val id = intent.getStringExtra("ProductID")
+        val location = intent.getStringExtra("ProductLoc")
+        val name = intent.getStringExtra("ProductName")
+        val qty = intent.getStringExtra("ProductQty")
+        val price = intent.getStringExtra("ProductPrice")
+        val category = intent.getStringExtra("ProductCategory")
+        val size = intent.getStringExtra("ProductSize")
+        val image = intent.getByteArrayExtra("ProductImg")
+
+        val myID = findViewById<TextView>(R.id.ProductIDInput)
+        myID.text = id
+
+        val myLocation = findViewById<EditText>(R.id.LocationText)
+        myLocation.setText(location)
+
+        val myName = findViewById<EditText>(R.id.ProductNameText)
+        myName.setText(name)
+
+        val myQty = findViewById<EditText>(R.id.QuantityText)
+        myQty.setText(qty)
+
+        val myPrice = findViewById<EditText>(R.id.PriceText)
+        myPrice.setText(price)
+
+        val myCategory = findViewById<TextView>(R.id.CategoryInput)
+        myCategory.text = category
+
+        val mySize = findViewById<TextView>(R.id.SizeInput)
+        mySize.text = size
+
+        val myImg = findViewById<ImageView>(R.id.productImage)
+        val options: BitmapFactory.Options? = BitmapFactory.Options()
+        val bitmap = BitmapFactory.decodeByteArray(image, 0, image!!.size, options)
+        myImg.setImageBitmap(bitmap)
+
 
         val backBtn = findViewById<ImageButton>(R.id.backButton)
         backBtn.setOnClickListener{
+
+            val sessionId = intent.getStringExtra("emailAddress")
+            val sessionId1 = intent.getStringExtra("name")
+
+            intent.putExtra("emailAddress", sessionId)
+            intent.putExtra("name", sessionId1)
+
             val intent = Intent(this, ItemInfo::class.java)
-            val sessionId = getIntent().getStringExtra("emailAddress")
-            val sessionId1 = getIntent().getStringExtra("name")
-            intent.putExtra("emailAddress", sessionId);
-            intent.putExtra("name", sessionId1);
             startActivity(intent)
         }
 
@@ -40,6 +83,7 @@ class EditItem : AppCompatActivity() {
             val myProductLoc = findViewById<EditText>(R.id.LocationText)
             val checkProductLoc = validateProductLoc(myProductLoc)
 
+
             if (checkProductName && checkProductQty && checkProductPrice && checkProductLoc)
             {
                 val builder = AlertDialog.Builder(this)
@@ -56,8 +100,8 @@ class EditItem : AppCompatActivity() {
                         val intent = Intent(this, HomeScreen::class.java)
                         val sessionId = getIntent().getStringExtra("emailAddress")
                         val sessionId1 = getIntent().getStringExtra("name")
-                        intent.putExtra("emailAddress", sessionId);
-                        intent.putExtra("name", sessionId1);
+                        intent.putExtra("emailAddress", sessionId)
+                        intent.putExtra("name", sessionId1)
                         startActivity(intent)
                     })
 
@@ -65,7 +109,7 @@ class EditItem : AppCompatActivity() {
                 builder.setNegativeButton("Cancel",
                     DialogInterface.OnClickListener { dialog, id ->
                         Toast.makeText(this, "Cancelled Edit Item Information!", Toast.LENGTH_SHORT).show()
-                    });
+                    })
 
                 //Create the AlertDialog
                 val alertDialog: AlertDialog = builder.create()
@@ -104,8 +148,8 @@ class EditItem : AppCompatActivity() {
             //performing negative action
             builder.setNegativeButton("No",
                 DialogInterface.OnClickListener { dialog, id ->
-                    //Toast.makeText(this, "Cancel Clear!", Toast.LENGTH_SHORT).show()
-                });
+                    Toast.makeText(this, "Cancel Clear!", Toast.LENGTH_SHORT).show()
+                })
 
             //Create the AlertDialog
             val alertDialog:AlertDialog = builder.create()
