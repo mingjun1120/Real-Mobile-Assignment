@@ -21,11 +21,11 @@ class ChangePassword : AppCompatActivity() {
 
         dbHelper = DBHelper(this)
 
-        val sessionId = getIntent().getStringExtra("emailAddress")
-        val sessionId1 = getIntent().getStringExtra("name")
+        val sessionId = intent.getStringExtra("emailAddress")
+        val sessionId1 = intent.getStringExtra("name")
 
         val hello_username = findViewById<TextView>(R.id.hello_Username)
-        hello_username.text = "Hello,$sessionId1"
+        hello_username.text = "Hello, $sessionId1"
 
         val backBtn = findViewById<ImageButton>(R.id.backButton)
         backBtn.setOnClickListener{
@@ -72,7 +72,7 @@ class ChangePassword : AppCompatActivity() {
                         intent.putExtra("emailAddress", sessionId)
                         intent.putExtra("name", sessionId1)
                         startActivity(intent)
-                    });
+                    })
 
                 //Create the AlertDialog
                 val alertDialog: AlertDialog = builder.create()
@@ -112,7 +112,7 @@ class ChangePassword : AppCompatActivity() {
                 builder.setNegativeButton("Cancel",
                     DialogInterface.OnClickListener { dialog, id ->
                         Toast.makeText(this, "Cancelled change password!", Toast.LENGTH_SHORT).show()
-                    });
+                    })
 
                 //Create the AlertDialog
                 val alertDialog: AlertDialog = builder.create()
