@@ -22,16 +22,16 @@ class EditProfile : AppCompatActivity() {
         setContentView(R.layout.activity_edit_profile)
 
         dbHelper = DBHelper(this)
-        val intent = intent
-        var sessionId = getIntent().getStringExtra("emailAddress")
-        var sessionId1 = getIntent().getStringExtra("name")
+        //val intent = intent
+        var sessionId = intent.getStringExtra("emailAddress")
+        var sessionId1 = intent.getStringExtra("name")
 
         val email = findViewById<TextView>(R.id.editTextTextEmailAddress)
         val Username = findViewById<TextView>(R.id.Username)
         val hello_username = findViewById<TextView>(R.id.hello_Username)
 
         email.text = sessionId
-        hello_username.text = "Hello,$sessionId1"
+        hello_username.text = "Hello, $sessionId1"
         Username.text = sessionId1
 
         val backBtn = findViewById<ImageButton>(R.id.backButton)
@@ -84,7 +84,7 @@ class EditProfile : AppCompatActivity() {
                 builder.setNegativeButton("Cancel",
                     DialogInterface.OnClickListener { dialog, id ->
                         Toast.makeText(this, "Cancelled Edit Profile!", Toast.LENGTH_SHORT).show()
-                    });
+                    })
 
                 //Create the AlertDialog
                 val alertDialog: AlertDialog = builder.create()
