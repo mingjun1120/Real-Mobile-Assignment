@@ -22,7 +22,7 @@
         <activity android:name=".StockIn" />
         <activity android:name=".StockOut" />
         <activity android:name=".StockInList" />
-        <activity android:name=".EditItem" />
+        <activity android:name=".EditItem" android:parentActivityName=".ItemInfo"/>
         <activity android:name=".ItemInfo" />
         <activity android:name=".stockInForm" />
         <activity android:name=".stockOutForm" />
