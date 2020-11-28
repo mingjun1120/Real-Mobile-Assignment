@@ -6,6 +6,7 @@ import android.os.Bundle
 import android.text.SpannableStringBuilder
 import android.widget.EditText
 import android.widget.ImageButton
+import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
@@ -20,6 +21,27 @@ class stockInForm : AppCompatActivity() {
         val sessionId = intent.getStringExtra("emailAddress")
         val sessionId1 = intent.getStringExtra("name")
 
+        //Retrieving value from RecycleView
+        val intent = intent
+        val category = intent.getStringExtra("ProductCategory")
+        val name = intent.getStringExtra("ProductName")
+        val size = intent.getStringExtra("ProductSize")
+        val qty = intent.getStringExtra("ProductQty")
+
+        val myCategory = findViewById<TextView>(R.id.CategoryInput)
+        myCategory.text = category
+
+        val myName = findViewById<TextView>(R.id.ProductInput)
+        myName.text = name
+
+        val mySize = findViewById<TextView>(R.id.SizeInput)
+        mySize.text = size
+
+        val myQty = findViewById<EditText>(R.id.QuantityText)
+        myQty.setText(qty)
+
+
+        //BACK BUTTON
         val backBtn = findViewById<ImageButton>(R.id.backButton)
         backBtn.setOnClickListener{
             val intent = Intent(this, StockInList::class.java)
@@ -66,11 +88,11 @@ class stockInForm : AppCompatActivity() {
                 builder.setPositiveButton("Confirm",
                     DialogInterface.OnClickListener { dialog, id ->
                         Toast.makeText(this,"Successfully Added!", Toast.LENGTH_SHORT).show()
-                        val intent = Intent(this, HomeScreen::class.java)
                         val sessionId = getIntent().getStringExtra("emailAddress")
                         val sessionId1 = getIntent().getStringExtra("name")
                         intent.putExtra("emailAddress", sessionId)
                         intent.putExtra("name", sessionId1)
+                        val intent = Intent(this, HomeScreen::class.java)
                         startActivity(intent)
                     })
 
