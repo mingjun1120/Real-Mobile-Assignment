@@ -1,6 +1,7 @@
 package com.example.warehouselimmimgjun.adapter
 
 import android.content.Context
+import android.content.Intent
 import android.graphics.Bitmap
 import android.graphics.BitmapFactory
 import android.util.Base64
@@ -13,8 +14,10 @@ import android.widget.ImageView
 import android.widget.TextView
 import android.widget.Toast
 import androidx.recyclerview.widget.RecyclerView
+import com.example.warehouselimmingjun.EditItem
 import com.example.warehouselimmingjun.R
 import com.example.warehouselimmingjun.model.Item
+import com.example.warehouselimmingjun.stockInForm
 
 
 class ItemAdapter(
@@ -36,9 +39,6 @@ class ItemAdapter(
             icon.setImageBitmap(bitmap)
             name.text = item.id
             desc.text = item.name
-            addBtn.setOnClickListener {
-                listener(item)
-            }
         }
     }
 
@@ -50,6 +50,29 @@ class ItemAdapter(
 
     override fun onBindViewHolder(holder: ImageViewHolder, position: Int) {
         holder.bindmodel(images[position])
+
+        holder.addBtn.setOnClickListener {
+
+            //Get position on selected item
+            val model = images[position]
+
+            val category = model.category
+            val name = model.name
+            val size = model.size
+            val qty = model.quantity
+
+            //Create intent with kotlin
+            val intent = Intent(context, stockInForm::class.java)
+
+            // Now put all these items with put extra intent
+            intent.putExtra("ProductCategory", category)
+            intent.putExtra("ProductName", name)
+            intent.putExtra("ProductSize", size)
+            intent.putExtra("ProductQty", qty)
+
+            //Start another activity
+            context.startActivity(intent)
+        }
     }
 
     override fun getItemCount(): Int {
