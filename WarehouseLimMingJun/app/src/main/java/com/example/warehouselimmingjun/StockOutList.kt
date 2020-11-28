@@ -41,27 +41,27 @@ class StockOutList : AppCompatActivity() {
         if(shirt == "shirt"){
             shirtList = dbHelper.retrieveShirtItem()
             recyclerView.layoutManager = LinearLayoutManager(this)
-            recyclerView.adapter = ItemAdapter(this, shirtList){
-                val intent = Intent(this, stockOutForm::class.java)
+            recyclerView.adapter = ItemOutAdapter(this, shirtList){
+                //val intent = Intent(this, stockOutForm::class.java)
                 intent.putExtra("Shirt", "shirt")
-                val sessionId = getIntent().getStringExtra("emailAddress")
-                val sessionId1 = getIntent().getStringExtra("name")
+                val sessionId = intent.getStringExtra("emailAddress")
+                val sessionId1 = intent.getStringExtra("name")
                 intent.putExtra("emailAddress", sessionId)
                 intent.putExtra("name", sessionId1)
-                startActivity(intent)
+                //startActivity(intent)
             }
         }
         else if(shoes == "shoes"){
             shoeList =  dbHelper.retrieveShoesItem()
             recyclerView.layoutManager = LinearLayoutManager(this)
-            recyclerView.adapter = ItemAdapter(this, shoeList){
-                val intent = Intent(this, stockOutForm::class.java)
+            recyclerView.adapter = ItemOutAdapter(this, shoeList){
+                //val intent = Intent(this, stockOutForm::class.java)
                 intent.putExtra("Shoes", "shoes")
-                val sessionId = getIntent().getStringExtra("emailAddress")
-                val sessionId1 = getIntent().getStringExtra("name")
+                val sessionId = intent.getStringExtra("emailAddress")
+                val sessionId1 = intent.getStringExtra("name")
                 intent.putExtra("emailAddress", sessionId)
                 intent.putExtra("name", sessionId1)
-                startActivity(intent)
+                //startActivity(intent)
             }
         }
     }
