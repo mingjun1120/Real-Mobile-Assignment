@@ -6,6 +6,7 @@ import android.os.Bundle
 import android.text.SpannableStringBuilder
 import android.widget.EditText
 import android.widget.ImageButton
+import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
@@ -19,6 +20,25 @@ class stockOutForm : AppCompatActivity() {
         val shoes = intent.getStringExtra("Shoes")
         val sessionId = intent.getStringExtra("emailAddress")
         val sessionId1 = intent.getStringExtra("name")
+
+        //Retrieving value from RecycleView
+        val intent = intent
+        val category = intent.getStringExtra("ProductCategory")
+        val name = intent.getStringExtra("ProductName")
+        val size = intent.getStringExtra("ProductSize")
+        val qty = intent.getStringExtra("ProductQty")
+
+        val myCategory = findViewById<TextView>(R.id.CategoryInput)
+        myCategory.text = category
+
+        val myName = findViewById<TextView>(R.id.ProductInput)
+        myName.text = name
+
+        val mySize = findViewById<TextView>(R.id.SizeInput)
+        mySize.text = size
+
+        val myQty = findViewById<EditText>(R.id.QuantityText)
+        myQty.setText(qty)
 
         val backBtn = findViewById<ImageButton>(R.id.backButton)
         backBtn.setOnClickListener{
