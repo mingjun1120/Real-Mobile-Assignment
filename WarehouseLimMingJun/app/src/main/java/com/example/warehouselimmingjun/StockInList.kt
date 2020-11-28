@@ -63,5 +63,18 @@ class StockInList : AppCompatActivity() {
                 startActivity(intent)
             }
         }
+
+
+       /* val itemList = listOf<ItemList>(
+            ItemList(R.drawable.shirt, "ST0001M", "Pink TShirt"),
+            ItemList(R.drawable.shirt, "ST0001L", "Pink TShirt")
+        )*/
+
+
+
+       // recyclerView.adapter = ItemAdapter(this, itemList) {
+            //addBtn.setOnClickListener{
+
+
     }
 }
