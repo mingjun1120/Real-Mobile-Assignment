@@ -33,14 +33,12 @@
 
     <ImageView
         android:id="@+id/background"
-        android:layout_width="380dp"
-        android:layout_height="510dp"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="4dp"
-        android:layout_marginEnd="16dp"
+        android:layout_width="wrap_content"
+        android:layout_height="532dp"
         android:contentDescription="@string/background_pinkroundsquare"
+        android:scaleType="fitXY"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintHorizontal_bias="0.488"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/itemInfo"
         app:srcCompat="@drawable/rectangle_53" />
@@ -145,8 +143,8 @@
         android:id="@+id/photo_button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="168dp"
-        android:layout_marginTop="52dp"
+        android:layout_marginStart="195dp"
+        android:layout_marginTop="32dp"
         android:background="@color/Transparent"
         android:contentDescription="@string/cameraicon"
         app:layout_constraintStart_toStartOf="@+id/background"
@@ -158,7 +156,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="24dp"
-        android:layout_marginTop="12dp"
+        android:layout_marginTop="10dp"
         android:background="@color/Transparent"
         android:contentDescription="@string/confirmbtn"
         app:layout_constraintStart_toStartOf="@+id/background"
@@ -169,7 +167,7 @@
         android:id="@+id/clearButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="12dp"
+        android:layout_marginTop="10dp"
         android:layout_marginEnd="24dp"
         android:background="@color/Transparent"
         android:contentDescription="@string/clearbtn"
@@ -240,12 +238,12 @@
         app:layout_constraintTop_toBottomOf="@+id/price" />
 
     <ImageView
-        android:id="@+id/imageView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginEnd="20dp"
-        android:contentDescription="@string/itemimage"
-        app:layout_constraintEnd_toStartOf="@+id/photo_button"
+        android:id="@+id/productImage"
+        android:layout_width="165dp"
+        android:layout_height="165dp"
+        android:layout_marginStart="24dp"
+        android:scaleType="fitXY"
+        app:layout_constraintStart_toStartOf="@+id/background"
         app:layout_constraintTop_toBottomOf="@+id/image"
         tools:srcCompat="@tools:sample/avatars" />
 
@@ -255,6 +253,9 @@
         android:layout_height="28dp"
         android:layout_marginStart="24dp"
         android:layout_marginTop="4dp"
+        android:textColor="@color/BlueDarkOpa80"
+        android:textSize="20sp"
+        android:textStyle="italic"
         app:layout_constraintStart_toStartOf="@+id/background"
         app:layout_constraintTop_toBottomOf="@+id/productID" />
 
@@ -264,6 +265,9 @@
         android:layout_height="28dp"
         android:layout_marginStart="24dp"
         android:layout_marginTop="4dp"
+        android:textColor="@color/BlueDarkOpa80"
+        android:textSize="20sp"
+        android:textStyle="italic"
         app:layout_constraintStart_toStartOf="@+id/background"
         app:layout_constraintTop_toBottomOf="@+id/category" />
 
@@ -273,6 +277,9 @@
         android:layout_height="28dp"
         android:layout_marginTop="4dp"
         android:layout_marginEnd="24dp"
+        android:textColor="@color/BlueDarkOpa80"
+        android:textSize="20sp"
+        android:textStyle="italic"
         app:layout_constraintEnd_toEndOf="@+id/background"
         app:layout_constraintTop_toBottomOf="@+id/size" />
 
