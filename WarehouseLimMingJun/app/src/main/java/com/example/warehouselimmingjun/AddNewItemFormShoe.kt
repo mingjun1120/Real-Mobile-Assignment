@@ -21,7 +21,6 @@ import java.io.ByteArrayOutputStream
 class AddNewItemFormShoe : AppCompatActivity(), AdapterView.OnItemSelectedListener {
     internal lateinit var dbHelper: DBHelper_item
     private val PHOTO = 1
-
     override fun onCreate(savedInstanceState: Bundle?)
     {
         super.onCreate(savedInstanceState)
@@ -40,6 +39,10 @@ class AddNewItemFormShoe : AppCompatActivity(), AdapterView.OnItemSelectedListen
         val backBtn = findViewById<ImageButton>(R.id.backButton)
         backBtn.setOnClickListener{
             val intent = Intent(this, AddNewItem::class.java)
+            val sessionId = getIntent().getStringExtra("emailAddress")
+            val sessionId1 = getIntent().getStringExtra("name")
+            intent.putExtra("emailAddress", sessionId)
+            intent.putExtra("name", sessionId1)
             startActivity(intent)
         }
 
@@ -85,26 +88,25 @@ class AddNewItemFormShoe : AppCompatActivity(), AdapterView.OnItemSelectedListen
             val myProductPrice = findViewById<EditText>(R.id.PriceText)
             val checkProductPrice = validateProductPrice(myProductPrice)
 
-            val myProductCategory = findViewById<TextView>(R.id.shoeCategory)
-
             val myProductLoc = findViewById<EditText>(R.id.LocationText)
             val checkProductLoc = validateProductLoc(myProductLoc)
 
+            val myProductCategory = findViewById<TextView>(R.id.shoeCategory)
             val myProductSize: Spinner = findViewById<Spinner>(R.id.spinner1)
 
             val productImage = findViewById<ImageView>(R.id.productImage)
             val checkProductImg = validateProductImg(productImage)
 
-            //Convert ImageView to BitMap
-            val bitmap = productImage.drawable.toBitmap()
-
-            //Compress the bitmap
-            val stream = ByteArrayOutputStream()
-            bitmap.compress(Bitmap.CompressFormat.JPEG, 100, stream)
-            val image1 = stream.toByteArray()
-
             if(checkProductID && checkProductName && checkProductQty && checkProductPrice && checkProductLoc && checkProductImg)
             {
+                //Convert ImageView to BitMap
+                val bitmap = productImage.drawable.toBitmap()
+
+                //Compress the bitmap
+                val stream = ByteArrayOutputStream()
+                bitmap.compress(Bitmap.CompressFormat.JPEG, 100, stream)
+                val image1 = stream.toByteArray()
+
                 val builder = AlertDialog.Builder(this)
                 //Set title for alert dialog
                 builder.setTitle("Add New Item Confirmation")
@@ -207,7 +209,7 @@ class AddNewItemFormShoe : AppCompatActivity(), AdapterView.OnItemSelectedListen
             myProductID.error = "Only uppercase and numeric characters!"
         }
         else if (!(myPattern.matches(myProductID.text.toString()))) {
-            myProductID.error = "Format wrong! eg: SH0001 to SH9999"
+            myProductID.error = "Format wrong! Ex: ST0001(Size) = ST0001M"
         }
         else {
             myProductID.error = null
@@ -218,7 +220,7 @@ class AddNewItemFormShoe : AppCompatActivity(), AdapterView.OnItemSelectedListen
 
     private fun validateProductName(myProductName: EditText): Boolean {
 
-        val myPattern: Regex = Regex("^[A-Z][A-Za-z()* ]*\$")
+        val myPattern: Regex = Regex("^[A-Z][A-Za-z0-9()_* -]*\$")
 
         if (myProductName.text.toString().isEmpty()) {
             myProductName.error = "Field can't be empty!"
@@ -288,7 +290,7 @@ class AddNewItemFormShoe : AppCompatActivity(), AdapterView.OnItemSelectedListen
         }
         else if (!(myPattern.matches(myProductLoc.text.toString()))) {
             //myProductLoc.error = "Format: LOC + number(0-9) + section(A-Z)"
-            myProductLoc.error = "Format wrong! eg. LOC000A - LOC999Z."
+            myProductLoc.error = "Format wrong! eg. LOT000A - LOT999Z."
         }
         else {
             myProductLoc.error = null
@@ -313,7 +315,7 @@ class AddNewItemFormShoe : AppCompatActivity(), AdapterView.OnItemSelectedListen
     }
 
     override fun onNothingSelected(parent: AdapterView<*>?) {
-        TODO("Not yet implemented")
+
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
@@ -328,11 +330,6 @@ class AddNewItemFormShoe : AppCompatActivity(), AdapterView.OnItemSelectedListen
 
             val productImage = findViewById<ImageView>(R.id.productImage)
             productImage.setImageURI(data.data)
-
-            //val inputStream = contentResolver.openInputStream(data.data!!)
-            //val selectedImage = BitmapFactory.decodeStream(inputStream)
-            //image!!.setImageBitmap(selectedImage)
-            //imageStore(selectedImage)
         }
     }
 

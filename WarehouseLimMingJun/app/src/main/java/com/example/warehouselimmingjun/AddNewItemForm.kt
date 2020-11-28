@@ -28,7 +28,6 @@ import android.util.Log
 
 class AddNewItemForm : AppCompatActivity(), AdapterView.OnItemSelectedListener {
     internal lateinit var dbHelper: DBHelper_item
-    val util: Utils? = null
     private val PHOTO = 1
     override fun onCreate(savedInstanceState: Bundle?)
     {
@@ -55,8 +54,8 @@ class AddNewItemForm : AppCompatActivity(), AdapterView.OnItemSelectedListener {
             val intent = Intent(this, AddNewItem::class.java)
             val sessionId = getIntent().getStringExtra("emailAddress")
             val sessionId1 = getIntent().getStringExtra("name")
-            intent.putExtra("emailAddress", sessionId);
-            intent.putExtra("name", sessionId1);
+            intent.putExtra("emailAddress", sessionId)
+            intent.putExtra("name", sessionId1)
             startActivity(intent)
         }
 
@@ -112,9 +111,6 @@ class AddNewItemForm : AppCompatActivity(), AdapterView.OnItemSelectedListener {
             val productImage = findViewById<ImageView>(R.id.productImage)
             val checkProductImg = validateProductImg(productImage)
 
-
-
-
             if(checkProductID && checkProductName && checkProductQty && checkProductPrice && checkProductLoc && checkProductImg)
             {
                 //Convert ImageView to BitMap
@@ -124,6 +120,7 @@ class AddNewItemForm : AppCompatActivity(), AdapterView.OnItemSelectedListener {
                 val stream = ByteArrayOutputStream()
                 bitmap.compress(Bitmap.CompressFormat.JPEG, 100, stream)
                 val image1 = stream.toByteArray()
+
                 //Build Dialog
                 val builder = AlertDialog.Builder(this)
                 //Set title for alert dialog

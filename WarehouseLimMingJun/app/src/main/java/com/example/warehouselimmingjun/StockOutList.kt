@@ -23,16 +23,16 @@ class StockOutList : AppCompatActivity() {
         var shoeList = listOf<Item>()
         dbHelper = DBHelper_item(this)
 
-        val shirt = getIntent().getStringExtra("Shirt")
-        val shoes = getIntent().getStringExtra("Shoes")
+        val shirt = intent.getStringExtra("Shirt")
+        val shoes = intent.getStringExtra("Shoes")
 
         val backBtn = findViewById<ImageButton>(R.id.backButton)
         backBtn.setOnClickListener {
             val intent = Intent(this, StockOut::class.java)
             val sessionId = getIntent().getStringExtra("emailAddress")
             val sessionId1 = getIntent().getStringExtra("name")
-            intent.putExtra("emailAddress", sessionId);
-            intent.putExtra("name", sessionId1);
+            intent.putExtra("emailAddress", sessionId)
+            intent.putExtra("name", sessionId1)
             startActivity(intent)
         }
 
@@ -46,8 +46,8 @@ class StockOutList : AppCompatActivity() {
                 intent.putExtra("Shirt", "shirt")
                 val sessionId = getIntent().getStringExtra("emailAddress")
                 val sessionId1 = getIntent().getStringExtra("name")
-                intent.putExtra("emailAddress", sessionId);
-                intent.putExtra("name", sessionId1);
+                intent.putExtra("emailAddress", sessionId)
+                intent.putExtra("name", sessionId1)
                 startActivity(intent)
             }
         }
@@ -59,8 +59,8 @@ class StockOutList : AppCompatActivity() {
                 intent.putExtra("Shoes", "shoes")
                 val sessionId = getIntent().getStringExtra("emailAddress")
                 val sessionId1 = getIntent().getStringExtra("name")
-                intent.putExtra("emailAddress", sessionId);
-                intent.putExtra("name", sessionId1);
+                intent.putExtra("emailAddress", sessionId)
+                intent.putExtra("name", sessionId1)
                 startActivity(intent)
             }
         }
