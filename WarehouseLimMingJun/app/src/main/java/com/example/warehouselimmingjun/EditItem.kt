@@ -110,7 +110,7 @@ class EditItem : AppCompatActivity() {
                 //performing negative action
                 builder.setNegativeButton("Cancel",
                     DialogInterface.OnClickListener { dialog, id ->
-                        Toast.makeText(this, "Cancelled Edit Item Information!", Toast.LENGTH_SHORT).show()
+                        Toast.makeText(this, "Cancelled!", Toast.LENGTH_SHORT).show()
                     })
 
                 //Create the AlertDialog
