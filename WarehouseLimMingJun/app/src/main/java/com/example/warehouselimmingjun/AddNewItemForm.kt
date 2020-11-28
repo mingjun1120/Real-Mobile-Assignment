@@ -30,7 +30,8 @@ class AddNewItemForm : AppCompatActivity(), AdapterView.OnItemSelectedListener {
     internal lateinit var dbHelper: DBHelper_item
     val util: Utils? = null
     private val PHOTO = 1
-    override fun onCreate(savedInstanceState: Bundle?) {
+    override fun onCreate(savedInstanceState: Bundle?)
+    {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_add_new_item_form)
         dbHelper = DBHelper_item(this)
@@ -44,9 +45,9 @@ class AddNewItemForm : AppCompatActivity(), AdapterView.OnItemSelectedListener {
 
         }
 
-//        val category =intent.getStringExtra("Category")
-//        val categoryText = findViewById<TextView>(R.id.CategoryText)
-//        categoryText.text = category
+        //val category =intent.getStringExtra("Category")
+        //val categoryText = findViewById<TextView>(R.id.CategoryText)
+        //categoryText.text = category
 
         // BACK BUTTON
         val backBtn = findViewById<ImageButton>(R.id.backButton)
@@ -90,8 +91,6 @@ class AddNewItemForm : AppCompatActivity(), AdapterView.OnItemSelectedListener {
         val confirmBtn = findViewById<ImageButton>(R.id.confirmButton)
         confirmBtn.setOnClickListener{
 
-            //val intent = Intent(this, HomeScreen::class.java)
-
             val myProductID = findViewById<EditText>(R.id.ProductIDText)
             val checkProductID = validateProductID(myProductID)
 
@@ -108,34 +107,40 @@ class AddNewItemForm : AppCompatActivity(), AdapterView.OnItemSelectedListener {
             val checkProductLoc = validateProductLoc(myProductLoc)
 
             val myProductCategory = findViewById<TextView>(R.id.shirtCategory)
-            var myProductSize: Spinner = findViewById<Spinner>(R.id.spinner1)
+            val myProductSize: Spinner = findViewById<Spinner>(R.id.spinner1)
 
-            var productImage = findViewById<ImageView>(R.id.productImage)
+            val productImage = findViewById<ImageView>(R.id.productImage)
             val checkProductImg = validateProductImg(productImage)
-            //val bitmap = (productImage as BitmapDrawable).bitmap
+
+            //Convert ImageView to BitMap
             val bitmap = productImage.drawable.toBitmap()
 
+            //Compress the bitmap
             val stream = ByteArrayOutputStream()
             bitmap.compress(Bitmap.CompressFormat.JPEG, 100, stream)
             val image1 = stream.toByteArray()
 
             if(checkProductID && checkProductName && checkProductQty && checkProductPrice && checkProductLoc && checkProductImg)
             {
-
+                //Build Dialog
                 val builder = AlertDialog.Builder(this)
-                //set title for alert dialog
+                //Set title for alert dialog
                 builder.setTitle("Add New Item Confirmation")
-                //set message for alert dialog
+                //Set message for alert dialog
                 builder.setMessage("Confirm Add New Item?")
-                //builder.setIcon(android.R.drawable.ic_dialog_alert)
 
                 //performing positive action
-                builder.setPositiveButton("Confirm",DialogInterface.OnClickListener { dialog, id -> Toast.makeText(this, "New item added successfully!", Toast.LENGTH_SHORT).show()
-                     dbHelper.addItem(myProductID.text.toString(), myProductName.text.toString(),myProductQty.text.toString(), myProductCategory.text.toString(),
-                         myProductPrice.text.toString(),
-                         myProductSize.selectedItem.toString(),
-                         myProductLoc.text.toString(),
-                         image1)
+                builder.setPositiveButton("Confirm", DialogInterface.OnClickListener { dialog, id ->
+                    Toast.makeText(this, "New item added successfully!", Toast.LENGTH_SHORT).show()
+                    dbHelper.addItem(
+                        myProductID.text.toString(),
+                        myProductName.text.toString(),
+                        myProductQty.text.toString(),
+                        myProductCategory.text.toString(),
+                        myProductPrice.text.toString(),
+                        myProductSize.selectedItem.toString(),
+                        myProductLoc.text.toString(),
+                        image1)
                      val intent = Intent(this, HomeScreen::class.java)
                     val sessionId = getIntent().getStringExtra("emailAddress")
                     val sessionId1 = getIntent().getStringExtra("name")
@@ -162,11 +167,10 @@ class AddNewItemForm : AppCompatActivity(), AdapterView.OnItemSelectedListener {
         val clearBtn = findViewById<ImageButton>(R.id.clearButton)
         clearBtn.setOnClickListener{
             val builder = AlertDialog.Builder(this)
-            //set title for alert dialog
+            //Set title for alert dialog
             builder.setTitle("Clear Action Confirmation")
-            //set message for alert dialog
+            //Set message for alert dialog
             builder.setMessage("Sure to clear data?")
-            //builder.setIcon(android.R.drawable.ic_dialog_alert)
 
             //performing positive action
             builder.setPositiveButton("Yes",
@@ -187,7 +191,6 @@ class AddNewItemForm : AppCompatActivity(), AdapterView.OnItemSelectedListener {
                     val myProductPrice = findViewById<EditText>(R.id.PriceText)
                     myProductPrice.setText("")
 
-                    //adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
                     spinner.adapter = adapter
 
                     image.setImageDrawable(null)
@@ -196,7 +199,7 @@ class AddNewItemForm : AppCompatActivity(), AdapterView.OnItemSelectedListener {
             //performing negative action
             builder.setNegativeButton("No",
                 DialogInterface.OnClickListener { dialog, id ->
-                    //Toast.makeText(this, "Cancel Clear!", Toast.LENGTH_SHORT).show()
+                    Toast.makeText(this, "Cancel Clear!", Toast.LENGTH_SHORT).show()
                 });
 
             //Create the AlertDialog
@@ -233,7 +236,7 @@ class AddNewItemForm : AppCompatActivity(), AdapterView.OnItemSelectedListener {
 
     private fun validateProductName(myProductName: EditText): Boolean {
 
-        val myPattern: Regex = Regex("^[A-Z][A-Za-z()* ]*\$")
+        val myPattern: Regex = Regex("^[A-Z][A-Za-z0-9()* ]*\$")
 
         if (myProductName.text.toString().isEmpty()) {
             myProductName.error = "Field can't be empty!"
@@ -326,12 +329,10 @@ class AddNewItemForm : AppCompatActivity(), AdapterView.OnItemSelectedListener {
     {
         val text = parent!!.getItemAtPosition(position).toString()
         //Toast.makeText(parent.context, text, Toast.LENGTH_SHORT).show()
-        //val bb = parent.getItemAtPosition(position).toString()
-        //Toast.makeText(parent.context, text, Toast.LENGTH_SHORT).show()
     }
 
     override fun onNothingSelected(parent: AdapterView<*>?) {
-        TODO("Not yet implemented")
+
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
@@ -341,27 +342,10 @@ class AddNewItemForm : AppCompatActivity(), AdapterView.OnItemSelectedListener {
             if (data == null) {
                 //Display an error
                 Toast.makeText(this, "No image selected!", Toast.LENGTH_SHORT).show()
-                return;
+                return
             }
             val productImage = findViewById<ImageView>(R.id.productImage)
             productImage.setImageURI(data.data)
-
-            //val inputStream = contentResolver.openInputStream(data.data!!)
-            //val selectedImage = BitmapFactory.decodeStream(inputStream)
-            //image!!.setImageBitmap(selectedImage)
-            //imageStore(selectedImage)
-
-            //when (requestCode) {
-            //SELECT_PHOTO -> if (resultCode == RESULT_OK) {
-                //try {
-                //    val imageUri: Uri = imageReturnedIntent.getData()
-                //    val imageStream: InputStream? = contentResolver.openInputStream(imageUri)
-                //    val selectedImage = BitmapFactory.decodeStream(imageStream)
-                //    imageView.setImageBitmap(selectedImage)
-                //} catch (e: FileNotFoundException) {
-                //    e.printStackTrace()
-                //}
-            //}
         }
     }
 

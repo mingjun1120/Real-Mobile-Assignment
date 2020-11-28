@@ -15,8 +15,8 @@ class stockOutForm : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_stock_out_form)
 
-        val shirt = getIntent().getStringExtra("Shirt")
-        val shoes = getIntent().getStringExtra("Shoes")
+        val shirt = intent.getStringExtra("Shirt")
+        val shoes = intent.getStringExtra("Shoes")
 
         val backBtn = findViewById<ImageButton>(R.id.backButton)
         backBtn.setOnClickListener{
@@ -49,8 +49,6 @@ class stockOutForm : AppCompatActivity() {
         val confirmBtn1 = findViewById<ImageButton>(R.id.confirmButton)
         confirmBtn1.setOnClickListener{
 
-            //val intent = Intent(this, HomeScreen::class.java)
-
             val myQty = findViewById<EditText>(R.id.QuantityText)
             val checkQty = validateQtyField(myQty)
 
@@ -61,12 +59,11 @@ class stockOutForm : AppCompatActivity() {
                 builder.setTitle("Stock Out Confirmation")
                 //set message for alert dialog
                 builder.setMessage("Confirm Out Stock?")
-                //builder.setIcon(android.R.drawable.ic_dialog_alert)
 
                 //performing positive action
                 builder.setPositiveButton("Confirm",
                     DialogInterface.OnClickListener { dialog, id ->
-                        Toast.makeText(this,"Stock sent out successfully!", Toast.LENGTH_SHORT).show()
+                        Toast.makeText(this,"Successfully Sent Out!", Toast.LENGTH_SHORT).show()
                         val intent = Intent(this, HomeScreen::class.java)
                         startActivity(intent)
                     })
@@ -74,8 +71,8 @@ class stockOutForm : AppCompatActivity() {
                 //performing negative action
                 builder.setNegativeButton("Cancel",
                     DialogInterface.OnClickListener { dialog, id ->
-                        Toast.makeText(this, "Cancelled Out Stock!", Toast.LENGTH_SHORT).show()
-                    });
+                        Toast.makeText(this, "Cancelled!", Toast.LENGTH_SHORT).show()
+                    })
 
                 //Create the AlertDialog
                 val alertDialog: AlertDialog = builder.create()
@@ -106,7 +103,7 @@ class stockOutForm : AppCompatActivity() {
             builder.setNegativeButton("No",
                 DialogInterface.OnClickListener { dialog, id ->
                     //Toast.makeText(this, "Cancel Clear!", Toast.LENGTH_SHORT).show()
-                });
+                })
 
             //Create the AlertDialog
             val alertDialog: AlertDialog = builder.create()

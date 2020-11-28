@@ -6,6 +6,7 @@ import android.text.TextUtils
 import android.util.Patterns
 import android.widget.Button
 import android.widget.EditText
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.example.warehouselimmingjun.DBHelper.DBHelper
 import com.example.warehouselimmingjun.model.Register
@@ -56,6 +57,7 @@ class RegisterActivity : AppCompatActivity() {
                 }
                 else {
                     dbHelper.addregister(register)
+                    Toast.makeText(this, "Successfully Registered!", Toast.LENGTH_SHORT).show()
                     startActivity(intent)
                 }
             }
