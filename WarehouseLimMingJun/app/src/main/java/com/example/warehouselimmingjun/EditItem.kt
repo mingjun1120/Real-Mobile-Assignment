@@ -70,6 +70,8 @@ class EditItem : AppCompatActivity() {
         val confirmBtn = findViewById<ImageButton>(R.id.confirmButton)
         confirmBtn.setOnClickListener{
 
+            val myCategory = findViewById<TextView>(R.id.CategoryInput)
+
             val myProductName = findViewById<EditText>(R.id.ProductNameText)
             val checkProductName = validateProductName(myProductName)
 
@@ -79,9 +81,8 @@ class EditItem : AppCompatActivity() {
             val myProductPrice = findViewById<EditText>(R.id.PriceText)
             val checkProductPrice = validateProductPrice(myProductPrice)
 
-            // Need to check which category first only can validate(This is for validate shirt location only!)
             val myProductLoc = findViewById<EditText>(R.id.LocationText)
-            val checkProductLoc = validateProductLoc(myProductLoc)
+            val checkProductLoc = validateProductLoc(myProductLoc, myCategory)
 
 
             if (checkProductName && checkProductQty && checkProductPrice && checkProductLoc)
@@ -96,12 +97,13 @@ class EditItem : AppCompatActivity() {
                 //performing positive action
                 builder.setPositiveButton("Confirm",
                     DialogInterface.OnClickListener { dialog, id ->
+                        // Put your dbHelper here to edit changes
                         Toast.makeText(this,"Item edit successfully!", Toast.LENGTH_SHORT).show()
-                        val intent = Intent(this, HomeScreen::class.java)
                         val sessionId = getIntent().getStringExtra("emailAddress")
                         val sessionId1 = getIntent().getStringExtra("name")
                         intent.putExtra("emailAddress", sessionId)
                         intent.putExtra("name", sessionId1)
+                        val intent = Intent(this, HomeScreen::class.java)
                         startActivity(intent)
                     })
 
@@ -215,28 +217,53 @@ class EditItem : AppCompatActivity() {
         return false
     }
 
-    private fun validateProductLoc(myProductLoc: EditText): Boolean {
+    private fun validateProductLoc(myProductLoc: EditText, myCategory: TextView): Boolean {
 
+        val myPatternShoe: Regex = Regex("^[L][O][T][0-9]{3}[A-Z]\$")
         val myPattern: Regex = Regex("^[L][O][C][0-9]{3}[A-Z]\$")
         val myPattern2: Regex = Regex("^[^A-Z0-9]+\$")
 
-        if (myProductLoc.text.toString().isEmpty()) {
-            myProductLoc.error = "Field can't be empty!"
+        if (myCategory.text.toString() == "Shirt")
+        {
+            if (myProductLoc.text.toString().isEmpty()) {
+                myProductLoc.error = "Field can't be empty!"
+            }
+            else if (myProductLoc.text.toString().contains(" ")) {
+                myProductLoc.error = "No whitespace!"
+            }
+            else if (myPattern2.matches(myProductLoc.text.toString())) {
+                myProductLoc.error = "Only uppercase and numeric characters!"
+            }
+            else if (!(myPattern.matches(myProductLoc.text.toString()))) {
+                //myProductLoc.error = "Format: LOC + number(0-9) + section(A-Z)"
+                myProductLoc.error = "Format wrong! Ex: LOC000A - LOC999Z."
+            }
+            else {
+                myProductLoc.error = null
+                return true
+            }
+            return false
         }
-        else if (myProductLoc.text.toString().contains(" ")) {
-            myProductLoc.error = "No whitespace!"
+        else
+        {
+            if (myProductLoc.text.toString().isEmpty()) {
+                myProductLoc.error = "Field can't be empty!"
+            }
+            else if (myProductLoc.text.toString().contains(" ")) {
+                myProductLoc.error = "No whitespace!"
+            }
+            else if (myPattern2.matches(myProductLoc.text.toString())) {
+                myProductLoc.error = "Only uppercase and numeric characters!"
+            }
+            else if (!(myPatternShoe.matches(myProductLoc.text.toString()))) {
+                //myProductLoc.error = "Format: LOT + number(0-9) + section(A-Z)"
+                myProductLoc.error = "Format wrong! Ex: LOT000A - LOT999Z."
+            }
+            else {
+                myProductLoc.error = null
+                return true
+            }
+            return false
         }
-        else if (myPattern2.matches(myProductLoc.text.toString())) {
-            myProductLoc.error = "Only uppercase and numeric characters!"
-        }
-        else if (!(myPattern.matches(myProductLoc.text.toString()))) {
-            //myProductLoc.error = "Format: LOC + number(0-9) + section(A-Z)"
-            myProductLoc.error = "Format wrong! Ex: LOC000A - LOC999Z."
-        }
-        else {
-            myProductLoc.error = null
-            return true
-        }
-        return false
     }
 }
