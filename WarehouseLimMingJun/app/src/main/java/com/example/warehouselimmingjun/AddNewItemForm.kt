@@ -44,10 +44,6 @@ class AddNewItemForm : AppCompatActivity(), AdapterView.OnItemSelectedListener {
 
         }
 
-        //val category =intent.getStringExtra("Category")
-        //val categoryText = findViewById<TextView>(R.id.CategoryText)
-        //categoryText.text = category
-
         // BACK BUTTON
         val backBtn = findViewById<ImageButton>(R.id.backButton)
         backBtn.setOnClickListener{
@@ -140,7 +136,7 @@ class AddNewItemForm : AppCompatActivity(), AdapterView.OnItemSelectedListener {
                         myProductSize.selectedItem.toString(),
                         myProductLoc.text.toString(),
                         image1)
-                     val intent = Intent(this, HomeScreen::class.java)
+                    val intent = Intent(this, HomeScreen::class.java)
                     val sessionId = getIntent().getStringExtra("emailAddress")
                     val sessionId1 = getIntent().getStringExtra("name")
                     intent.putExtra("emailAddress", sessionId);
