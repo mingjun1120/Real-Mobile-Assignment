@@ -24,8 +24,8 @@
         <activity android:name=".StockInList" />
         <activity android:name=".EditItem" android:parentActivityName=".ItemInfo"/>
         <activity android:name=".ItemInfo" />
-        <activity android:name=".stockInForm" />
-        <activity android:name=".stockOutForm" />
+        <activity android:name=".stockInForm" android:parentActivityName=".StockInList"/>
+        <activity android:name=".stockOutForm" android:parentActivityName=".StockOutList"/>
         <activity android:name=".MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
