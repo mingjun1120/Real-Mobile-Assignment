@@ -17,6 +17,10 @@ class EditItem : AppCompatActivity() {
         val backBtn = findViewById<ImageButton>(R.id.backButton)
         backBtn.setOnClickListener{
             val intent = Intent(this, ItemInfo::class.java)
+            val sessionId = getIntent().getStringExtra("emailAddress")
+            val sessionId1 = getIntent().getStringExtra("name")
+            intent.putExtra("emailAddress", sessionId);
+            intent.putExtra("name", sessionId1);
             startActivity(intent)
         }
 
@@ -50,6 +54,10 @@ class EditItem : AppCompatActivity() {
                     DialogInterface.OnClickListener { dialog, id ->
                         Toast.makeText(this,"Item edit successfully!", Toast.LENGTH_SHORT).show()
                         val intent = Intent(this, HomeScreen::class.java)
+                        val sessionId = getIntent().getStringExtra("emailAddress")
+                        val sessionId1 = getIntent().getStringExtra("name")
+                        intent.putExtra("emailAddress", sessionId);
+                        intent.putExtra("name", sessionId1);
                         startActivity(intent)
                     })
 

@@ -121,6 +121,10 @@ class AddNewItemFormShoe : AppCompatActivity(), AdapterView.OnItemSelectedListen
                             myProductLoc.text.toString(),
                             image1)
                         val intent = Intent(this, HomeScreen::class.java)
+                        val sessionId = getIntent().getStringExtra("emailAddress")
+                        val sessionId1 = getIntent().getStringExtra("name")
+                        intent.putExtra("emailAddress", sessionId);
+                        intent.putExtra("name", sessionId1);
                         startActivity(intent)
                     })
 

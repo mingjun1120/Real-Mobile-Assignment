@@ -29,6 +29,10 @@ class StockOutList : AppCompatActivity() {
         val backBtn = findViewById<ImageButton>(R.id.backButton)
         backBtn.setOnClickListener {
             val intent = Intent(this, StockOut::class.java)
+            val sessionId = getIntent().getStringExtra("emailAddress")
+            val sessionId1 = getIntent().getStringExtra("name")
+            intent.putExtra("emailAddress", sessionId);
+            intent.putExtra("name", sessionId1);
             startActivity(intent)
         }
 
@@ -40,6 +44,10 @@ class StockOutList : AppCompatActivity() {
             recyclerView.adapter = ItemAdapter(this, shirtList){
                 val intent = Intent(this, stockOutForm::class.java)
                 intent.putExtra("Shirt", "shirt")
+                val sessionId = getIntent().getStringExtra("emailAddress")
+                val sessionId1 = getIntent().getStringExtra("name")
+                intent.putExtra("emailAddress", sessionId);
+                intent.putExtra("name", sessionId1);
                 startActivity(intent)
             }
         }
@@ -49,6 +57,10 @@ class StockOutList : AppCompatActivity() {
             recyclerView.adapter = ItemAdapter(this, shoeList){
                 val intent = Intent(this, stockOutForm::class.java)
                 intent.putExtra("Shoes", "shoes")
+                val sessionId = getIntent().getStringExtra("emailAddress")
+                val sessionId1 = getIntent().getStringExtra("name")
+                intent.putExtra("emailAddress", sessionId);
+                intent.putExtra("name", sessionId1);
                 startActivity(intent)
             }
         }

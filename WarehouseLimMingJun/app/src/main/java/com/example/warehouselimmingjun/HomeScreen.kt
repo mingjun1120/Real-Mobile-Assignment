@@ -63,24 +63,40 @@ class HomeScreen : AppCompatActivity()
         val stockInBtn = findViewById<ImageButton>(R.id.buttonStockIn)
         stockInBtn.setOnClickListener{
             val intent = Intent(this, StockIn::class.java)
+            val sessionId = getIntent().getStringExtra("emailAddress")
+            val sessionId1 = getIntent().getStringExtra("name")
+            intent.putExtra("emailAddress", sessionId);
+            intent.putExtra("name", sessionId1);
             startActivity(intent)
         }
 
         val stockOutBtn = findViewById<ImageButton>(R.id.buttonStockOut)
         stockOutBtn.setOnClickListener{
             val intent = Intent(this, StockOut::class.java)
+            val sessionId = getIntent().getStringExtra("emailAddress")
+            val sessionId1 = getIntent().getStringExtra("name")
+            intent.putExtra("emailAddress", sessionId);
+            intent.putExtra("name", sessionId1);
             startActivity(intent)
         }
 
         val addNewItemBtn = findViewById<ImageButton>(R.id.buttonAddNewItem)
         addNewItemBtn.setOnClickListener{
             val intent = Intent(this, AddNewItem::class.java)
+            val sessionId = getIntent().getStringExtra("emailAddress")
+            val sessionId1 = getIntent().getStringExtra("name")
+            intent.putExtra("emailAddress", sessionId);
+            intent.putExtra("name", sessionId1);
             startActivity(intent)
         }
 
         val itemInfoBtn = findViewById<ImageButton>(R.id.buttonItemInfo)
         itemInfoBtn.setOnClickListener{
             val intent = Intent(this, ItemInfo::class.java)
+            val sessionId = getIntent().getStringExtra("emailAddress")
+            val sessionId1 = getIntent().getStringExtra("name")
+            intent.putExtra("emailAddress", sessionId);
+            intent.putExtra("name", sessionId1);
             startActivity(intent)
         }
 

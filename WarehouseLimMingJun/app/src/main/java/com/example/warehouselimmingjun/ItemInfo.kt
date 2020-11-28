@@ -25,6 +25,10 @@ class ItemInfo : AppCompatActivity(), AdapterView.OnItemSelectedListener {
         val backBtn = findViewById<ImageButton>(R.id.backButton)
         backBtn.setOnClickListener {
             val intent = Intent(this, HomeScreen::class.java)
+            val sessionId = getIntent().getStringExtra("emailAddress")
+            val sessionId1 = getIntent().getStringExtra("name")
+            intent.putExtra("emailAddress", sessionId);
+            intent.putExtra("name", sessionId1);
             startActivity(intent)
         }
         val recyclerView = findViewById<RecyclerView>(R.id.imageRecyclerView)
@@ -51,6 +55,10 @@ class ItemInfo : AppCompatActivity(), AdapterView.OnItemSelectedListener {
                     recyclerView.adapter = InfoAdapter(parent.context, shirtList) {
                         //addBtn.setOnClickListener{
                         val intent = Intent(parent.context, EditItem::class.java)
+                        val sessionId = getIntent().getStringExtra("emailAddress")
+                        val sessionId1 = getIntent().getStringExtra("name")
+                        intent.putExtra("emailAddress", sessionId);
+                        intent.putExtra("name", sessionId1);
                         startActivity(intent)
                     }
                 }
@@ -61,6 +69,10 @@ class ItemInfo : AppCompatActivity(), AdapterView.OnItemSelectedListener {
                     recyclerView.adapter = InfoAdapter(parent.context, shoeList) {
                         //addBtn.setOnClickListener{
                         val intent = Intent(parent.context, EditItem::class.java)
+                        val sessionId = getIntent().getStringExtra("emailAddress")
+                        val sessionId1 = getIntent().getStringExtra("name")
+                        intent.putExtra("emailAddress", sessionId);
+                        intent.putExtra("name", sessionId1);
                         startActivity(intent)
                     }
                 }
@@ -70,6 +82,10 @@ class ItemInfo : AppCompatActivity(), AdapterView.OnItemSelectedListener {
                     recyclerView.adapter = InfoAdapter(parent.context, productList) {
                         //addBtn.setOnClickListener{
                         val intent = Intent(parent.context, EditItem::class.java)
+                        val sessionId = getIntent().getStringExtra("emailAddress")
+                        val sessionId1 = getIntent().getStringExtra("name")
+                        intent.putExtra("emailAddress", sessionId);
+                        intent.putExtra("name", sessionId1);
                         startActivity(intent)
                     }
                 }

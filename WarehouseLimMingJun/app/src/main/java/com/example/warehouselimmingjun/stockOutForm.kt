@@ -23,6 +23,10 @@ class stockOutForm : AppCompatActivity() {
             val intent = Intent(this, StockOutList::class.java)
             intent.putExtra("Shirt", "shirt")
             intent.putExtra("Shoes", "shoes")
+            val sessionId = getIntent().getStringExtra("emailAddress")
+            val sessionId1 = getIntent().getStringExtra("name")
+            intent.putExtra("emailAddress", sessionId);
+            intent.putExtra("name", sessionId1);
             startActivity(intent)
         }
 

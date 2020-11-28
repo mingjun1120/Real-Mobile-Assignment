@@ -21,6 +21,10 @@ class stockInForm : AppCompatActivity() {
             val intent = Intent(this, StockInList::class.java)
             intent.putExtra("Shirt", "shirt")
             intent.putExtra("Shoes", "shoes")
+            val sessionId = getIntent().getStringExtra("emailAddress")
+            val sessionId1 = getIntent().getStringExtra("name")
+            intent.putExtra("emailAddress", sessionId);
+            intent.putExtra("name", sessionId1);
             startActivity(intent)
         }
 
@@ -62,6 +66,10 @@ class stockInForm : AppCompatActivity() {
                     DialogInterface.OnClickListener { dialog, id ->
                         Toast.makeText(this,"Stock added successfully!", Toast.LENGTH_SHORT).show()
                         val intent = Intent(this, HomeScreen::class.java)
+                        val sessionId = getIntent().getStringExtra("emailAddress")
+                        val sessionId1 = getIntent().getStringExtra("name")
+                        intent.putExtra("emailAddress", sessionId);
+                        intent.putExtra("name", sessionId1);
                         startActivity(intent)
                     })
 

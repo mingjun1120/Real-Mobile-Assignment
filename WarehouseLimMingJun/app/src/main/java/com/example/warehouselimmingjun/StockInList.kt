@@ -29,6 +29,10 @@ class StockInList : AppCompatActivity() {
         val backBtn = findViewById<ImageButton>(R.id.backButton)
         backBtn.setOnClickListener {
             val intent = Intent(this, StockIn::class.java)
+            val sessionId = getIntent().getStringExtra("emailAddress")
+            val sessionId1 = getIntent().getStringExtra("name")
+            intent.putExtra("emailAddress", sessionId);
+            intent.putExtra("name", sessionId1);
             startActivity(intent)
         }
         val recyclerView = findViewById<RecyclerView>(R.id.imageRecyclerView)
@@ -39,6 +43,10 @@ class StockInList : AppCompatActivity() {
             recyclerView.adapter = ItemAdapter(this, shirtList){
                 val intent = Intent(this, stockInForm::class.java)
                 intent.putExtra("Shirt", "shirt")
+                val sessionId = getIntent().getStringExtra("emailAddress")
+                val sessionId1 = getIntent().getStringExtra("name")
+                intent.putExtra("emailAddress", sessionId);
+                intent.putExtra("name", sessionId1);
                 startActivity(intent)
             }
         }
@@ -48,6 +56,10 @@ class StockInList : AppCompatActivity() {
             recyclerView.adapter = ItemAdapter(this, shoeList){
                 val intent = Intent(this, stockInForm::class.java)
                 intent.putExtra("Shoes", "shoes")
+                val sessionId = getIntent().getStringExtra("emailAddress")
+                val sessionId1 = getIntent().getStringExtra("name")
+                intent.putExtra("emailAddress", sessionId);
+                intent.putExtra("name", sessionId1);
                 startActivity(intent)
             }
         }
