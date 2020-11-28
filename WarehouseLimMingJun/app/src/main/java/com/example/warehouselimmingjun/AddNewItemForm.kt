@@ -236,7 +236,7 @@ class AddNewItemForm : AppCompatActivity(), AdapterView.OnItemSelectedListener {
 
     private fun validateProductName(myProductName: EditText): Boolean {
 
-        val myPattern: Regex = Regex("^[A-Z][A-Za-z0-9()* ]*\$")
+        val myPattern: Regex = Regex("^[A-Z][A-Za-z0-9()_* -]*\$")
 
         if (myProductName.text.toString().isEmpty()) {
             myProductName.error = "Field can't be empty!"
