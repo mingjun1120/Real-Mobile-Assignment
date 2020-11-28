@@ -112,16 +112,18 @@ class AddNewItemForm : AppCompatActivity(), AdapterView.OnItemSelectedListener {
             val productImage = findViewById<ImageView>(R.id.productImage)
             val checkProductImg = validateProductImg(productImage)
 
-            //Convert ImageView to BitMap
-            val bitmap = productImage.drawable.toBitmap()
 
-            //Compress the bitmap
-            val stream = ByteArrayOutputStream()
-            bitmap.compress(Bitmap.CompressFormat.JPEG, 100, stream)
-            val image1 = stream.toByteArray()
+
 
             if(checkProductID && checkProductName && checkProductQty && checkProductPrice && checkProductLoc && checkProductImg)
             {
+                //Convert ImageView to BitMap
+                val bitmap = productImage.drawable.toBitmap()
+
+                //Compress the bitmap
+                val stream = ByteArrayOutputStream()
+                bitmap.compress(Bitmap.CompressFormat.JPEG, 100, stream)
+                val image1 = stream.toByteArray()
                 //Build Dialog
                 val builder = AlertDialog.Builder(this)
                 //Set title for alert dialog
