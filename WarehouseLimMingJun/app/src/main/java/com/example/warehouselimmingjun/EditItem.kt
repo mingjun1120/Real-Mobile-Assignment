@@ -1,8 +1,10 @@
 package com.example.warehouselimmingjun
 
+import android.app.Activity
 import android.content.DialogInterface
 import android.content.Intent
 import android.graphics.BitmapFactory
+import android.os.Build
 import android.os.Bundle
 import android.widget.*
 import androidx.appcompat.app.AlertDialog
@@ -11,7 +13,7 @@ import com.example.warehouselimmingjun.DBHelper.DBHelper_item
 
 class EditItem : AppCompatActivity() {
     internal lateinit var dbHelper: DBHelper_item
-
+    private val PHOTO = 1
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_edit_item)
@@ -52,6 +54,24 @@ class EditItem : AppCompatActivity() {
         val options: BitmapFactory.Options? = BitmapFactory.Options()
         val bitmap = BitmapFactory.decodeByteArray(image, 0, image!!.size, options)
         myImg.setImageBitmap(bitmap)
+
+        //IMAGE BUTTON FOR SELECTING IMAGE
+        val pickImageButton = findViewById<ImageButton>(R.id.photo_button)
+        pickImageButton.setOnClickListener {
+            val photoPickerIntent = Intent(Intent.ACTION_PICK)
+            photoPickerIntent.type = "image/*"
+            startActivityForResult(photoPickerIntent, PHOTO)
+        }
+
+        if (Build.VERSION.SDK_INT > 25)
+        {
+            if (myCategory.text == "Shirt") {
+                myLocation.tooltipText = "Format is LOC(Shirt location) + 001(Number) + A(Section) = LOC001A"
+            }
+            else{
+                myLocation.tooltipText = "Format is LOT(Shoe location) + 001(Number) + A(Section) = LOT001A"
+            }
+        }
 
 
         val backBtn = findViewById<ImageButton>(R.id.backButton)
@@ -145,6 +165,9 @@ class EditItem : AppCompatActivity() {
 
                     val myProductPrice = findViewById<EditText>(R.id.PriceText)
                     myProductPrice.setText("")
+
+                    val myImg = findViewById<ImageView>(R.id.productImage)
+                    myImg.setImageDrawable(null)
                 })
 
             //performing negative action
@@ -264,6 +287,20 @@ class EditItem : AppCompatActivity() {
                 return true
             }
             return false
+        }
+    }
+
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+
+        if (requestCode == PHOTO && resultCode == Activity.RESULT_OK) {
+            if (data == null) {
+                //Display an error
+                Toast.makeText(this, "No image selected!", Toast.LENGTH_SHORT).show()
+                return
+            }
+            val productImage = findViewById<ImageView>(R.id.productImage)
+            productImage.setImageURI(data.data)
         }
     }
 }
