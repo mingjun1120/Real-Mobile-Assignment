@@ -73,7 +73,6 @@ class AddNewItemForm : AppCompatActivity(), AdapterView.OnItemSelectedListener {
         spinner.onItemSelectedListener = this
 
         //IMAGE BUTTON FOR SELECTING IMAGE
-        val image = findViewById<ImageView>(R.id.productImage) // Image to be selected
         val pickImageButton = findViewById<ImageButton>(R.id.photo_button)
         pickImageButton.setOnClickListener {
             val photoPickerIntent = Intent(Intent.ACTION_PICK)
@@ -188,6 +187,7 @@ class AddNewItemForm : AppCompatActivity(), AdapterView.OnItemSelectedListener {
 
                     spinner.adapter = adapter
 
+                    val image = findViewById<ImageView>(R.id.productImage) // Image to be selected
                     image.setImageDrawable(null)
                 })
 
