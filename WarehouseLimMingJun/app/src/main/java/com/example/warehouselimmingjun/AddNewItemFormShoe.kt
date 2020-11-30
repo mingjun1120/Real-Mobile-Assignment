@@ -127,16 +127,16 @@ class AddNewItemFormShoe : AppCompatActivity(), AdapterView.OnItemSelectedListen
                         val intent = Intent(this, HomeScreen::class.java)
                         val sessionId = getIntent().getStringExtra("emailAddress")
                         val sessionId1 = getIntent().getStringExtra("name")
-                        intent.putExtra("emailAddress", sessionId);
-                        intent.putExtra("name", sessionId1);
+                        intent.putExtra("emailAddress", sessionId)
+                        intent.putExtra("name", sessionId1)
                         startActivity(intent)
                     })
 
                 //performing negative action
                 builder.setNegativeButton("Cancel",
                     DialogInterface.OnClickListener { dialog, id ->
-                        Toast.makeText(this, "Cancelled Add New Item!", Toast.LENGTH_SHORT).show()
-                    });
+                        //Toast.makeText(this, "Cancelled Add New Item!", Toast.LENGTH_SHORT).show()
+                    })
 
                 //Create the AlertDialog
                 val alertDialog: AlertDialog = builder.create()
