@@ -111,11 +111,6 @@ class stockInForm : AppCompatActivity() {
                             })
                     }
                 }
-                //performing negative action
-                builder.setNegativeButton("Cancel",
-                    DialogInterface.OnClickListener { dialog, id ->
-                        Toast.makeText(this, "Cancelled!", Toast.LENGTH_SHORT).show()
-                    })
 
                 //Create the AlertDialog
                 val alertDialog: AlertDialog = builder.create()
