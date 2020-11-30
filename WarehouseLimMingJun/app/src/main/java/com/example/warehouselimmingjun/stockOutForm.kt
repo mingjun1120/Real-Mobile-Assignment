@@ -10,11 +10,17 @@ import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
+import com.example.warehouselimmingjun.DBHelper.DBHelper_item
 
 class stockOutForm : AppCompatActivity() {
+
+    internal lateinit var dbHelper: DBHelper_item
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_stock_out_form)
+
+        dbHelper = DBHelper_item(this)
 
         val shirt = intent.getStringExtra("Shirt")
         val shoes = intent.getStringExtra("Shoes")
@@ -41,8 +47,8 @@ class stockOutForm : AppCompatActivity() {
         myQty.setText(qty)
 
         val backBtn = findViewById<ImageButton>(R.id.backButton)
-        backBtn.setOnClickListener{
-            val intent = Intent(this, StockOutList::class.java)
+        backBtn.setOnClickListener {
+            val intent = Intent(this, StockOut::class.java)
             intent.putExtra("Shirt", shirt)
             intent.putExtra("Shoes", shoes)
 
@@ -55,51 +61,104 @@ class stockOutForm : AppCompatActivity() {
         plusButton.setOnClickListener {
             val myQty = findViewById<EditText>(R.id.QuantityText)
 
-            if (myQty.text.toString().isNotEmpty())
-            {
+            if (myQty.text.toString().isNotEmpty()) {
                 var number = myQty.text.toString().toInt()
                 number++
                 myQty.text = SpannableStringBuilder(number.toString())
-            }
-            else{
+            } else {
                 val num = 1
                 myQty.text = SpannableStringBuilder(num.toString())
             }
         }
 
         val confirmBtn1 = findViewById<ImageButton>(R.id.confirmButton)
-        confirmBtn1.setOnClickListener{
+        confirmBtn1.setOnClickListener {
 
             val myQty = findViewById<EditText>(R.id.QuantityText)
             val checkQty = validateQtyField(myQty)
+            val productName = findViewById<TextView>(R.id.ProductInput)
 
-            if (checkQty)
-            {
-                val builder = AlertDialog.Builder(this)
-                //set title for alert dialog
-                builder.setTitle("Stock Out Confirmation")
-                //set message for alert dialog
-                builder.setMessage("Confirm Out Stock?")
+            val qtyProduct = dbHelper.getQty(productName.text.toString())
 
-                //performing positive action
-                builder.setPositiveButton("Confirm",
-                    DialogInterface.OnClickListener { dialog, id ->
-                        Toast.makeText(this,"Successfully Sent Out!", Toast.LENGTH_SHORT).show()
-                        val intent = Intent(this, HomeScreen::class.java)
-                        startActivity(intent)
-                    })
+            val qtyToBeReduce = findViewById<TextView>(R.id.QuantityText)
+            var i = 1
 
-                //performing negative action
-                builder.setNegativeButton("Cancel",
-                    DialogInterface.OnClickListener { dialog, id ->
-                        Toast.makeText(this, "Cancelled!", Toast.LENGTH_SHORT).show()
-                    })
+            if (qtyProduct != null) {
+                if (qtyProduct.toInt() < qtyToBeReduce.text.toString().toInt()) {
+                    i = 0
+                    val builder = AlertDialog.Builder(this)
+                    //set title for alert dialog
+                    builder.setTitle("Quantity of Stock Out Cannot More Than Current Quantity Stock !!!")
+                    //set message for alert dialog
+                    builder.setMessage("Please Key In the Valid Amount !!!")
+                    builder.setPositiveButton("OK",
+                        DialogInterface.OnClickListener { dialog, id ->
 
-                //Create the AlertDialog
-                val alertDialog: AlertDialog = builder.create()
-                //set other dialog properties
-                alertDialog.setCancelable(false)
-                alertDialog.show()
+                            val intent = Intent(this, stockOutForm::class.java)
+                            intent.putExtra("ProductCategory", category)
+                            intent.putExtra("ProductName", name)
+                            intent.putExtra("ProductSize", size)
+                            intent.putExtra("ProductQty", qty)
+                            startActivity(intent)
+                        })
+
+
+                    //performing negative action
+                    builder.setNegativeButton("Cancel",
+                        DialogInterface.OnClickListener { dialog, id ->
+                            Toast.makeText(this, "Cancelled!", Toast.LENGTH_SHORT).show()
+                        })
+
+                    //Create the AlertDialog
+                    val alertDialog: AlertDialog = builder.create()
+                    //set other dialog properties
+                    alertDialog.setCancelable(false)
+                    alertDialog.show()
+                }
+            }
+            if (i == 1) {
+                val latestAmountQty =
+                    qtyProduct?.toInt()?.minus(qtyToBeReduce.text.toString().toInt())
+
+                if (checkQty) {
+                    val builder = AlertDialog.Builder(this)
+                    //set title for alert dialog
+                    builder.setTitle("Stock Out Confirmation")
+                    //set message for alert dialog
+                    builder.setMessage("Confirm Out Stock?")
+
+                    //performing positive action
+                    if (latestAmountQty != null) {
+                        if (dbHelper.updateQty(
+                                productName.text.toString(),
+                                latestAmountQty.toInt()
+                            )
+                        ) {
+                            builder.setPositiveButton("Confirm",
+                                DialogInterface.OnClickListener { dialog, id ->
+                                    Toast.makeText(
+                                        this,
+                                        "Successfully Sent Out!",
+                                        Toast.LENGTH_SHORT
+                                    )
+                                        .show()
+                                    val intent = Intent(this, HomeScreen::class.java)
+                                    startActivity(intent)
+                                })
+                        }
+                    }
+                    //performing negative action
+                    builder.setNegativeButton("Cancel",
+                        DialogInterface.OnClickListener { dialog, id ->
+                            Toast.makeText(this, "Cancelled!", Toast.LENGTH_SHORT).show()
+                        })
+
+                    //Create the AlertDialog
+                    val alertDialog: AlertDialog = builder.create()
+                    //set other dialog properties
+                    alertDialog.setCancelable(false)
+                    alertDialog.show()
+                }
             }
         }
 

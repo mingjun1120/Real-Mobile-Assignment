@@ -44,9 +44,11 @@ class ChangePassword : AppCompatActivity() {
             val checkPwd = myPwd.text.toString().isValidPasswordFormat()
             val checkConfirmPwd = myConfirmPwd.text.toString() == myPwd.text.toString()
 
+            var i = 1
             // To print error message if false happen for email and pwd
             if (dbHelper.checkPassExist(myPwd.text.toString()))
             {
+                i=0
                 val builder = AlertDialog.Builder(this)
                 Snackbar.make(it, "New Password Cannot Same With Old Password", Snackbar.LENGTH_LONG).show()
 
@@ -83,7 +85,7 @@ class ChangePassword : AppCompatActivity() {
             validatePwd(checkPwd, myPwd)
             validateConfirmPwd(checkConfirmPwd, myConfirmPwd)
 
-
+            if(i == 1){
             if(checkPwd && checkConfirmPwd)
             {
                 val builder = AlertDialog.Builder(this)
@@ -120,6 +122,7 @@ class ChangePassword : AppCompatActivity() {
                 alertDialog.setCancelable(false)
                 alertDialog.show()
             }
+        }
         }
     }
 

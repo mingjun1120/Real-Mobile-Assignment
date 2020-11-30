@@ -10,11 +10,18 @@ import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
+import com.example.warehouselimmingjun.DBHelper.DBHelper
+import com.example.warehouselimmingjun.DBHelper.DBHelper_item
 
 class stockInForm : AppCompatActivity() {
+
+    internal lateinit var dbHelper: DBHelper_item
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_stock_in_form)
+
+        dbHelper = DBHelper_item(this)
 
         val shirt = intent.getStringExtra("Shirt")
         val shoes = intent.getStringExtra("Shoes")
@@ -44,11 +51,10 @@ class stockInForm : AppCompatActivity() {
         //BACK BUTTON
         val backBtn = findViewById<ImageButton>(R.id.backButton)
         backBtn.setOnClickListener{
-            val intent = Intent(this, StockInList::class.java)
+            val intent = Intent(this, StockIn::class.java)
 
             intent.putExtra("Shirt", shirt)
             intent.putExtra("Shoes", shoes)
-
             intent.putExtra("emailAddress", sessionId)
             intent.putExtra("name", sessionId1)
             startActivity(intent)
@@ -83,19 +89,28 @@ class stockInForm : AppCompatActivity() {
                 builder.setTitle("Stock In Confirmation")
                 //set message for alert dialog
                 builder.setMessage("Confirm Add Stock?")
+                val productName = findViewById<TextView>(R.id.ProductInput)
+                val qtyProduct = dbHelper.getQty(productName.text.toString())
+
+                val qtyToBeAdd = findViewById<TextView>(R.id.QuantityText)
+
+                val latestAmountQty = qtyProduct?.toInt()?.plus(qtyToBeAdd.text.toString().toInt())
 
                 //performing positive action
-                builder.setPositiveButton("Confirm",
-                    DialogInterface.OnClickListener { dialog, id ->
-                        Toast.makeText(this,"Successfully Added!", Toast.LENGTH_SHORT).show()
-                        val sessionId = getIntent().getStringExtra("emailAddress")
-                        val sessionId1 = getIntent().getStringExtra("name")
-                        intent.putExtra("emailAddress", sessionId)
-                        intent.putExtra("name", sessionId1)
-                        val intent = Intent(this, HomeScreen::class.java)
-                        startActivity(intent)
-                    })
-
+                if (latestAmountQty != null) {
+                    if(dbHelper.updateQty(productName.text.toString(),latestAmountQty.toInt())) {
+                        builder.setPositiveButton("Confirm",
+                            DialogInterface.OnClickListener { dialog, id ->
+                                Toast.makeText(this, "Successfully Added!", Toast.LENGTH_SHORT).show()
+                                val sessionId = getIntent().getStringExtra("emailAddress")
+                                val sessionId1 = getIntent().getStringExtra("name")
+                                intent.putExtra("emailAddress", sessionId)
+                                intent.putExtra("name", sessionId1)
+                                val intent = Intent(this, HomeScreen::class.java)
+                                startActivity(intent)
+                            })
+                    }
+                }
                 //performing negative action
                 builder.setNegativeButton("Cancel",
                     DialogInterface.OnClickListener { dialog, id ->

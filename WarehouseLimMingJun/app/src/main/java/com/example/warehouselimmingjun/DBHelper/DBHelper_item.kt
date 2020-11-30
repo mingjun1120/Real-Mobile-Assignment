@@ -197,4 +197,38 @@ class DBHelper_item(context: Context): SQLiteOpenHelper(context, DATABASE_NAME, 
         }
         return itemList
     }
+
+    fun getQty(productName: String): String? {
+        val db = this.readableDatabase
+        val query = "SELECT $COL_QUANTITY FROM $TABLE_NAME where $COL_NAME = '$productName'"
+        var cursor: Cursor? = null
+
+        try {
+            cursor = db.rawQuery(query, null)
+        } catch (e: SQLiteException) {
+            Log.i("dbhelper.kt", "SQLite exception")
+            db.execSQL(query)
+            return null
+        }
+
+        var productQty: String? = null
+
+        if (cursor.moveToFirst()) {
+            do {
+                productQty = cursor.getString(cursor.getColumnIndex("Quantity"))
+            } while (cursor.moveToNext())
+        }
+        return productQty
+    }
+
+    fun updateQty(productName: String, latestAmountQty:Int): Boolean {
+        val db = this.writableDatabase
+        val values = ContentValues()
+        values.put(COL_QUANTITY, latestAmountQty)
+        values.put(COL_NAME, productName)
+
+        db.update(TABLE_NAME, values, "$COL_NAME= ?", arrayOf(productName))
+        return true
+        db.close()
+    }
 }
