@@ -44,8 +44,8 @@ class stockInForm : AppCompatActivity() {
         val mySize = findViewById<TextView>(R.id.SizeInput)
         mySize.text = size
 
-        val myQty = findViewById<EditText>(R.id.QuantityText)
-        myQty.setText(qty)
+        val myQty = findViewById<TextView>(R.id.stockAvailable)
+        myQty.text = "Remaining stocks: $qty"
 
 
         //BACK BUTTON
