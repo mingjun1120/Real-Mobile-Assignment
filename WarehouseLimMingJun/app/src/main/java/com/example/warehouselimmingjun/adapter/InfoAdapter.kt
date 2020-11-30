@@ -12,13 +12,16 @@ import android.widget.ImageView
 import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
+import androidx.core.content.ContextCompat.startActivity
 import androidx.recyclerview.widget.RecyclerView
 import com.example.warehouselimmingjun.DBHelper.DBHelper_item
 import com.example.warehouselimmingjun.EditItem
+import com.example.warehouselimmingjun.HomeScreen
+import com.example.warehouselimmingjun.ItemInfo
 import com.example.warehouselimmingjun.R
 import com.example.warehouselimmingjun.model.Item
 
-class InfoAdapter(private val context: Context, private val images: List<Item>, val listener: (Item) -> Unit):
+class InfoAdapter(private val context: Context, private val images: List<Item>,val sessionId:String?, val sessionId1:String?, val listener: (Item) -> Unit):
     RecyclerView.Adapter<InfoAdapter.ItemViewHolder>()
     {
         internal lateinit var dbHelper: DBHelper_item
@@ -38,6 +41,8 @@ class InfoAdapter(private val context: Context, private val images: List<Item>, 
                 icon.setImageBitmap(bitmap)
                 name.text = item.id
                 desc.text = item.name
+                val sessionId = sessionId
+                val sessionId1 = sessionId1
 
                 deleteBtn.setOnClickListener {
                     val builder = AlertDialog.Builder(context)
@@ -48,12 +53,23 @@ class InfoAdapter(private val context: Context, private val images: List<Item>, 
                     //builder.setIcon(android.R.drawable.ic_dialog_alert)
 
                     //performing positive action
-                    builder.setPositiveButton("Confirm",
-                        DialogInterface.OnClickListener { dialog, id ->
-                            Toast.makeText(context, "Item deleted successful!", Toast.LENGTH_SHORT)
-                                .show()
-                        })
 
+                        builder.setPositiveButton("Confirm",
+                            DialogInterface.OnClickListener { dialog, id ->
+                                if(dbHelper.deleteProduct(item.id.toString())) {
+                                    Toast.makeText(
+                                    context,
+                                    "Item deleted successful!",
+                                    Toast.LENGTH_SHORT
+                                )
+                                    .show()
+
+                                val intent = Intent(context, ItemInfo::class.java)
+                                intent.putExtra("emailAddress", sessionId)
+                                intent.putExtra("name", sessionId1)
+                                context.startActivity(intent)
+                            }
+                    })
                     //performing negative action
                     builder.setNegativeButton("Cancel",
                         DialogInterface.OnClickListener { dialog, id ->

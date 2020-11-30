@@ -231,4 +231,69 @@ class DBHelper_item(context: Context): SQLiteOpenHelper(context, DATABASE_NAME, 
         return true
         db.close()
     }
+
+    fun editQty(id: String, latestAmountQty:String): Boolean {
+        val db = this.writableDatabase
+        val values = ContentValues()
+        values.put(COL_QUANTITY, latestAmountQty)
+        values.put(COL_ID, id)
+
+        db.update(TABLE_NAME, values, "$COL_ID= ?", arrayOf(id))
+        return true
+        db.close()
+    }
+
+    fun editLoc(id: String, latestLoc:String): Boolean {
+        val db = this.writableDatabase
+        val values = ContentValues()
+        values.put(COL_LOCATION, latestLoc)
+        values.put(COL_ID, id)
+
+        db.update(TABLE_NAME, values, "$COL_ID= ?", arrayOf(id))
+        return true
+        db.close()
+    }
+
+    fun editPrice(id: String, latestPrice:String): Boolean {
+        val db = this.writableDatabase
+        val values = ContentValues()
+        values.put(COL_PRICE, latestPrice)
+        values.put(COL_ID, id)
+
+        db.update(TABLE_NAME, values, "$COL_ID= ?", arrayOf(id))
+        return true
+        db.close()
+    }
+
+    fun editProductName(id: String, latestName:String): Boolean {
+        val db = this.writableDatabase
+        val values = ContentValues()
+        values.put(COL_NAME, latestName)
+        values.put(COL_ID, id)
+
+        db.update(TABLE_NAME, values, "$COL_ID= ?", arrayOf(id))
+        return true
+        db.close()
+    }
+
+    fun editImg(id: String, latestImg:ByteArray): Boolean {
+        val db = this.writableDatabase
+        val values = ContentValues()
+        values.put(COL_IMAGE, latestImg)
+        values.put(COL_ID, id)
+
+        db.update(TABLE_NAME, values, "$COL_ID= ?", arrayOf(id))
+        return true
+        db.close()
+    }
+
+    fun deleteProduct(id: String):Boolean{
+        val db = this.writableDatabase
+        val contentValues = ContentValues()
+        contentValues.put(COL_ID, id)
+
+        db.delete(TABLE_NAME,"$COL_ID = ?",arrayOf(id))
+        return true
+        db.close() // Closing database connection
+    }
 }

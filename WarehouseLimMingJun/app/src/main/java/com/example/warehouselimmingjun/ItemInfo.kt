@@ -53,6 +53,9 @@ class ItemInfo : AppCompatActivity(), AdapterView.OnItemSelectedListener {
 
             }
 
+            val sessionId = getIntent().getStringExtra("emailAddress")
+            val sessionId1 = getIntent().getStringExtra("name")
+
             override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long)
             {
                 val selectedItem = parent!!.getItemAtPosition(position).toString()
@@ -60,20 +63,19 @@ class ItemInfo : AppCompatActivity(), AdapterView.OnItemSelectedListener {
                 {
                     shirtList = dbHelper.retrieveShirtItem()
                     recyclerView.layoutManager = LinearLayoutManager(parent.context)
-                    recyclerView.adapter = InfoAdapter(parent.context, shirtList) {
+                    recyclerView.adapter = InfoAdapter(parent.context, shirtList, sessionId, sessionId1) {
 
                         val sessionId = intent.getStringExtra("emailAddress")
                         val sessionId1 = intent.getStringExtra("name")
                         intent.putExtra("emailAddress", sessionId)
                         intent.putExtra("name", sessionId1)
-
                     }
                 }
                 else if(selectedItem == "Shoe")
                 {
                     shoeList = dbHelper.retrieveShoesItem()
                     recyclerView.layoutManager = LinearLayoutManager(parent.context)
-                    recyclerView.adapter = InfoAdapter(parent.context, shoeList) {
+                    recyclerView.adapter = InfoAdapter(parent.context, shoeList, sessionId, sessionId1) {
 
                         val sessionId = intent.getStringExtra("emailAddress")
                         val sessionId1 = intent.getStringExtra("name")
@@ -85,7 +87,7 @@ class ItemInfo : AppCompatActivity(), AdapterView.OnItemSelectedListener {
                 {
                     productList = dbHelper.retrieveAllItem()
                     recyclerView.layoutManager = LinearLayoutManager(parent.context)
-                    recyclerView.adapter = InfoAdapter(parent.context, productList) {
+                    recyclerView.adapter = InfoAdapter(parent.context, productList, sessionId, sessionId1) {
 
                         val sessionId = intent.getStringExtra("emailAddress")
                         val sessionId1 = intent.getStringExtra("name")

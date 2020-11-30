@@ -32,12 +32,12 @@ class Login : AppCompatActivity() {
             val myPwd = findViewById<EditText>(R.id.editTextTextPwd)
             val name =  dbHelper.getEmail(myEmail.text.toString())
 
-            //val checkEmail = myEmail.text.toString().isValidEmail()
-            //val checkPwd = myPwd.text.toString().isValidPasswordFormat()
+            val checkEmail = myEmail.text.toString().isValidEmail()
+            val checkPwd = myPwd.text.toString().isValidPasswordFormat()
 
             // To print error message if false happen for email and pwd
-            //validateEmail(checkEmail, myEmail)
-            //validatePwd(checkPwd, myPwd)
+            validateEmail(checkEmail, myEmail)
+            validatePwd(checkPwd, myPwd)
 
             if (dbHelper.Login(myEmail.text.toString(), myPwd.text.toString()))
             {
@@ -47,7 +47,7 @@ class Login : AppCompatActivity() {
                 startActivity(intent)
             }
             else
-                Snackbar.make(it, "Email or Password is incorrect", Snackbar.LENGTH_LONG).show()
+                Snackbar.make(it, "This User Account Does Not Exist !!!", Snackbar.LENGTH_LONG).show()
         }
             val register = findViewById<TextView>(R.id.register_link)
             register.setOnClickListener {
@@ -56,7 +56,7 @@ class Login : AppCompatActivity() {
             }
 
     }
- /*   private fun String.isValidEmail() = !TextUtils.isEmpty(this) && EMAIL_ADDRESS.matcher(this).matches()
+    private fun String.isValidEmail() = !TextUtils.isEmpty(this) && EMAIL_ADDRESS.matcher(this).matches()
 
     private fun String.isValidPasswordFormat(): Boolean {
         val passwordREGEX = Pattern.compile("^" +
@@ -92,17 +92,16 @@ class Login : AppCompatActivity() {
         {
             myPwd.error = "Field can't be empty"
         }
-        else if (!checkPwd)
-        {
-            myPwd.error = "Invalid input for password!"
-        }
+//        else if (!checkPwd)
+//        {
+//            myPwd.error = "Invalid input for password!"
+//        }
         else
         {
             myPwd.error = null
         }
     }
 
- */
 
 }
 

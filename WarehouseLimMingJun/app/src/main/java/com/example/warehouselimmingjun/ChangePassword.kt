@@ -50,7 +50,6 @@ class ChangePassword : AppCompatActivity() {
             {
                 i=0
                 val builder = AlertDialog.Builder(this)
-                Snackbar.make(it, "New Password Cannot Same With Old Password", Snackbar.LENGTH_LONG).show()
 
                 //set title for alert dialog
                 builder.setTitle("New Password Cannot Same With Old Password")
@@ -60,15 +59,6 @@ class ChangePassword : AppCompatActivity() {
 
                 //performing positive action
                 builder.setPositiveButton("OK",
-                    DialogInterface.OnClickListener { dialog, id ->
-                        val intent = Intent(this, ChangePassword::class.java)
-                        intent.putExtra("emailAddress", sessionId)
-                        intent.putExtra("name", sessionId1)
-                        startActivity(intent)
-                    })
-
-                //performing negative action
-                builder.setNegativeButton("Cancel",
                     DialogInterface.OnClickListener { dialog, id ->
                         val intent = Intent(this, ChangePassword::class.java)
                         intent.putExtra("emailAddress", sessionId)

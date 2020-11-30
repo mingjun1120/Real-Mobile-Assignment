@@ -3,13 +3,16 @@ package com.example.warehouselimmingjun
 import android.app.Activity
 import android.content.DialogInterface
 import android.content.Intent
+import android.graphics.Bitmap
 import android.graphics.BitmapFactory
 import android.os.Build
 import android.os.Bundle
 import android.widget.*
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.graphics.drawable.toBitmap
 import com.example.warehouselimmingjun.DBHelper.DBHelper_item
+import java.io.ByteArrayOutputStream
 
 class EditItem : AppCompatActivity() {
     internal lateinit var dbHelper: DBHelper_item
@@ -79,7 +82,6 @@ class EditItem : AppCompatActivity() {
 
             val sessionId = intent.getStringExtra("emailAddress")
             val sessionId1 = intent.getStringExtra("name")
-
             intent.putExtra("emailAddress", sessionId)
             intent.putExtra("name", sessionId1)
 
@@ -94,7 +96,7 @@ class EditItem : AppCompatActivity() {
 
             val myProductName = findViewById<EditText>(R.id.ProductNameText)
             val checkProductName = validateProductName(myProductName)
-
+            val myID = findViewById<TextView>(R.id.ProductIDInput)
             val myProductQty = findViewById<EditText>(R.id.QuantityText)
             val checkProductQty = validateProductQty(myProductQty)
 
@@ -107,6 +109,18 @@ class EditItem : AppCompatActivity() {
 
             if (checkProductName && checkProductQty && checkProductPrice && checkProductLoc)
             {
+                val productImage = findViewById<ImageView>(R.id.productImage)
+                val myLocation = findViewById<TextView>(R.id.LocationText)
+                val myName = findViewById<TextView>(R.id.ProductNameText)
+                val myQty = findViewById<TextView>(R.id.QuantityText)
+                val myPrice = findViewById<TextView>(R.id.PriceText)
+                val bitmap = productImage.drawable.toBitmap()
+
+                //Compress the bitmap
+                val stream = ByteArrayOutputStream()
+                bitmap.compress(Bitmap.CompressFormat.JPEG, 100, stream)
+                val image1 = stream.toByteArray()
+
                 val builder = AlertDialog.Builder(this)
                 //set title for alert dialog
                 builder.setTitle("Edit Item Information Confirmation")
@@ -115,17 +129,32 @@ class EditItem : AppCompatActivity() {
                 //builder.setIcon(android.R.drawable.ic_dialog_alert)
 
                 //performing positive action
-                builder.setPositiveButton("Confirm",
-                    DialogInterface.OnClickListener { dialog, id ->
-                        // Put your dbHelper here to edit changes
-                        Toast.makeText(this,"Item edit successfully!", Toast.LENGTH_SHORT).show()
-                        val sessionId = getIntent().getStringExtra("emailAddress")
-                        val sessionId1 = getIntent().getStringExtra("name")
-                        intent.putExtra("emailAddress", sessionId)
-                        intent.putExtra("name", sessionId1)
-                        val intent = Intent(this, HomeScreen::class.java)
-                        startActivity(intent)
-                    })
+                if(dbHelper.editQty(myID.text.toString(),myQty.text.toString())) {
+                    if(dbHelper.editLoc(myID.text.toString(),myLocation.text.toString())) {
+                        if(dbHelper.editImg(myID.text.toString(),image1)){
+                            if(dbHelper.editProductName(myID.text.toString(),myName.text.toString())) {
+                                if(dbHelper.editPrice(myID.text.toString(),myPrice.text.toString())) {
+                                    builder.setPositiveButton("Confirm",
+                                        DialogInterface.OnClickListener { dialog, id ->
+                                            // Put your dbHelper here to edit changes
+                                            Toast.makeText(
+                                                this,
+                                                "Item edit successfully!",
+                                                Toast.LENGTH_SHORT
+                                            )
+                                                .show()
+                                            val sessionId = getIntent().getStringExtra("emailAddress")
+                                            val sessionId1 = getIntent().getStringExtra("name")
+                                            intent.putExtra("emailAddress", sessionId)
+                                            intent.putExtra("name", sessionId1)
+                                            val intent = Intent(this, HomeScreen::class.java)
+                                            startActivity(intent)
+                                        })
+                                }
+                            }
+                        }
+                    }
+                }
 
                 //performing negative action
                 builder.setNegativeButton("Cancel",
