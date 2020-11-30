@@ -48,7 +48,7 @@ class stockOutForm : AppCompatActivity() {
 
         val backBtn = findViewById<ImageButton>(R.id.backButton)
         backBtn.setOnClickListener {
-            val intent = Intent(this, StockOut::class.java)
+            val intent = Intent(this, StockOutList::class.java)
             intent.putExtra("Shirt", shirt)
             intent.putExtra("Shoes", shoes)
 
@@ -99,6 +99,10 @@ class stockOutForm : AppCompatActivity() {
                             intent.putExtra("ProductName", name)
                             intent.putExtra("ProductSize", size)
                             intent.putExtra("ProductQty", qty)
+                            intent.putExtra("emailAddress", sessionId)
+                            intent.putExtra("name", sessionId1)
+                            intent.putExtra("Shirt", shirt)
+                            intent.putExtra("Shoes", shoes)
                             startActivity(intent)
                         })
 
@@ -121,25 +125,26 @@ class stockOutForm : AppCompatActivity() {
                     builder.setMessage("Confirm Out Stock?")
 
                     //performing positive action
-                    if (latestAmountQty != null) {
-                        if (dbHelper.updateQty(
-                                productName.text.toString(),
-                                latestAmountQty.toInt()
-                            )
-                        ) {
-                            builder.setPositiveButton("Confirm",
-                                DialogInterface.OnClickListener { dialog, id ->
-                                    Toast.makeText(
-                                        this,
-                                        "Successfully Sent Out!",
-                                        Toast.LENGTH_SHORT
-                                    )
-                                        .show()
+                    builder.setPositiveButton("Confirm",
+                        DialogInterface.OnClickListener { dialog, id ->
+                            if (latestAmountQty != null)
+                            {
+                                if (dbHelper.updateQty(productName.text.toString(), latestAmountQty.toInt()))
+                                {
+                                    Toast.makeText(this, "Successfully Sent Out!", Toast.LENGTH_SHORT).show()
                                     val intent = Intent(this, HomeScreen::class.java)
+                                    intent.putExtra("emailAddress", sessionId)
+                                    intent.putExtra("name", sessionId1)
                                     startActivity(intent)
-                                })
-                        }
-                    }
+                                }
+                            }
+                        })
+
+                    //performing negative action
+                    builder.setNegativeButton("Cancel",
+                        DialogInterface.OnClickListener { dialog, id ->
+                            //Toast.makeText(this, "Cancel Clear!", Toast.LENGTH_SHORT).show()
+                        })
 
                     //Create the AlertDialog
                     val alertDialog: AlertDialog = builder.create()

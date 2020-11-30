@@ -37,29 +37,32 @@ class StockInList : AppCompatActivity() {
         }
         val recyclerView = findViewById<RecyclerView>(R.id.imageRecyclerView)
 
+        val sessionId = intent.getStringExtra("emailAddress")
+        val sessionId1 = intent.getStringExtra("name")
+
         if(shirt == "shirt"){
             shirtList = dbHelper.retrieveShirtItem()
             recyclerView.layoutManager = LinearLayoutManager(this)
-            recyclerView.adapter = ItemAdapter(this, shirtList){
+            recyclerView.adapter = ItemAdapter(this, shirtList, sessionId, sessionId1, shirt){
                 //val intent = Intent(this, stockInForm::class.java)
                 intent.putExtra("Shirt", "shirt")
-                val sessionId = intent.getStringExtra("emailAddress")
-                val sessionId1 = intent.getStringExtra("name")
-                intent.putExtra("emailAddress", sessionId)
-                intent.putExtra("name", sessionId1)
+                //val sessionId = intent.getStringExtra("emailAddress")
+                //val sessionId1 = intent.getStringExtra("name")
+                //intent.putExtra("emailAddress", sessionId)
+                //intent.putExtra("name", sessionId1)
                 //startActivity(intent)
             }
         }
         else if(shoes == "shoes"){
             shoeList =  dbHelper.retrieveShoesItem()
             recyclerView.layoutManager = LinearLayoutManager(this)
-            recyclerView.adapter = ItemAdapter(this, shoeList){
+            recyclerView.adapter = ItemAdapter(this, shoeList, sessionId, sessionId1, shoes){
                 //val intent = Intent(this, stockInForm::class.java)
                 intent.putExtra("Shoes", "shoes")
-                val sessionId = intent.getStringExtra("emailAddress")
-                val sessionId1 = intent.getStringExtra("name")
-                intent.putExtra("emailAddress", sessionId)
-                intent.putExtra("name", sessionId1)
+                //val sessionId = intent.getStringExtra("emailAddress")
+                //val sessionId1 = intent.getStringExtra("name")
+                //intent.putExtra("emailAddress", sessionId)
+                //intent.putExtra("name", sessionId1)
                 //startActivity(intent)
             }
         }

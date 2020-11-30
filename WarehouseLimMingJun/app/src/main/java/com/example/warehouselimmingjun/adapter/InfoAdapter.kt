@@ -97,6 +97,10 @@ class InfoAdapter(private val context: Context, private val images: List<Item>,v
 
             holder.editBtn.setOnClickListener {
 
+                //Get user id and email
+                val sessionId = sessionId
+                val sessionId1 = sessionId1
+
                 //Get position on selected item
                 val model = images[position]
 
@@ -120,6 +124,8 @@ class InfoAdapter(private val context: Context, private val images: List<Item>,v
                 intent.putExtra("ProductCategory", category)
                 intent.putExtra("ProductSize", size)
                 intent.putExtra("ProductImg", myImage)
+                intent.putExtra("emailAddress", sessionId)
+                intent.putExtra("name", sessionId1)
                 //Start another activity
                 context.startActivity(intent)
             }

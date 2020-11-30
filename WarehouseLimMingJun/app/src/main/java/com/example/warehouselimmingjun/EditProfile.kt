@@ -34,6 +34,8 @@ class EditProfile : AppCompatActivity() {
         hello_username.text = "Hello, $sessionId1"
         Username.text = sessionId1
 
+        val myNameName: String? = Username.text.toString()
+
         val backBtn = findViewById<ImageButton>(R.id.backButton)
         backBtn.setOnClickListener{
             val intent = Intent(this, Profile::class.java)
@@ -45,7 +47,7 @@ class EditProfile : AppCompatActivity() {
         val updateBtn = findViewById<Button>(R.id.btn_to_upd_profileEdit)
         updateBtn.setOnClickListener{
             //val intent = Intent(this, Profile::class.java)
-            val myEmail = findViewById<EditText>(R.id.editTextTextEmailAddress)
+            val myEmail = findViewById<TextView>(R.id.editTextTextEmailAddress)
             val myName = findViewById<EditText>(R.id.Username)
 
             val checkEmail = myEmail.text.toString().isValidEmail()
@@ -66,9 +68,10 @@ class EditProfile : AppCompatActivity() {
                 sessionId = email.text.toString()
                 sessionId1 = Username.text.toString()
                 //performing positive action
-                if(dbHelper.updateProfile(sessionId1.toString(),sessionId.toString())) {
-                    builder.setPositiveButton("Confirm",
-                        DialogInterface.OnClickListener { dialog, id ->
+                builder.setPositiveButton("Confirm",
+                    DialogInterface.OnClickListener { dialog, id ->
+                        if(dbHelper.updateProfile(sessionId1.toString(),sessionId.toString()))
+                        {
                             Toast.makeText(
                                 this,
                                 "Profile updated successfully!",
@@ -78,12 +81,13 @@ class EditProfile : AppCompatActivity() {
                             intent.putExtra("emailAddress", sessionId)
                             intent.putExtra("name", sessionId1)
                             startActivity(intent)
-                        })
-                }
+                        }
+                })
                 //performing negative action
                 builder.setNegativeButton("Cancel",
                     DialogInterface.OnClickListener { dialog, id ->
-                        Toast.makeText(this, "Cancelled Edit Profile!", Toast.LENGTH_SHORT).show()
+                        //Toast.makeText(this, "Cancelled Edit Profile!", Toast.LENGTH_SHORT).show()
+                        sessionId1 = myNameName
                     })
 
                 //Create the AlertDialog
@@ -97,7 +101,7 @@ class EditProfile : AppCompatActivity() {
 
     private fun String.isValidEmail() = !TextUtils.isEmpty(this) && Patterns.EMAIL_ADDRESS.matcher(this).matches()
 
-    private fun validateEmail(checkEmail: Boolean, myEmail: EditText) {
+    private fun validateEmail(checkEmail: Boolean, myEmail: TextView) {
 
         if (myEmail.text.toString().isEmpty())
         {

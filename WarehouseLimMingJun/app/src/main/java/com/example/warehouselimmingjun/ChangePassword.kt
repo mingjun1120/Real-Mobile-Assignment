@@ -87,18 +87,19 @@ class ChangePassword : AppCompatActivity() {
                 //builder.setIcon(android.R.drawable.ic_dialog_alert)
 
                 //performing positive action
-               if( dbHelper.updatePass(myConfirmPwd.text.toString(),sessionId.toString())) {
                    builder.setPositiveButton("Confirm",
                        DialogInterface.OnClickListener { dialog, id ->
-                           Toast.makeText(
-                               this,
-                               "Password changed successfully!",
-                               Toast.LENGTH_SHORT
-                           ).show()
-                           val intent = Intent(this, MainActivity::class.java)
-                           startActivity(intent)
+                           if( dbHelper.updatePass(myConfirmPwd.text.toString(),sessionId.toString()))
+                           {
+                               Toast.makeText(
+                                   this,
+                                   "Password changed successfully!",
+                                   Toast.LENGTH_SHORT
+                               ).show()
+                               val intent = Intent(this, MainActivity::class.java)
+                               startActivity(intent)
+                            }
                        })
-               }
 
                 //performing negative action
                 builder.setNegativeButton("Cancel",

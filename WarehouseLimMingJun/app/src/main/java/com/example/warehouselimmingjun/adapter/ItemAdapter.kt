@@ -23,6 +23,9 @@ import com.example.warehouselimmingjun.stockInForm
 class ItemAdapter(
     private val context: Context,
     private val images: List<Item>,
+    val sessionId: String?,
+    val sessionId1: String?,
+    val category: String?,
     val listener: (Item) -> Unit
 ): RecyclerView.Adapter<ItemAdapter.ImageViewHolder>() {
     inner class ImageViewHolder(view: View) : RecyclerView.ViewHolder(view) {
@@ -53,6 +56,13 @@ class ItemAdapter(
 
         holder.addBtn.setOnClickListener {
 
+            //Get Shirt or Shoes
+            val shirtOrShoes = category
+
+            //Get user id and email
+            val sessionId = sessionId
+            val sessionId1 = sessionId1
+
             //Get position on selected item
             val model = images[position]
 
@@ -69,6 +79,17 @@ class ItemAdapter(
             intent.putExtra("ProductName", name)
             intent.putExtra("ProductSize", size)
             intent.putExtra("ProductQty", qty)
+            intent.putExtra("emailAddress", sessionId)
+            intent.putExtra("name", sessionId1)
+
+            if (shirtOrShoes.equals("shirt"))
+            {
+                intent.putExtra("Shirt", shirtOrShoes)
+            }
+            else
+            {
+                intent.putExtra("Shoes", shirtOrShoes)
+            }
 
             //Start another activity
             context.startActivity(intent)

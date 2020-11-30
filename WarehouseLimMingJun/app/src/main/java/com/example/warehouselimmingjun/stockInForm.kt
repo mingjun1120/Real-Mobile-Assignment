@@ -51,7 +51,7 @@ class stockInForm : AppCompatActivity() {
         //BACK BUTTON
         val backBtn = findViewById<ImageButton>(R.id.backButton)
         backBtn.setOnClickListener{
-            val intent = Intent(this, StockIn::class.java)
+            val intent = Intent(this, StockInList::class.java)
 
             intent.putExtra("Shirt", shirt)
             intent.putExtra("Shoes", shoes)
@@ -97,20 +97,26 @@ class stockInForm : AppCompatActivity() {
                 val latestAmountQty = qtyProduct?.toInt()?.plus(qtyToBeAdd.text.toString().toInt())
 
                 //performing positive action
-                if (latestAmountQty != null) {
-                    if(dbHelper.updateQty(productName.text.toString(),latestAmountQty.toInt())) {
+
                         builder.setPositiveButton("Confirm",
                             DialogInterface.OnClickListener { dialog, id ->
-                                Toast.makeText(this, "Successfully Added!", Toast.LENGTH_SHORT).show()
-                                val sessionId = getIntent().getStringExtra("emailAddress")
-                                val sessionId1 = getIntent().getStringExtra("name")
-                                intent.putExtra("emailAddress", sessionId)
-                                intent.putExtra("name", sessionId1)
-                                val intent = Intent(this, HomeScreen::class.java)
-                                startActivity(intent)
-                            })
-                    }
-                }
+                                if (latestAmountQty != null)
+                                {
+                                    if(dbHelper.updateQty(productName.text.toString(),latestAmountQty.toInt()))
+                                    {
+                                        Toast.makeText(this, "Successfully Added!", Toast.LENGTH_SHORT).show()
+                                        val intent = Intent(this, HomeScreen::class.java)
+                                        intent.putExtra("emailAddress", sessionId)
+                                        intent.putExtra("name", sessionId1)
+                                        startActivity(intent)
+                                    }
+                                }
+                        })
+                //performing negative action
+                builder.setNegativeButton("Cancel",
+                    DialogInterface.OnClickListener { dialog, id ->
+                        //Toast.makeText(this, "Cancel Clear!", Toast.LENGTH_SHORT).show()
+                })
 
                 //Create the AlertDialog
                 val alertDialog: AlertDialog = builder.create()
