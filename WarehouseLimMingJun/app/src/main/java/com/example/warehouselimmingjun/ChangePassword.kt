@@ -104,7 +104,7 @@ class ChangePassword : AppCompatActivity() {
                 //performing negative action
                 builder.setNegativeButton("Cancel",
                     DialogInterface.OnClickListener { dialog, id ->
-                        Toast.makeText(this, "Cancelled change password!", Toast.LENGTH_SHORT).show()
+                        //Toast.makeText(this, "Cancelled change password!", Toast.LENGTH_SHORT).show()
                     })
 
                 //Create the AlertDialog

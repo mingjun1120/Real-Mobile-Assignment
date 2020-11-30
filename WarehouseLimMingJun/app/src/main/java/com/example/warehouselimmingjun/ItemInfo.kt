@@ -53,8 +53,8 @@ class ItemInfo : AppCompatActivity(), AdapterView.OnItemSelectedListener {
 
             }
 
-            val sessionId = getIntent().getStringExtra("emailAddress")
-            val sessionId1 = getIntent().getStringExtra("name")
+            val sessionId = intent.getStringExtra("emailAddress")
+            val sessionId1 = intent.getStringExtra("name")
 
             override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long)
             {
@@ -65,10 +65,7 @@ class ItemInfo : AppCompatActivity(), AdapterView.OnItemSelectedListener {
                     recyclerView.layoutManager = LinearLayoutManager(parent.context)
                     recyclerView.adapter = InfoAdapter(parent.context, shirtList, sessionId, sessionId1) {
 
-                        val sessionId = intent.getStringExtra("emailAddress")
-                        val sessionId1 = intent.getStringExtra("name")
-                        intent.putExtra("emailAddress", sessionId)
-                        intent.putExtra("name", sessionId1)
+
                     }
                 }
                 else if(selectedItem == "Shoe")
@@ -77,10 +74,7 @@ class ItemInfo : AppCompatActivity(), AdapterView.OnItemSelectedListener {
                     recyclerView.layoutManager = LinearLayoutManager(parent.context)
                     recyclerView.adapter = InfoAdapter(parent.context, shoeList, sessionId, sessionId1) {
 
-                        val sessionId = intent.getStringExtra("emailAddress")
-                        val sessionId1 = intent.getStringExtra("name")
-                        intent.putExtra("emailAddress", sessionId)
-                        intent.putExtra("name", sessionId1)
+
                     }
                 }
                 else
@@ -89,10 +83,7 @@ class ItemInfo : AppCompatActivity(), AdapterView.OnItemSelectedListener {
                     recyclerView.layoutManager = LinearLayoutManager(parent.context)
                     recyclerView.adapter = InfoAdapter(parent.context, productList, sessionId, sessionId1) {
 
-                        val sessionId = intent.getStringExtra("emailAddress")
-                        val sessionId1 = intent.getStringExtra("name")
-                        intent.putExtra("emailAddress", sessionId)
-                        intent.putExtra("name", sessionId1)
+
                     }
                 }
             }

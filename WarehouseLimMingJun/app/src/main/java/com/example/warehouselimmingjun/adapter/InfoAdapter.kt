@@ -56,25 +56,20 @@ class InfoAdapter(private val context: Context, private val images: List<Item>,v
 
                         builder.setPositiveButton("Confirm",
                             DialogInterface.OnClickListener { dialog, id ->
-                                if(dbHelper.deleteProduct(item.id.toString())) {
-                                    Toast.makeText(
-                                    context,
-                                    "Item deleted successful!",
-                                    Toast.LENGTH_SHORT
-                                )
-                                    .show()
+                                if(dbHelper.deleteProduct(item.id.toString()))
+                                {
+                                    Toast.makeText(context, "Item deleted successful!", Toast.LENGTH_SHORT).show()
 
-                                val intent = Intent(context, ItemInfo::class.java)
-                                intent.putExtra("emailAddress", sessionId)
-                                intent.putExtra("name", sessionId1)
-                                context.startActivity(intent)
-                            }
+                                    val intent = Intent(context, ItemInfo::class.java)
+                                    intent.putExtra("emailAddress", sessionId)
+                                    intent.putExtra("name", sessionId1)
+                                    context.startActivity(intent)
+                                }
                     })
                     //performing negative action
                     builder.setNegativeButton("Cancel",
                         DialogInterface.OnClickListener { dialog, id ->
-                            Toast.makeText(context, "Cancellation successful!", Toast.LENGTH_SHORT)
-                                .show()
+                            //Toast.makeText(context, "Cancellation successful!", Toast.LENGTH_SHORT).show()
                         })
 
                     //Create the AlertDialog
