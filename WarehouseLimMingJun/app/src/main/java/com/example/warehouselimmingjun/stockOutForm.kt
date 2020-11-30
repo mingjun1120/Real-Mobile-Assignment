@@ -43,8 +43,8 @@ class stockOutForm : AppCompatActivity() {
         val mySize = findViewById<TextView>(R.id.SizeInput)
         mySize.text = size
 
-        val myQty = findViewById<EditText>(R.id.QuantityText)
-        myQty.setText(qty)
+        val myQty = findViewById<TextView>(R.id.stockAvailable)
+        myQty.text = "Remaining stocks: $qty"
 
         val backBtn = findViewById<ImageButton>(R.id.backButton)
         backBtn.setOnClickListener {
@@ -76,48 +76,41 @@ class stockOutForm : AppCompatActivity() {
 
             val myQty = findViewById<EditText>(R.id.QuantityText)
             val checkQty = validateQtyField(myQty)
-            val productName = findViewById<TextView>(R.id.ProductInput)
 
-            val qtyProduct = dbHelper.getQty(productName.text.toString())
+            if (checkQty)
+            {
+                val productName = findViewById<TextView>(R.id.ProductInput)
 
-            val qtyToBeReduce = findViewById<TextView>(R.id.QuantityText)
-            var i = 1
+                val qtyProduct = dbHelper.getQty(productName.text.toString())
 
-            if (qtyProduct != null) {
-                if (qtyProduct.toInt() < qtyToBeReduce.text.toString().toInt()) {
-                    i = 0
-                    val builder = AlertDialog.Builder(this)
-                    //set title for alert dialog
-                    builder.setTitle("Quantity of Stock Out Cannot More Than Current Quantity Stock !!!")
-                    //set message for alert dialog
-                    builder.setMessage("Please Key In the Valid Amount !!!")
-                    builder.setPositiveButton("OK",
-                        DialogInterface.OnClickListener { dialog, id ->
+                val qtyToBeReduce = findViewById<TextView>(R.id.QuantityText)
+                var i = 1
 
-                            val intent = Intent(this, stockOutForm::class.java)
-                            intent.putExtra("ProductCategory", category)
-                            intent.putExtra("ProductName", name)
-                            intent.putExtra("ProductSize", size)
-                            intent.putExtra("ProductQty", qty)
-                            intent.putExtra("emailAddress", sessionId)
-                            intent.putExtra("name", sessionId1)
-                            intent.putExtra("Shirt", shirt)
-                            intent.putExtra("Shoes", shoes)
-                            startActivity(intent)
-                        })
+                if (qtyProduct != null) {
+                    if (qtyProduct.toInt() < qtyToBeReduce.text.toString().toInt()) {
+                        i = 0
+                        val builder = AlertDialog.Builder(this)
+                        //set title for alert dialog
+                        builder.setTitle("Quantity of Stock Out Cannot More Than Current Quantity Stock !!!")
+                        //set message for alert dialog
+                        builder.setMessage("Please Key In the Valid Amount !!!")
+                        builder.setPositiveButton("OK",
+                            DialogInterface.OnClickListener { dialog, id ->
 
-                    //Create the AlertDialog
-                    val alertDialog: AlertDialog = builder.create()
-                    //set other dialog properties
-                    alertDialog.setCancelable(false)
-                    alertDialog.show()
+                                myQty.setText("")
+                            })
+
+                        //Create the AlertDialog
+                        val alertDialog: AlertDialog = builder.create()
+                        //set other dialog properties
+                        alertDialog.setCancelable(false)
+                        alertDialog.show()
+                    }
                 }
-            }
-            if (i == 1) {
-                val latestAmountQty =
-                    qtyProduct?.toInt()?.minus(qtyToBeReduce.text.toString().toInt())
+                if (i == 1)
+                {
+                    val latestAmountQty = qtyProduct?.toInt()?.minus(qtyToBeReduce.text.toString().toInt())
 
-                if (checkQty) {
                     val builder = AlertDialog.Builder(this)
                     //set title for alert dialog
                     builder.setTitle("Stock Out Confirmation")
@@ -131,7 +124,7 @@ class stockOutForm : AppCompatActivity() {
                             {
                                 if (dbHelper.updateQty(productName.text.toString(), latestAmountQty.toInt()))
                                 {
-                                    Toast.makeText(this, "Successfully Sent Out!", Toast.LENGTH_SHORT).show()
+                                    Toast.makeText(this, "Successfully Shipped!", Toast.LENGTH_SHORT).show()
                                     val intent = Intent(this, HomeScreen::class.java)
                                     intent.putExtra("emailAddress", sessionId)
                                     intent.putExtra("name", sessionId1)
