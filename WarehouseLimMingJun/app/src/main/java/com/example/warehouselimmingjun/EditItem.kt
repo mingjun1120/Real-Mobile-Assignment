@@ -12,17 +12,19 @@ import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.graphics.drawable.toBitmap
 import androidx.core.view.drawToBitmap
+import com.example.warehouselimmingjun.DBHelper.DBHelper_History
 import com.example.warehouselimmingjun.DBHelper.DBHelper_item
 import java.io.ByteArrayOutputStream
 
 class EditItem : AppCompatActivity() {
     internal lateinit var dbHelper: DBHelper_item
+    internal lateinit var dbHelperHistory: DBHelper_History
     private val PHOTO = 1
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_edit_item)
         dbHelper = DBHelper_item(this)
-
+        dbHelperHistory = DBHelper_History(this)
         val intent = intent
         val id = intent.getStringExtra("ProductID")
         val location = intent.getStringExtra("ProductLoc")
@@ -144,11 +146,16 @@ class EditItem : AppCompatActivity() {
                                     {
                                         if(dbHelper.editPrice(myID.text.toString(),myPrice.text.toString()))
                                         {
-                                            Toast.makeText(this, "Item edit successfully!", Toast.LENGTH_SHORT).show()
-                                            val intent = Intent(this, HomeScreen::class.java)
-                                            intent.putExtra("emailAddress", sessionId)
-                                            intent.putExtra("name", sessionId1)
-                                            startActivity(intent)
+                                            if(dbHelperHistory.editProductName(myID.text.toString(),myName.text.toString()))
+                                            {
+                                                if(dbHelperHistory.editImg(myID.text.toString(),image1)) {
+                                                    Toast.makeText(this,"Item edit successfully!", Toast.LENGTH_SHORT ).show()
+                                                    val intent = Intent(this, HomeScreen::class.java)
+                                                    intent.putExtra("emailAddress", sessionId)
+                                                    intent.putExtra("name", sessionId1)
+                                                    startActivity(intent)
+                                                }
+                                            }
                                         }
                                     }
                                 }

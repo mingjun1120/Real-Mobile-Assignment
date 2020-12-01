@@ -121,4 +121,24 @@ class DBHelper_History (context: Context): SQLiteOpenHelper(context, DATABASE_NA
         return true
         db.close()
     }
+    fun editProductName(id: String, latestName:String): Boolean {
+        val db = this.writableDatabase
+        val values = ContentValues()
+        values.put(COL_Product_Name, latestName)
+        values.put(COL_Product_ID, id)
+
+        db.update(TABLE_NAME, values, "$COL_Product_ID= ?", arrayOf(id))
+        return true
+        db.close()
+    }
+    fun editImg(id: String, latestImg:ByteArray): Boolean {
+        val db = this.writableDatabase
+        val values = ContentValues()
+        values.put(COL_Image, latestImg)
+        values.put(COL_Product_ID, id)
+
+        db.update(TABLE_NAME, values, "${COL_Product_ID}= ?", arrayOf(id))
+        return true
+        db.close()
+    }
 }
