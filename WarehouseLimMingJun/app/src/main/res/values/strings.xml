@@ -91,6 +91,10 @@
     <string name="shoeCategory">Shoe</string>
     <string name="shirtCategory">Shirt</string>
     <string name="transaction_history">Transaction History</string>
+    <string name="stock_in_history_list">Stock In:</string>
+    <string name="date_and_time"><![CDATA[Date & Time:]]></string>
+    <string name="view_button">View</string>
+    <string name="stock_out_history_list">Stock Out:</string>
     <string-array name="numbers">
         <item>S</item>
         <item>M</item>

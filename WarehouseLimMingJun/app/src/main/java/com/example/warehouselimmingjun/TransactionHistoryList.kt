@@ -9,7 +9,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.warehouselimmingjun.adapter.HistoryAdapter
 import com.example.warehouselimmingjun.model.HistoryList
 
-class TransactionHistory : AppCompatActivity()
+class TransactionHistoryList : AppCompatActivity()
 {
     override fun onCreate(savedInstanceState: Bundle?)
     {

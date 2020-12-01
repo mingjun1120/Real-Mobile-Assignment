@@ -9,7 +9,7 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.WarehouseLimMingJun">
-        <activity android:name=".TransactionHistory" />
+        <activity android:name=".TransactionHistoryList" />
         <activity android:name=".StockOutList"></activity>
         <activity android:name=".AddNewItemFormShoe" />
         <activity android:name=".HomeScreen" />
