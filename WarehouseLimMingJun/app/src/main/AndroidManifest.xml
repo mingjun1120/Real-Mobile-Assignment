@@ -9,8 +9,9 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.WarehouseLimMingJun">
+        <activity android:name=".history_detail"></activity>
         <activity android:name=".TransactionHistoryList" />
-        <activity android:name=".StockOutList"></activity>
+        <activity android:name=".StockOutList" />
         <activity android:name=".AddNewItemFormShoe" />
         <activity android:name=".HomeScreen" />
         <activity android:name=".ChangePassword" />
@@ -23,10 +24,16 @@
         <activity android:name=".StockIn" />
         <activity android:name=".StockOut" />
         <activity android:name=".StockInList" />
-        <activity android:name=".EditItem" android:parentActivityName=".ItemInfo"/>
+        <activity
+            android:name=".EditItem"
+            android:parentActivityName=".ItemInfo" />
         <activity android:name=".ItemInfo" />
-        <activity android:name=".stockInForm" android:parentActivityName=".StockInList"/>
-        <activity android:name=".stockOutForm" android:parentActivityName=".StockOutList"/>
+        <activity
+            android:name=".stockInForm"
+            android:parentActivityName=".StockInList" />
+        <activity
+            android:name=".stockOutForm"
+            android:parentActivityName=".StockOutList" />
         <activity android:name=".MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
