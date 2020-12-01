@@ -61,8 +61,8 @@ class HomeScreen : AppCompatActivity()
             val intent = Intent(this, StockIn::class.java)
             val sessionId = getIntent().getStringExtra("emailAddress")
             val sessionId1 = getIntent().getStringExtra("name")
-            intent.putExtra("emailAddress", sessionId);
-            intent.putExtra("name", sessionId1);
+            intent.putExtra("emailAddress", sessionId)
+            intent.putExtra("name", sessionId1)
             startActivity(intent)
         }
 
@@ -71,18 +71,18 @@ class HomeScreen : AppCompatActivity()
             val intent = Intent(this, StockOut::class.java)
             val sessionId = getIntent().getStringExtra("emailAddress")
             val sessionId1 = getIntent().getStringExtra("name")
-            intent.putExtra("emailAddress", sessionId);
-            intent.putExtra("name", sessionId1);
+            intent.putExtra("emailAddress", sessionId)
+            intent.putExtra("name", sessionId1)
             startActivity(intent)
         }
 
         val transHistoryBtn = findViewById<ImageButton>(R.id.transHistoryButton)
         transHistoryBtn.setOnClickListener{
-            val intent = Intent(this, TransactionHistory::class.java)
-//            val sessionId = getIntent().getStringExtra("emailAddress")
-//            val sessionId1 = getIntent().getStringExtra("name")
-//            intent.putExtra("emailAddress", sessionId)
-//            intent.putExtra("name", sessionId1)
+            val intent = Intent(this, TransactionHistoryList::class.java)
+            val sessionId = getIntent().getStringExtra("emailAddress")
+            val sessionId1 = getIntent().getStringExtra("name")
+            intent.putExtra("emailAddress", sessionId)
+            intent.putExtra("name", sessionId1)
             startActivity(intent)
         }
 
@@ -91,8 +91,8 @@ class HomeScreen : AppCompatActivity()
             val intent = Intent(this, AddNewItem::class.java)
             val sessionId = getIntent().getStringExtra("emailAddress")
             val sessionId1 = getIntent().getStringExtra("name")
-            intent.putExtra("emailAddress", sessionId);
-            intent.putExtra("name", sessionId1);
+            intent.putExtra("emailAddress", sessionId)
+            intent.putExtra("name", sessionId1)
             startActivity(intent)
         }
 
@@ -101,8 +101,8 @@ class HomeScreen : AppCompatActivity()
             val intent = Intent(this, ItemInfo::class.java)
             val sessionId = getIntent().getStringExtra("emailAddress")
             val sessionId1 = getIntent().getStringExtra("name")
-            intent.putExtra("emailAddress", sessionId);
-            intent.putExtra("name", sessionId1);
+            intent.putExtra("emailAddress", sessionId)
+            intent.putExtra("name", sessionId1)
             startActivity(intent)
         }
 
