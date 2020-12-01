@@ -9,14 +9,16 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.warehouselimmingjun.adapter.HistoryAdapter
 import com.example.warehouselimmingjun.model.HistoryList
 
-class TransactionHistory : AppCompatActivity() {
-    override fun onCreate(savedInstanceState: Bundle?) {
+class TransactionHistory : AppCompatActivity()
+{
+    override fun onCreate(savedInstanceState: Bundle?)
+    {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_transaction_history)
 
         val backBtn = findViewById<ImageButton>(R.id.backButton)
         backBtn.setOnClickListener {
-            val intent = Intent(this, StockOut::class.java)
+            val intent = Intent(this, HomeScreen::class.java)
             val sessionId = getIntent().getStringExtra("emailAddress")
             val sessionId1 = getIntent().getStringExtra("name")
             intent.putExtra("emailAddress", sessionId)

@@ -1,0 +1,113 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    app:cardCornerRadius="8dp"
+    app:cardElevation="5dp"
+    app:cardPreventCornerOverlap="true"
+    app:cardUseCompatPadding="true">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingBottom="4dp"
+        android:focusable="true">
+
+        <ImageView
+            android:id="@+id/icon_list"
+            android:layout_width="98dp"
+            android:layout_height="110dp"
+            android:layout_marginStart="5dp"
+            android:layout_marginTop="6dp"
+            android:contentDescription="@string/itemimage"
+            android:src="@drawable/shirt" />
+
+        <TextView
+            android:id="@+id/title_text_view"
+            android:layout_width="100dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="110dp"
+            android:layout_marginTop="8dp"
+            android:text="@string/title_text"
+            android:textSize="16sp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/detail_text_view"
+            android:layout_width="168dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="110dp"
+            android:layout_marginTop="35dp"
+            android:text="@string/detail_text" />
+
+        <!--        stock_in_1-->
+
+        <TextView
+            android:id="@+id/stock_in"
+            android:layout_width="60dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="110dp"
+            android:layout_marginTop="75dp"
+            android:textColor="#07D955"
+            android:textSize="14sp"
+            android:text="Stock In: " />
+
+        <TextView
+            android:id="@+id/stock_in_text_view"
+            android:layout_width="67dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="170dp"
+            android:layout_marginTop="75dp"
+            android:textColor="#07D955"
+            android:textSize="14sp"
+            android:text="23" />
+        <!--        oty_text-->
+
+        <!--        stock_out_1-->
+
+        <TextView
+            android:id="@+id/stock_out"
+            android:layout_width="70dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="110dp"
+            android:layout_marginTop="95dp"
+            android:textColor="#DF0A0A"
+            android:textSize="14sp"
+            android:text="Stock Out: " />
+
+        <TextView
+            android:id="@+id/stock_out_text_view"
+            android:layout_width="55dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="181dp"
+            android:layout_marginTop="95dp"
+            android:textColor="#DF0A0A"
+            android:textSize="14sp"
+            android:text="23" />
+        <!--        oty_text-->
+
+        <TextView
+            android:id="@+id/date_time_text_view"
+            android:layout_width="154dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="237dp"
+            android:layout_marginTop="95dp"
+            android:text="Date &amp; Time:" />
+<!--        datetime-->
+
+        <Button
+            android:id="@+id/buttonView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="300dp"
+            android:layout_marginTop="35dp"
+            android:focusable="false"
+            android:text="View"
+            app:backgroundTint="#07D955" />
+<!--        view-->
+
+    </RelativeLayout>
+
+</androidx.cardview.widget.CardView>

@@ -90,6 +90,7 @@
     <string name="delete">delete</string>
     <string name="shoeCategory">Shoe</string>
     <string name="shirtCategory">Shirt</string>
+    <string name="transaction_history">Transaction History</string>
     <string-array name="numbers">
         <item>S</item>
         <item>M</item>
