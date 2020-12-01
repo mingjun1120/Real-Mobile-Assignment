@@ -2,6 +2,7 @@ package com.example.warehouselimmingjun.adapter
 
 import android.content.Context
 import android.graphics.BitmapFactory
+import android.content.Intent
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -14,14 +15,9 @@ import com.example.warehouselimmingjun.R
 import com.example.warehouselimmingjun.model.History
 import com.example.warehouselimmingjun.model.HistoryList
 
-class HistoryAdapter (
-    private val context: Context,
-    private val images : List<History>,
-    val listener : (History) -> Unit
 
-): RecyclerView.Adapter<HistoryAdapter.ItemViewHolder>() {
-    internal lateinit var dbHelper: DBHelper_item
-
+class HistoryAdapter (private val context: Context, private val images: List<HistoryList>, val listener: (HistoryList) -> Unit): RecyclerView.Adapter<HistoryAdapter.ItemViewHolder>()
+{
     inner class ItemViewHolder(view: View) : RecyclerView.ViewHolder(view) {
         val icon: ImageView = view.findViewById<ImageView>(R.id.icon_list)
         val name: TextView = view.findViewById<TextView>(R.id.title_text_view)
@@ -47,7 +43,7 @@ class HistoryAdapter (
                 listener(history)
 
             }
-        }
+
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ItemViewHolder {
@@ -58,6 +54,43 @@ class HistoryAdapter (
 
     override fun onBindViewHolder(holder: ItemViewHolder, position: Int) {
         holder.bindmodel(images[position])
+
+        holder.viewBtn.setOnClickListener {
+
+            //Get user id and email
+            //val sessionId = sessionId
+            //val sessionId1 = sessionId1
+
+            //Get position on selected item
+            val model = images[position]
+
+//            val id = model.id
+//            val location = model.location
+//            val name = model.name
+//            val qty = model.quantity
+//            val price = model.price
+//            val category = model.category
+//            val size = model.size
+//            val myImage = model.image
+
+            //Create intent with kotlin
+            val intent = Intent(context, history_detail::class.java)
+            // Now put all these items with put extra intent
+//            intent.putExtra("ProductID", id)
+//            intent.putExtra("ProductLoc", location)
+//            intent.putExtra("ProductName", name)
+//            intent.putExtra("ProductQty", qty)
+//            intent.putExtra("ProductPrice", price)
+//            intent.putExtra("ProductCategory", category)
+//            intent.putExtra("ProductSize", size)
+//            intent.putExtra("ProductImg", myImage)
+
+            //intent.putExtra("emailAddress", sessionId)
+            //intent.putExtra("name", sessionId1)
+
+            //Start another activity
+            context.startActivity(intent)
+        }
     }
 
     override fun getItemCount(): Int {
