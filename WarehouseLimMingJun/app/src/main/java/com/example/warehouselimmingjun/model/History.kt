@@ -7,19 +7,19 @@ class History {
     var HistoryDate:String? = null
     var ProductId:String? = null
     var ProductName:String? = null
-    var StockIN:String? = null
+    var StockIn:String? = null
     var StockOut:String? = null
     var Image:ByteArray? = null
 
     constructor(){}
 
-    constructor(HistoryId:Int,HistoryDate:String,ProductId:String,ProductName:String,StockIN:String,StockOut:String,image:ByteArray)
+    constructor(HistoryId:Int,HistoryDate:String,ProductId:String,ProductName:String,StockIn:String,StockOut:String,image:ByteArray)
     {
         this.HistoryId = HistoryId
         this.HistoryDate = HistoryDate
         this.ProductId = ProductId
         this.ProductName = ProductName
-        this.StockIN = StockIN
+        this.StockIn = StockIn
         this.StockOut = StockOut
         this.Image = image
     }

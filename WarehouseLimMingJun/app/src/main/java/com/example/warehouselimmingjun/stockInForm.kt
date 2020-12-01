@@ -2,17 +2,19 @@ package com.example.warehouselimmingjun
 
 import android.content.DialogInterface
 import android.content.Intent
+import android.os.Build
 import android.os.Bundle
 import android.text.SpannableStringBuilder
 import android.widget.EditText
 import android.widget.ImageButton
 import android.widget.TextView
 import android.widget.Toast
+import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
-import com.example.warehouselimmingjun.DBHelper.DBHelper
 import com.example.warehouselimmingjun.DBHelper.DBHelper_History
 import com.example.warehouselimmingjun.DBHelper.DBHelper_item
+import java.text.DateFormat
 import java.text.SimpleDateFormat
 import java.util.*
 
@@ -21,6 +23,7 @@ class stockInForm : AppCompatActivity() {
     internal lateinit var dbHelper: DBHelper_item
     internal lateinit var dbHelperHistory: DBHelper_History
 
+    @RequiresApi(Build.VERSION_CODES.O)
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_stock_in_form)
@@ -104,31 +107,50 @@ class stockInForm : AppCompatActivity() {
                 //performing positive action
                 val image =  dbHelper.retrieveimage(productName.text.toString())
                 val prodID = dbHelper.retriveProductID(productName.text.toString())
-                val sdf = SimpleDateFormat("dd/M/yyyy hh:mm:ss")
-                val currentDate = sdf.format(Date())
+                val now = Calendar.getInstance()
+                val malaysianLocale = Locale("en", "MY")
+                val defaultMalaysianFormatter: DateFormat = DateFormat.getDateTimeInstance(
+                    DateFormat.DEFAULT, DateFormat.DEFAULT, malaysianLocale
+                )
+                val malaysianTimeZone = TimeZone.getTimeZone("Asia/Kuala_Lumpur")
+                defaultMalaysianFormatter.timeZone = malaysianTimeZone
+                val currentDate = defaultMalaysianFormatter.format(now.time)
 
                         builder.setPositiveButton("Confirm",
                             DialogInterface.OnClickListener { dialog, id ->
-                                if (latestAmountQty != null)
-                                {
-                                    if(dbHelper.updateQty(productName.text.toString(),latestAmountQty.toInt()))
-                                    {
+                                if (latestAmountQty != null) {
+                                    if (dbHelper.updateQty(
+                                            productName.text.toString(),
+                                            latestAmountQty.toInt()
+                                        )
+                                    ) {
                                         if (image != null) {
-                                            dbHelperHistory.addHistory(currentDate.toString(),prodID.toString(),productName.text.toString(),qtyToBeAdd.text.toString(),"0",image)
+                                            dbHelperHistory.addHistory(
+                                                currentDate.toString(),
+                                                prodID.toString(),
+                                                productName.text.toString(),
+                                                qtyToBeAdd.text.toString(),
+                                                "0",
+                                                image
+                                            )
                                         }
-                                        Toast.makeText(this, "Successfully Added!", Toast.LENGTH_SHORT).show()
+                                        Toast.makeText(
+                                            this,
+                                            "Successfully Added!",
+                                            Toast.LENGTH_SHORT
+                                        ).show()
                                         val intent = Intent(this, HomeScreen::class.java)
                                         intent.putExtra("emailAddress", sessionId)
                                         intent.putExtra("name", sessionId1)
                                         startActivity(intent)
                                     }
                                 }
-                        })
+                            })
                 //performing negative action
                 builder.setNegativeButton("Cancel",
                     DialogInterface.OnClickListener { dialog, id ->
                         //Toast.makeText(this, "Cancel Clear!", Toast.LENGTH_SHORT).show()
-                })
+                    })
 
                 //Create the AlertDialog
                 val alertDialog: AlertDialog = builder.create()

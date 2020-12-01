@@ -2,8 +2,13 @@ package com.example.warehouselimmingjun.DBHelper
 
 import android.content.ContentValues
 import android.content.Context
+import android.database.Cursor
 import android.database.sqlite.SQLiteDatabase
+import android.database.sqlite.SQLiteException
 import android.database.sqlite.SQLiteOpenHelper
+import com.example.warehouselimmingjun.StockIn
+import com.example.warehouselimmingjun.model.History
+import com.example.warehouselimmingjun.model.Item
 
 class DBHelper_History (context: Context): SQLiteOpenHelper(context, DATABASE_NAME, null, DATABASE_VER) {
     companion object {
@@ -14,7 +19,7 @@ class DBHelper_History (context: Context): SQLiteOpenHelper(context, DATABASE_NA
         private val COL_History_Date = "HistoryDate"
         private val COL_Product_ID = "ProductId"
         private val COL_Product_Name = "ProductName"
-        private val COL_StockIn = "StockIN"
+        private val COL_StockIn = "StockIn"
         private val COL_StockOut = "StockOut"
         private val COL_Image = "Image"
     }
@@ -34,7 +39,7 @@ class DBHelper_History (context: Context): SQLiteOpenHelper(context, DATABASE_NA
         HistoryDate: String,
         ProductId: String,
         ProductName: String,
-        StockIN: String,
+        StockIn: String,
         StockOut: String,
         image: ByteArray
     ) {
@@ -43,11 +48,54 @@ class DBHelper_History (context: Context): SQLiteOpenHelper(context, DATABASE_NA
         values.put(COL_History_Date, HistoryDate)
         values.put(COL_Product_ID, ProductId)
         values.put(COL_Product_Name, ProductName)
-        values.put(COL_StockIn, StockIN)
+        values.put(COL_StockIn, StockIn)
         values.put(COL_StockOut, StockOut)
         values.put(COL_Image, image)
 
         db.insert(TABLE_NAME, null, values)
         db.close()
     }
+
+    fun retrieveAllItem(): List<History> {
+        val historyList: ArrayList<History> = ArrayList<History>()
+        val query = "SELECT * FROM ${TABLE_NAME}"
+        val db = this.readableDatabase
+        var cursor: Cursor? = null
+        try {
+            cursor = db.rawQuery(query, null)
+        } catch (e: SQLiteException) {
+            db.execSQL(query)
+            return ArrayList()
+        }
+        var HistoryId: Int
+        var HistoryDate: String
+        var ProductId: String
+        var ProductName: String
+        var StockIn: String
+        var StockOut: String
+        var image: ByteArray
+        if (cursor.moveToFirst()) {
+            do {
+                HistoryId = cursor.getInt(cursor.getColumnIndex("HistoryId"))
+                HistoryDate = cursor.getString(cursor.getColumnIndex("HistoryDate"))
+                ProductId = cursor.getString(cursor.getColumnIndex("ProductId"))
+                ProductName = cursor.getString(cursor.getColumnIndex("ProductName"))
+                StockIn = cursor.getString(cursor.getColumnIndex("StockIn"))
+                StockOut = cursor.getString(cursor.getColumnIndex("StockOut"))
+                image = cursor.getBlob(cursor.getColumnIndex("Image"))
+                val history = History(
+                    HistoryId = HistoryId,
+                    HistoryDate = HistoryDate,
+                    ProductId = ProductId,
+                    ProductName = ProductName,
+                    StockIn = StockIn,
+                    StockOut = StockOut,
+                    image = image
+                )
+                historyList.add(history)
+            } while (cursor.moveToNext())
+        }
+        return historyList
+    }
+
 }

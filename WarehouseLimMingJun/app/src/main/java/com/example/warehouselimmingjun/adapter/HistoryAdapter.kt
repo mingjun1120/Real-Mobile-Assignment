@@ -1,6 +1,7 @@
 package com.example.warehouselimmingjun.adapter
 
 import android.content.Context
+import android.graphics.BitmapFactory
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -8,14 +9,19 @@ import android.widget.Button
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
+import com.example.warehouselimmingjun.DBHelper.DBHelper_item
 import com.example.warehouselimmingjun.R
+import com.example.warehouselimmingjun.model.History
 import com.example.warehouselimmingjun.model.HistoryList
 
 class HistoryAdapter (
     private val context: Context,
-    private val images : List<HistoryList>,
-    val listener : (HistoryList) -> Unit
+    private val images : List<History>,
+    val listener : (History) -> Unit
+
 ): RecyclerView.Adapter<HistoryAdapter.ItemViewHolder>() {
+    internal lateinit var dbHelper: DBHelper_item
+
     inner class ItemViewHolder(view: View) : RecyclerView.ViewHolder(view) {
         val icon: ImageView = view.findViewById<ImageView>(R.id.icon_list)
         val name: TextView = view.findViewById<TextView>(R.id.title_text_view)
@@ -26,17 +32,20 @@ class HistoryAdapter (
         val stockOutQty: TextView = view.findViewById<TextView>(R.id.stock_out_text_view)
         val date: TextView = view.findViewById<TextView>(R.id.date_time_text_view)
         val viewBtn: Button = view.findViewById(R.id.buttonView)
-        fun bindmodel(item: HistoryList) {
-            icon.setImageResource(item.icons!!)
-            name.text = item.title
-            desc.text = item.detail
-            stockIn.text = item.stockIn
-            stockInQty.text = item.stockInQty
-            stockOut.text = item.stockOut
-            stockOutQty.text = item.stockOutQty
-            date.text = item.dateTime
+
+        fun bindmodel(history: History) {
+            dbHelper = DBHelper_item(context)
+            val options: BitmapFactory.Options? = BitmapFactory.Options()
+            val bitmap = BitmapFactory.decodeByteArray(history.Image, 0, history.Image!!.size, options)
+            icon.setImageBitmap(bitmap)
+            name.text = history.ProductId
+            desc.text = history.ProductName
+            stockInQty.text = history.StockIn
+            stockOutQty.text = history.StockOut
+            date.text = history.HistoryDate
             viewBtn.setOnClickListener {
-                listener(item)
+                listener(history)
+
             }
         }
     }

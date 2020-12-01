@@ -12,6 +12,7 @@ import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import com.example.warehouselimmingjun.DBHelper.DBHelper_History
 import com.example.warehouselimmingjun.DBHelper.DBHelper_item
+import java.text.DateFormat
 import java.text.SimpleDateFormat
 import java.util.*
 
@@ -123,8 +124,14 @@ class stockOutForm : AppCompatActivity() {
                     builder.setMessage("Confirm Out Stock?")
                     val image =  dbHelper.retrieveimage(productName.text.toString())
                     val prodID = dbHelper.retriveProductID(productName.text.toString())
-                    val sdf = SimpleDateFormat("dd/M/yyyy hh:mm:ss")
-                    val currentDate = sdf.format(Date())
+                    val now = Calendar.getInstance()
+                    val malaysianLocale = Locale("en", "MY")
+                    val defaultMalaysianFormatter: DateFormat = DateFormat.getDateTimeInstance(
+                        DateFormat.DEFAULT, DateFormat.DEFAULT, malaysianLocale
+                    )
+                    val malaysianTimeZone = TimeZone.getTimeZone("Asia/Kuala_Lumpur")
+                    defaultMalaysianFormatter.timeZone = malaysianTimeZone
+                    val currentDate = defaultMalaysianFormatter.format(now.time)
                     //performing positive action
                     builder.setPositiveButton("Confirm",
                         DialogInterface.OnClickListener { dialog, id ->
@@ -133,7 +140,7 @@ class stockOutForm : AppCompatActivity() {
                                 if (dbHelper.updateQty(productName.text.toString(), latestAmountQty.toInt()))
                                 {
                                     if (image != null) {
-                                        dbHelperHistory.addHistory(currentDate.toString(),prodID.toString(),productName.text.toString(),qtyToBeReduce.text.toString(),"0",image)
+                                        dbHelperHistory.addHistory(currentDate.toString(),prodID.toString(),productName.text.toString(),"0",qtyToBeReduce.text.toString(),image)
                                     }
                                     Toast.makeText(this, "Successfully Shipped!", Toast.LENGTH_SHORT).show()
                                     val intent = Intent(this, HomeScreen::class.java)
