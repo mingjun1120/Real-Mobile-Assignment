@@ -60,10 +60,8 @@ class ChangePassword : AppCompatActivity() {
                 //performing positive action
                 builder.setPositiveButton("OK",
                     DialogInterface.OnClickListener { dialog, id ->
-                        val intent = Intent(this, ChangePassword::class.java)
-                        intent.putExtra("emailAddress", sessionId)
-                        intent.putExtra("name", sessionId1)
-                        startActivity(intent)
+                        myPwd.setText("")
+                        myConfirmPwd.setText("")
                     })
 
                 //Create the AlertDialog
@@ -75,45 +73,46 @@ class ChangePassword : AppCompatActivity() {
             validatePwd(checkPwd, myPwd)
             validateConfirmPwd(checkConfirmPwd, myConfirmPwd)
 
-            if(i == 1){
-            if(checkPwd && checkConfirmPwd)
+            if(i == 1)
             {
-                val builder = AlertDialog.Builder(this)
+                if(checkPwd && checkConfirmPwd)
+                {
+                    val builder = AlertDialog.Builder(this)
 
-                //set title for alert dialog
-                builder.setTitle("Change Password Confirmation")
-                //set message for alert dialog
-                builder.setMessage("Confirm Change Password?")
-                //builder.setIcon(android.R.drawable.ic_dialog_alert)
+                    //set title for alert dialog
+                    builder.setTitle("Change Password Confirmation")
+                    //set message for alert dialog
+                    builder.setMessage("Confirm Change Password?")
+                    //builder.setIcon(android.R.drawable.ic_dialog_alert)
 
-                //performing positive action
-                   builder.setPositiveButton("Confirm",
-                       DialogInterface.OnClickListener { dialog, id ->
-                           if( dbHelper.updatePass(myConfirmPwd.text.toString(),sessionId.toString()))
-                           {
-                               Toast.makeText(
-                                   this,
-                                   "Password changed successfully!",
-                                   Toast.LENGTH_SHORT
-                               ).show()
-                               val intent = Intent(this, MainActivity::class.java)
-                               startActivity(intent)
-                            }
-                       })
+                    //performing positive action
+                       builder.setPositiveButton("Confirm",
+                           DialogInterface.OnClickListener { dialog, id ->
+                               if( dbHelper.updatePass(myConfirmPwd.text.toString(),sessionId.toString()))
+                               {
+                                   Toast.makeText(
+                                       this,
+                                       "Password changed successfully!",
+                                       Toast.LENGTH_SHORT
+                                   ).show()
+                                   val intent = Intent(this, MainActivity::class.java)
+                                   startActivity(intent)
+                                }
+                           })
 
-                //performing negative action
-                builder.setNegativeButton("Cancel",
-                    DialogInterface.OnClickListener { dialog, id ->
-                        //Toast.makeText(this, "Cancelled change password!", Toast.LENGTH_SHORT).show()
-                    })
+                    //performing negative action
+                    builder.setNegativeButton("Cancel",
+                        DialogInterface.OnClickListener { dialog, id ->
+                            //Toast.makeText(this, "Cancelled change password!", Toast.LENGTH_SHORT).show()
+                        })
 
-                //Create the AlertDialog
-                val alertDialog: AlertDialog = builder.create()
-                //set other dialog properties
-                alertDialog.setCancelable(false)
-                alertDialog.show()
+                    //Create the AlertDialog
+                    val alertDialog: AlertDialog = builder.create()
+                    //set other dialog properties
+                    alertDialog.setCancelable(false)
+                    alertDialog.show()
+                }
             }
-        }
         }
     }
 

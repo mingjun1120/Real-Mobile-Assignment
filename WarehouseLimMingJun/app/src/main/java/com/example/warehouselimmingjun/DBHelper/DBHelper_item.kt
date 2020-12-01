@@ -340,4 +340,17 @@ class DBHelper_item(context: Context): SQLiteOpenHelper(context, DATABASE_NAME, 
         }
         return prodID
     }
+    fun checkProductID(id: String): Boolean
+    {
+        val db = readableDatabase
+        val query = "SELECT * FROM $TABLE_NAME WHERE $COL_ID ='$id'"
+        val cursor = db.rawQuery(query, null)
+
+        if (cursor.count > 0) {
+            cursor.close()
+            return true
+        }
+        cursor.close()
+        return false
+    }
 }

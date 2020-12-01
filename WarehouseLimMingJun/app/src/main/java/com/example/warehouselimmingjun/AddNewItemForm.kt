@@ -98,47 +98,25 @@ class AddNewItemForm : AppCompatActivity(), AdapterView.OnItemSelectedListener {
             val productImage = findViewById<ImageView>(R.id.productImage)
             val checkProductImg = validateProductImg(productImage)
 
-            if(checkProductID && checkProductName && checkProductQty && checkProductPrice && checkProductLoc && checkProductImg)
+            var i = 1
+            if (dbHelper.checkProductID(myProductID.text.toString()))
             {
-                //Convert ImageView to BitMap
-                val bitmap = productImage.drawable.toBitmap()
+                val sessionId = intent.getStringExtra("emailAddress")
+                val sessionId1 = intent.getStringExtra("name")
 
-                //Compress the bitmap
-                val stream = ByteArrayOutputStream()
-                bitmap.compress(Bitmap.CompressFormat.JPEG, 100, stream)
-                val image1 = stream.toByteArray()
-
-                //Build Dialog
+                i=0
                 val builder = AlertDialog.Builder(this)
-                //Set title for alert dialog
-                builder.setTitle("Add New Item Confirmation")
-                //Set message for alert dialog
-                builder.setMessage("Confirm Add New Item?")
+
+                //set title for alert dialog
+                builder.setTitle("New Product ID cannot same with existed Product ID!")
+                //set message for alert dialog
+                builder.setMessage("Please Enter Again!")
+                //builder.setIcon(android.R.drawable.ic_dialog_alert)
 
                 //performing positive action
-                builder.setPositiveButton("Confirm", DialogInterface.OnClickListener { dialog, id ->
-                    Toast.makeText(this, "New item added successfully!", Toast.LENGTH_SHORT).show()
-                    dbHelper.addItem(
-                        myProductID.text.toString(),
-                        myProductName.text.toString(),
-                        myProductQty.text.toString(),
-                        myProductCategory.text.toString(),
-                        myProductPrice.text.toString(),
-                        myProductSize.selectedItem.toString(),
-                        myProductLoc.text.toString(),
-                        image1)
-                    val intent = Intent(this, HomeScreen::class.java)
-                    val sessionId = getIntent().getStringExtra("emailAddress")
-                    val sessionId1 = getIntent().getStringExtra("name")
-                    intent.putExtra("emailAddress", sessionId)
-                    intent.putExtra("name", sessionId1)
-                     startActivity(intent)
-                    })
-
-                //performing negative action
-                builder.setNegativeButton("Cancel",
+                builder.setPositiveButton("OK",
                     DialogInterface.OnClickListener { dialog, id ->
-                        //Toast.makeText(this, "Cancelled Add New Item!", Toast.LENGTH_SHORT).show()
+                        
                     })
 
                 //Create the AlertDialog
@@ -146,6 +124,58 @@ class AddNewItemForm : AppCompatActivity(), AdapterView.OnItemSelectedListener {
                 //set other dialog properties
                 alertDialog.setCancelable(false)
                 alertDialog.show()
+            }
+            if (i == 1)
+            {
+                if(checkProductID && checkProductName && checkProductQty && checkProductPrice && checkProductLoc && checkProductImg)
+                {
+                    //Convert ImageView to BitMap
+                    val bitmap = productImage.drawable.toBitmap()
+
+                    //Compress the bitmap
+                    val stream = ByteArrayOutputStream()
+                    bitmap.compress(Bitmap.CompressFormat.JPEG, 100, stream)
+                    val image1 = stream.toByteArray()
+
+                    //Build Dialog
+                    val builder = AlertDialog.Builder(this)
+                    //Set title for alert dialog
+                    builder.setTitle("Add New Item Confirmation")
+                    //Set message for alert dialog
+                    builder.setMessage("Confirm Add New Item?")
+
+                    //performing positive action
+                    builder.setPositiveButton("Confirm", DialogInterface.OnClickListener { dialog, id ->
+                        Toast.makeText(this, "New item added successfully!", Toast.LENGTH_SHORT).show()
+                        dbHelper.addItem(
+                            myProductID.text.toString(),
+                            myProductName.text.toString(),
+                            myProductQty.text.toString(),
+                            myProductCategory.text.toString(),
+                            myProductPrice.text.toString(),
+                            myProductSize.selectedItem.toString(),
+                            myProductLoc.text.toString(),
+                            image1)
+                        val intent = Intent(this, HomeScreen::class.java)
+                        val sessionId = getIntent().getStringExtra("emailAddress")
+                        val sessionId1 = getIntent().getStringExtra("name")
+                        intent.putExtra("emailAddress", sessionId)
+                        intent.putExtra("name", sessionId1)
+                         startActivity(intent)
+                        })
+
+                    //performing negative action
+                    builder.setNegativeButton("Cancel",
+                        DialogInterface.OnClickListener { dialog, id ->
+                            //Toast.makeText(this, "Cancelled Add New Item!", Toast.LENGTH_SHORT).show()
+                        })
+
+                    //Create the AlertDialog
+                    val alertDialog: AlertDialog = builder.create()
+                    //set other dialog properties
+                    alertDialog.setCancelable(false)
+                    alertDialog.show()
+                }
             }
         }
 
@@ -187,7 +217,7 @@ class AddNewItemForm : AppCompatActivity(), AdapterView.OnItemSelectedListener {
             builder.setNegativeButton("No",
                 DialogInterface.OnClickListener { dialog, id ->
                     Toast.makeText(this, "Cancel Clear!", Toast.LENGTH_SHORT).show()
-                });
+                })
 
             //Create the AlertDialog
             val alertDialog: AlertDialog = builder.create()

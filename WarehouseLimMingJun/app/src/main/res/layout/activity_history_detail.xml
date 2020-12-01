@@ -82,7 +82,7 @@
     <TextView
         android:id="@+id/dateTimeInput"
         android:layout_width="160dp"
-        android:layout_height="28dp"
+        android:layout_height="45dp"
         android:layout_marginTop="4dp"
         android:layout_marginEnd="14dp"
         android:textColor="@color/BlueDarkOpa80"
@@ -198,30 +198,6 @@
         android:textSize="24sp"
         app:layout_constraintStart_toStartOf="@+id/background"
         app:layout_constraintTop_toBottomOf="@+id/UsernameInput" />
-
-    <ImageButton
-        android:id="@+id/photo_button"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="215dp"
-        android:layout_marginTop="32dp"
-        android:background="@color/Transparent"
-        android:contentDescription="@string/cameraicon"
-        app:layout_constraintStart_toStartOf="@+id/background"
-        app:layout_constraintTop_toBottomOf="@+id/image"
-        app:srcCompat="@android:drawable/ic_menu_camera" />
-
-<!--    <ImageButton-->
-<!--        android:id="@+id/confirmButton"-->
-<!--        android:layout_width="wrap_content"-->
-<!--        android:layout_height="wrap_content"-->
-<!--        android:layout_marginTop="12dp"-->
-<!--        android:background="@color/Transparent"-->
-<!--        android:contentDescription="@string/confirmbtn"-->
-<!--        app:layout_constraintEnd_toEndOf="@+id/background"-->
-<!--        app:layout_constraintStart_toStartOf="@+id/background"-->
-<!--        app:layout_constraintTop_toBottomOf="@+id/background"-->
-<!--        app:srcCompat="@drawable/group_64" />-->
 
     <ImageView
         android:id="@+id/productImage"
