@@ -10,17 +10,22 @@ import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
+import com.example.warehouselimmingjun.DBHelper.DBHelper_History
 import com.example.warehouselimmingjun.DBHelper.DBHelper_item
+import java.text.SimpleDateFormat
+import java.util.*
 
 class stockOutForm : AppCompatActivity() {
 
     internal lateinit var dbHelper: DBHelper_item
+    internal lateinit var dbHelperHistory: DBHelper_History
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_stock_out_form)
 
         dbHelper = DBHelper_item(this)
+        dbHelperHistory = DBHelper_History(this)
 
         val shirt = intent.getStringExtra("Shirt")
         val shoes = intent.getStringExtra("Shoes")
@@ -116,7 +121,10 @@ class stockOutForm : AppCompatActivity() {
                     builder.setTitle("Stock Out Confirmation")
                     //set message for alert dialog
                     builder.setMessage("Confirm Out Stock?")
-
+                    val image =  dbHelper.retrieveimage(productName.text.toString())
+                    val prodID = dbHelper.retriveProductID(productName.text.toString())
+                    val sdf = SimpleDateFormat("dd/M/yyyy hh:mm:ss")
+                    val currentDate = sdf.format(Date())
                     //performing positive action
                     builder.setPositiveButton("Confirm",
                         DialogInterface.OnClickListener { dialog, id ->
@@ -124,6 +132,9 @@ class stockOutForm : AppCompatActivity() {
                             {
                                 if (dbHelper.updateQty(productName.text.toString(), latestAmountQty.toInt()))
                                 {
+                                    if (image != null) {
+                                        dbHelperHistory.addHistory(currentDate.toString(),prodID.toString(),productName.text.toString(),qtyToBeReduce.text.toString(),"0",image)
+                                    }
                                     Toast.makeText(this, "Successfully Shipped!", Toast.LENGTH_SHORT).show()
                                     val intent = Intent(this, HomeScreen::class.java)
                                     intent.putExtra("emailAddress", sessionId)

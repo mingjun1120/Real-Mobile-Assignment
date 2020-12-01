@@ -296,4 +296,48 @@ class DBHelper_item(context: Context): SQLiteOpenHelper(context, DATABASE_NAME, 
         return true
         db.close() // Closing database connection
     }
+    fun retrieveimage(name: String): ByteArray?{
+        val db = this.readableDatabase
+        val query = "SELECT $COL_IMAGE FROM $TABLE_NAME where $COL_NAME = '$name'"
+        var cursor: Cursor? = null
+
+        try {
+            cursor = db.rawQuery(query, null)
+        } catch (e: SQLiteException) {
+            Log.i("dbhelper.kt", "SQLite exception")
+            db.execSQL(query)
+            return null
+        }
+
+        var image: ByteArray? = null
+
+        if (cursor.moveToFirst()) {
+            do {
+                image = cursor.getBlob(cursor.getColumnIndex("Image"))
+            } while (cursor.moveToNext())
+        }
+        return image
+    }
+    fun retriveProductID(name: String): String?{
+        val db = this.readableDatabase
+        val query = "SELECT $COL_ID FROM $TABLE_NAME where $COL_NAME = '$name'"
+        var cursor: Cursor? = null
+
+        try {
+            cursor = db.rawQuery(query, null)
+        } catch (e: SQLiteException) {
+            Log.i("dbhelper.kt", "SQLite exception")
+            db.execSQL(query)
+            return null
+        }
+
+        var prodID: String? = null
+
+        if (cursor.moveToFirst()) {
+            do {
+                prodID = cursor.getString(cursor.getColumnIndex("Id"))
+            } while (cursor.moveToNext())
+        }
+        return prodID
+    }
 }

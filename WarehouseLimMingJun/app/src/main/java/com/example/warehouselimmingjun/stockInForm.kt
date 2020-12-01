@@ -11,17 +11,22 @@ import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import com.example.warehouselimmingjun.DBHelper.DBHelper
+import com.example.warehouselimmingjun.DBHelper.DBHelper_History
 import com.example.warehouselimmingjun.DBHelper.DBHelper_item
+import java.text.SimpleDateFormat
+import java.util.*
 
 class stockInForm : AppCompatActivity() {
 
     internal lateinit var dbHelper: DBHelper_item
+    internal lateinit var dbHelperHistory: DBHelper_History
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_stock_in_form)
 
         dbHelper = DBHelper_item(this)
+        dbHelperHistory = DBHelper_History(this)
 
         val shirt = intent.getStringExtra("Shirt")
         val shoes = intent.getStringExtra("Shoes")
@@ -97,6 +102,10 @@ class stockInForm : AppCompatActivity() {
                 val latestAmountQty = qtyProduct?.toInt()?.plus(qtyToBeAdd.text.toString().toInt())
 
                 //performing positive action
+                val image =  dbHelper.retrieveimage(productName.text.toString())
+                val prodID = dbHelper.retriveProductID(productName.text.toString())
+                val sdf = SimpleDateFormat("dd/M/yyyy hh:mm:ss")
+                val currentDate = sdf.format(Date())
 
                         builder.setPositiveButton("Confirm",
                             DialogInterface.OnClickListener { dialog, id ->
@@ -104,6 +113,9 @@ class stockInForm : AppCompatActivity() {
                                 {
                                     if(dbHelper.updateQty(productName.text.toString(),latestAmountQty.toInt()))
                                     {
+                                        if (image != null) {
+                                            dbHelperHistory.addHistory(currentDate.toString(),prodID.toString(),productName.text.toString(),qtyToBeAdd.text.toString(),"0",image)
+                                        }
                                         Toast.makeText(this, "Successfully Added!", Toast.LENGTH_SHORT).show()
                                         val intent = Intent(this, HomeScreen::class.java)
                                         intent.putExtra("emailAddress", sessionId)

@@ -4,26 +4,18 @@ import android.app.Activity
 import android.content.DialogInterface
 import android.content.Intent
 import android.graphics.Bitmap
-import android.graphics.drawable.BitmapDrawable
-import android.nfc.Tag
 import android.os.Build
 import android.os.Bundle
 import android.text.Editable
 import android.text.Selection
-import android.text.TextUtils
 import android.text.TextWatcher
 import android.view.View
 import android.widget.*
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.graphics.drawable.toBitmap
-import com.example.warehouselimmingjun.DBHelper.DBHelper
 import com.example.warehouselimmingjun.DBHelper.DBHelper_item
-import com.example.warehouselimmingjun.DBHelper.Utils
-import com.example.warehouselimmingjun.model.Item
-import com.example.warehouselimmingjun.model.Register
 import java.io.ByteArrayOutputStream
-import android.util.Log
 
 
 class AddNewItemForm : AppCompatActivity(), AdapterView.OnItemSelectedListener {
