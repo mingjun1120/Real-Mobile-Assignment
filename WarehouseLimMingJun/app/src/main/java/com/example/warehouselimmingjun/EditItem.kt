@@ -57,6 +57,7 @@ class EditItem : AppCompatActivity() {
         mySize.text = size
 
         val myImg = findViewById<ImageView>(R.id.productImage)
+
         val options: BitmapFactory.Options? = BitmapFactory.Options()
         val bitmap = BitmapFactory.decodeByteArray(image, 0, image!!.size, options)
         myImg.setImageBitmap(bitmap)

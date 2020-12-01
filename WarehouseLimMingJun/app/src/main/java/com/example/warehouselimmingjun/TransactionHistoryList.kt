@@ -30,15 +30,12 @@ class TransactionHistoryList : AppCompatActivity() {
             intent.putExtra("name", sessionId1)
             startActivity(intent)
         }
-
-        /*val historyList = listOf<HistoryList>(
-    HistoryList(R.drawable.shirt, "ST0001M", "Pink TShirt","Stock In:","20","Stock Out:", "-", "1/12/2020 4:30pm"),
-    HistoryList(R.drawable.shirt, "ST0001L", "Pink TShirt","Stock In:","-", "Stock Out:","30", "1/12/2020 4:35pm")
-    )*/
+        val sessionId = intent.getStringExtra("emailAddress")
+        val sessionId1 = intent.getStringExtra("name")
         historyList = dbHelper.retrieveAllItem()
         val recyclerView = findViewById<RecyclerView>(R.id.imageRecyclerView)
         recyclerView.layoutManager = LinearLayoutManager(this)
-        recyclerView.adapter = HistoryAdapter(this, historyList) {
+        recyclerView.adapter = HistoryAdapter(this, historyList,sessionId,sessionId1) {
         }
 
 

@@ -131,7 +131,9 @@ class stockInForm : AppCompatActivity() {
                                                 productName.text.toString(),
                                                 qtyToBeAdd.text.toString(),
                                                 "0",
-                                                image
+                                                image,
+                                                sessionId1.toString(),
+                                                sessionId.toString()
                                             )
                                         }
                                         Toast.makeText(

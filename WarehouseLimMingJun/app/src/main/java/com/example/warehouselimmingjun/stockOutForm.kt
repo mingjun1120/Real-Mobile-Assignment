@@ -140,7 +140,15 @@ class stockOutForm : AppCompatActivity() {
                                 if (dbHelper.updateQty(productName.text.toString(), latestAmountQty.toInt()))
                                 {
                                     if (image != null) {
-                                        dbHelperHistory.addHistory(currentDate.toString(),prodID.toString(),productName.text.toString(),"0",qtyToBeReduce.text.toString(),image)
+                                        dbHelperHistory.addHistory(
+                                            currentDate.toString(),
+                                            prodID.toString(),
+                                            productName.text.toString(),
+                                            "0",
+                                            qtyToBeReduce.text.toString(),
+                                            image,
+                                            sessionId1.toString(),
+                                            sessionId.toString())
                                     }
                                     Toast.makeText(this, "Successfully Shipped!", Toast.LENGTH_SHORT).show()
                                     val intent = Intent(this, HomeScreen::class.java)

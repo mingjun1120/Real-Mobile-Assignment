@@ -18,8 +18,7 @@ import com.example.warehouselimmingjun.model.Item
 class ItemInfo : AppCompatActivity(), AdapterView.OnItemSelectedListener {
     internal lateinit var dbHelper: DBHelper_item
 
-    override fun onCreate(savedInstanceState: Bundle?)
-    {
+    override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_item_info)
 
@@ -48,7 +47,7 @@ class ItemInfo : AppCompatActivity(), AdapterView.OnItemSelectedListener {
         spinner.adapter = adapter
         spinner.onItemSelectedListener = this
 
-        spinner?.onItemSelectedListener = object : AdapterView.OnItemSelectedListener{
+        spinner?.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
             override fun onNothingSelected(parent: AdapterView<*>?) {
 
             }
@@ -56,35 +55,37 @@ class ItemInfo : AppCompatActivity(), AdapterView.OnItemSelectedListener {
             val sessionId = intent.getStringExtra("emailAddress")
             val sessionId1 = intent.getStringExtra("name")
 
-            override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long)
-            {
+            override fun onItemSelected(
+                parent: AdapterView<*>?,
+                view: View?,
+                position: Int,
+                id: Long
+            ) {
                 val selectedItem = parent!!.getItemAtPosition(position).toString()
-                if (selectedItem == "Shirt")
-                {
+                if (selectedItem == "Shirt") {
                     shirtList = dbHelper.retrieveShirtItem()
                     recyclerView.layoutManager = LinearLayoutManager(parent.context)
-                    recyclerView.adapter = InfoAdapter(parent.context, shirtList, sessionId, sessionId1) {
+                    recyclerView.adapter =
+                        InfoAdapter(parent.context, shirtList, sessionId, sessionId1) {
 
 
-                    }
-                }
-                else if(selectedItem == "Shoe")
-                {
+                        }
+                } else if (selectedItem == "Shoe") {
                     shoeList = dbHelper.retrieveShoesItem()
                     recyclerView.layoutManager = LinearLayoutManager(parent.context)
-                    recyclerView.adapter = InfoAdapter(parent.context, shoeList, sessionId, sessionId1) {
+                    recyclerView.adapter =
+                        InfoAdapter(parent.context, shoeList, sessionId, sessionId1) {
 
 
-                    }
-                }
-                else
-                {
+                        }
+                } else {
                     productList = dbHelper.retrieveAllItem()
                     recyclerView.layoutManager = LinearLayoutManager(parent.context)
-                    recyclerView.adapter = InfoAdapter(parent.context, productList, sessionId, sessionId1) {
+                    recyclerView.adapter =
+                        InfoAdapter(parent.context, productList, sessionId, sessionId1) {
 
 
-                    }
+                        }
                 }
             }
         }

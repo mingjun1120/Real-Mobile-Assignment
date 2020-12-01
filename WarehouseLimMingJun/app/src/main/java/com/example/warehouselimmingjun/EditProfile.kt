@@ -11,17 +11,20 @@ import android.widget.Toast.makeText
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import com.example.warehouselimmingjun.DBHelper.DBHelper
+import com.example.warehouselimmingjun.DBHelper.DBHelper_History
 import com.google.android.material.snackbar.Snackbar
 
 class EditProfile : AppCompatActivity() {
 
     internal lateinit var dbHelper: DBHelper
+    internal lateinit var dbHelperHistory: DBHelper_History
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_edit_profile)
 
         dbHelper = DBHelper(this)
+        dbHelperHistory = DBHelper_History(this)
         //val intent = intent
         var sessionId = intent.getStringExtra("emailAddress")
         var sessionId1 = intent.getStringExtra("name")
@@ -67,21 +70,22 @@ class EditProfile : AppCompatActivity() {
                 //builder.setIcon(android.R.drawable.ic_dialog_alert)
                 sessionId = email.text.toString()
                 sessionId1 = Username.text.toString()
-                //performing positive action
-                builder.setPositiveButton("Confirm",
-                    DialogInterface.OnClickListener { dialog, id ->
-                        if(dbHelper.updateProfile(sessionId1.toString(),sessionId.toString()))
+
+
+                    //performing positive action
+                    builder.setPositiveButton("Confirm",
+                        DialogInterface.OnClickListener { dialog, id ->
+                    if (dbHelper.updateProfile(sessionId1.toString(),sessionId.toString()))
+                    {
+                        if (dbHelperHistory.updateProfile(sessionId1.toString(),sessionId.toString()))
                         {
-                            Toast.makeText(
-                                this,
-                                "Profile updated successfully!",
-                                Toast.LENGTH_SHORT
-                            ).show()
+                            Toast.makeText(this,"Profile updated successfully!", Toast.LENGTH_SHORT).show()
                             val intent = Intent(this, Profile::class.java)
                             intent.putExtra("emailAddress", sessionId)
                             intent.putExtra("name", sessionId1)
                             startActivity(intent)
                         }
+                    }
                 })
                 //performing negative action
                 builder.setNegativeButton("Cancel",
