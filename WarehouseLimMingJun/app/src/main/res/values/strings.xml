@@ -129,5 +129,10 @@
         <item>Shirt</item>
         <item>Shoe</item>
     </string-array>
+    <string-array name="histotyType">
+        <item>All</item>
+        <item>Stock In</item>
+        <item>Stock Out</item>
+    </string-array>
 
 </resources>

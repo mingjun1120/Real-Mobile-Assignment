@@ -111,6 +111,104 @@ class DBHelper_History (context: Context): SQLiteOpenHelper(context, DATABASE_NA
         return historyList
     }
 
+    fun retrieveStockInItem(): List<History> {
+        val historyList: ArrayList<History> = ArrayList<History>()
+        val query = "SELECT * FROM $TABLE_NAME WHERE $COL_StockIn != '0' "
+        val db = this.readableDatabase
+        var cursor: Cursor? = null
+        try {
+            cursor = db.rawQuery(query, null)
+        } catch (e: SQLiteException) {
+            db.execSQL(query)
+            return ArrayList()
+        }
+        var HistoryId: Int
+        var HistoryDate: String
+        var ProductId: String
+        var ProductName: String
+        var StockIn: String
+        var StockOut: String
+        var image: ByteArray
+        var userName: String
+        var email: String
+
+        if (cursor.moveToFirst()) {
+            do {
+                HistoryId = cursor.getInt(cursor.getColumnIndex("HistoryId"))
+                HistoryDate = cursor.getString(cursor.getColumnIndex("HistoryDate"))
+                ProductId = cursor.getString(cursor.getColumnIndex("ProductId"))
+                ProductName = cursor.getString(cursor.getColumnIndex("ProductName"))
+                StockIn = cursor.getString(cursor.getColumnIndex("StockIn"))
+                StockOut = cursor.getString(cursor.getColumnIndex("StockOut"))
+                image = cursor.getBlob(cursor.getColumnIndex("Image"))
+                userName = cursor.getString(cursor.getColumnIndex("UserName"))
+                email = cursor.getString(cursor.getColumnIndex("Email"))
+                val history = History(
+                    HistoryId = HistoryId,
+                    HistoryDate = HistoryDate,
+                    ProductId = ProductId,
+                    ProductName = ProductName,
+                    StockIn = StockIn,
+                    StockOut = StockOut,
+                    image = image,
+                    userName = userName,
+                    email = email
+                )
+                historyList.add(history)
+            } while (cursor.moveToNext())
+        }
+        return historyList
+    }
+
+    fun retrieveStockOutItem(): List<History> {
+        val historyList: ArrayList<History> = ArrayList<History>()
+        val query = "SELECT * FROM $TABLE_NAME WHERE $COL_StockOut != '0'"
+        val db = this.readableDatabase
+        var cursor: Cursor? = null
+        try {
+            cursor = db.rawQuery(query, null)
+        } catch (e: SQLiteException) {
+            db.execSQL(query)
+            return ArrayList()
+        }
+        var HistoryId: Int
+        var HistoryDate: String
+        var ProductId: String
+        var ProductName: String
+        var StockIn: String
+        var StockOut: String
+        var image: ByteArray
+        var userName: String
+        var email: String
+
+        if (cursor.moveToFirst()) {
+            do {
+                HistoryId = cursor.getInt(cursor.getColumnIndex("HistoryId"))
+                HistoryDate = cursor.getString(cursor.getColumnIndex("HistoryDate"))
+                ProductId = cursor.getString(cursor.getColumnIndex("ProductId"))
+                ProductName = cursor.getString(cursor.getColumnIndex("ProductName"))
+                StockIn = cursor.getString(cursor.getColumnIndex("StockIn"))
+                StockOut = cursor.getString(cursor.getColumnIndex("StockOut"))
+                image = cursor.getBlob(cursor.getColumnIndex("Image"))
+                userName = cursor.getString(cursor.getColumnIndex("UserName"))
+                email = cursor.getString(cursor.getColumnIndex("Email"))
+                val history = History(
+                    HistoryId = HistoryId,
+                    HistoryDate = HistoryDate,
+                    ProductId = ProductId,
+                    ProductName = ProductName,
+                    StockIn = StockIn,
+                    StockOut = StockOut,
+                    image = image,
+                    userName = userName,
+                    email = email
+                )
+                historyList.add(history)
+            } while (cursor.moveToNext())
+        }
+        return historyList
+    }
+
     fun updateProfile(name:String, email:String): Boolean {
         val db = this.writableDatabase
         val values = ContentValues()
