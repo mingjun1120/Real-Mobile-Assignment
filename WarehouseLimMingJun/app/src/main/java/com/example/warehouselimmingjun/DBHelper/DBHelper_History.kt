@@ -239,4 +239,14 @@ class DBHelper_History (context: Context): SQLiteOpenHelper(context, DATABASE_NA
         return true
         db.close()
     }
+
+    fun deleteProduct(id: Int):Boolean{
+        val db = this.writableDatabase
+        val contentValues = ContentValues()
+        contentValues.put(COL_History_ID, id)
+
+        db.delete(TABLE_NAME,"$COL_History_ID = ?", arrayOf(id.toString()))
+        return true
+        db.close() // Closing database connection
+    }
 }

@@ -1,15 +1,13 @@
 package com.example.warehouselimmingjun
 
+import android.content.DialogInterface
 import android.content.Intent
 import android.graphics.BitmapFactory
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.widget.EditText
-import android.widget.ImageButton
-import android.widget.ImageView
-import android.widget.TextView
+import android.widget.*
+import androidx.appcompat.app.AlertDialog
 import com.example.warehouselimmingjun.DBHelper.DBHelper_History
-import com.example.warehouselimmingjun.DBHelper.DBHelper_item
 
 class history_detail : AppCompatActivity() {
 
@@ -21,6 +19,7 @@ class history_detail : AppCompatActivity() {
         setContentView(R.layout.activity_history_detail)
         dbHelper = DBHelper_History(this)
 
+        val hisID = intent.getIntExtra("HistoryID", 0)
         val prodID = intent.getStringExtra("ProductID")
         val prodName = intent.getStringExtra("ProductName")
         val stockInQty = intent.getStringExtra("ProductStockInQty")
@@ -61,13 +60,45 @@ class history_detail : AppCompatActivity() {
             val intent = Intent(this, TransactionHistoryList::class.java)
             intent.putExtra("emailAddress", emailAddress)
             intent.putExtra("name", name)
-
             startActivity(intent)
         }
+
+        val deleteBtn = findViewById<ImageButton>(R.id.deleteButton)
+        deleteBtn.setOnClickListener {
+            val builder = AlertDialog.Builder(this)
+            //set title for alert dialog
+            builder.setTitle("Delete Item Confirmation")
+            //set message for alert dialog
+            builder.setMessage("Confirm Delete Item?")
+
+            //performing positive action
+            builder.setPositiveButton("Confirm",
+                DialogInterface.OnClickListener { dialog, id ->
+                    if(dbHelper.deleteProduct(hisID))
+                    {
+                        Toast.makeText(this, "History deleted successful!", Toast.LENGTH_SHORT).show()
+
+                        val intent = Intent(this, TransactionHistoryList::class.java)
+                        intent.putExtra("emailAddress", emailAddress)
+                        intent.putExtra("name", name)
+                        startActivity(intent)
+                    }
+                }
+            )
+
+            //performing negative action
+            builder.setNegativeButton("Cancel",
+                DialogInterface.OnClickListener { dialog, id ->
+                    Toast.makeText(this, hisID.toString(), Toast.LENGTH_SHORT).show()
+                }
+            )
+
+            //Create the AlertDialog
+            val alertDialog: AlertDialog = builder.create()
+            //set other dialog properties
+            alertDialog.setCancelable(false)
+            alertDialog.show()
+        }
     }
-
-
-
-
-
 }
+

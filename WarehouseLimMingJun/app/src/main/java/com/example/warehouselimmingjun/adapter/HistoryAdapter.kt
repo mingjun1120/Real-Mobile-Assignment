@@ -22,7 +22,8 @@ class HistoryAdapter(
     val sessionId: String?,
     val sessionId1: String?,
     val listener: (History) -> Unit
-): RecyclerView.Adapter<HistoryAdapter.ItemViewHolder>() {
+): RecyclerView.Adapter<HistoryAdapter.ItemViewHolder>()
+{
     inner class ItemViewHolder(view: View) : RecyclerView.ViewHolder(view) {
         val icon: ImageView = view.findViewById<ImageView>(R.id.icon_list)
         val name: TextView = view.findViewById<TextView>(R.id.title_text_view)
@@ -33,7 +34,8 @@ class HistoryAdapter(
 
         val viewBtn: Button = view.findViewById(R.id.buttonView)
 
-        fun bindmodel(history: History) {
+        fun bindmodel(history: History)
+        {
             val options: BitmapFactory.Options? = BitmapFactory.Options()
             val bitmap =  BitmapFactory.decodeByteArray(history.Image, 0, history.Image!!.size, options)
             icon.setImageBitmap(bitmap)
@@ -43,57 +45,59 @@ class HistoryAdapter(
             stockOutQty.text = history.StockOut
             date.text = history.HistoryDate
 
-            }
-
         }
 
-        override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ItemViewHolder {
-            return ItemViewHolder(
-                LayoutInflater.from(context)
-                    .inflate(R.layout.transaction_history_list, parent, false)
-            )
-        }
+    }
 
-        override fun onBindViewHolder(holder: ItemViewHolder, position: Int) {
-            holder.bindmodel(images[position])
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ItemViewHolder {
+        return ItemViewHolder(
+            LayoutInflater.from(context)
+                .inflate(R.layout.transaction_history_list, parent, false)
+        )
+    }
 
-            holder.viewBtn.setOnClickListener {
+    override fun onBindViewHolder(holder: ItemViewHolder, position: Int) {
+        holder.bindmodel(images[position])
 
-                //Get user id and email
-                val sessionId = sessionId
-                val sessionId1 = sessionId1
+        holder.viewBtn.setOnClickListener {
 
-                //Get position on selected item
-                val model = images[position]
+            //Get user id and email
+            val sessionId = sessionId
+            val sessionId1 = sessionId1
 
-                val id = model.ProductId
-                val name = model.ProductName
-                val stockIn = model.StockIn
-                val stockOut = model.StockOut
-                val image = model.Image
-                val date = model.HistoryDate
-                val username = model.UserName
+            //Get position on selected item
+            val model = images[position]
+
+            val hisID = model.HistoryId
+            val id = model.ProductId
+            val name = model.ProductName
+            val stockIn = model.StockIn
+            val stockOut = model.StockOut
+            val image = model.Image
+            val date = model.HistoryDate
+            val username = model.UserName
 
 
-                //Create intent with kotlin
-                val intent = Intent(context, history_detail::class.java)
-                // Now put all these items with put extra intent
-              intent.putExtra("ProductID", id)
-              intent.putExtra("ProductName", name)
-              intent.putExtra("ProductStockInQty", stockIn)
-              intent.putExtra("ProductStockOutQty", stockOut)
-              intent.putExtra("ProductImage", image)
-              intent.putExtra("HistoryDate", date)
-              intent.putExtra("UserName", username)
-              intent.putExtra("emailAddress", sessionId)
-              intent.putExtra("name", sessionId1)
+            //Create intent with kotlin
+            val intent = Intent(context, history_detail::class.java)
+            // Now put all these items with put extra intent
+            intent.putExtra("HistoryID", hisID)
+            intent.putExtra("ProductID", id)
+            intent.putExtra("ProductName", name)
+            intent.putExtra("ProductStockInQty", stockIn)
+            intent.putExtra("ProductStockOutQty", stockOut)
+            intent.putExtra("ProductImage", image)
+            intent.putExtra("HistoryDate", date)
+            intent.putExtra("UserName", username)
+            intent.putExtra("emailAddress", sessionId)
+            intent.putExtra("name", sessionId1)
 
-                //Start another activity
-                context.startActivity(intent)
-            }
-        }
-
-        override fun getItemCount(): Int {
-            return images.size
+            //Start another activity
+            context.startActivity(intent)
         }
     }
+
+    override fun getItemCount(): Int {
+        return images.size
+    }
+}
