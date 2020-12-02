@@ -201,6 +201,9 @@ class stockInForm : AppCompatActivity() {
         else if(myQty.text.toString().toInt() <= 0){
             myQty.error = "Quantity must more than 0!"
         }
+        else if(myQty.text.toString().first() == '0'){
+            myQty.error = "First character cannot be 0!"
+        }
         else if (myQty.text.toString().contains(" ")) {
             myQty.error = "No whitespace!"
         }
