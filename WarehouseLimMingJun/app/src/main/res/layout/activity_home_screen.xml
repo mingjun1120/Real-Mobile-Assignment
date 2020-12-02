@@ -29,6 +29,7 @@
 
     <ImageButton
         android:id="@+id/buttonStockOut"
+        android:foreground="?android:selectableItemBackground"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="32dp"
@@ -44,6 +45,7 @@
 
     <ImageButton
         android:id="@+id/buttonStockIn"
+        android:foreground="?android:selectableItemBackground"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="30dp"
@@ -59,6 +61,7 @@
 
     <ImageButton
         android:id="@+id/buttonAddNewItem"
+        android:foreground="?android:selectableItemBackground"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="30dp"
@@ -74,6 +77,7 @@
 
     <ImageButton
         android:id="@+id/buttonItemInfo"
+        android:foreground="?android:selectableItemBackground"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="27dp"
@@ -89,6 +93,7 @@
 
     <ImageButton
         android:id="@+id/transHistoryButton"
+        android:foreground="?android:selectableItemBackground"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:background="@color/Transparent"
