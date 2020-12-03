@@ -1,6 +1,7 @@
 package com.example.warehouselimmingjun
 
 import android.content.Intent
+import android.os.Build
 import android.os.Bundle
 import android.text.TextUtils
 import android.util.Patterns
@@ -20,6 +21,14 @@ class RegisterActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_register)
+        if (Build.VERSION.SDK_INT > 25)
+        {
+            val pwd = findViewById<EditText>(R.id.editTextTextPwd)
+            pwd.tooltipText = "- At least 7 characters\n- Mix upper and lower case\n- At least 1 number and special character"
+
+            val name = findViewById<EditText>(R.id.Username)
+            name.tooltipText = "- English alphabet only\n- No whitespace\n- 3 to 10 characters"
+        }
 
         dbHelper = DBHelper(this)
 
@@ -52,7 +61,7 @@ class RegisterActivity : AppCompatActivity() {
             {
                 if (dbHelper.checkEmailExist(myEmail.text.toString()))
                 {
-                    Snackbar.make(it, "Email already Exists, Please enter a new Email", Snackbar.LENGTH_LONG).show()
+                    Snackbar.make(it, "This Email has been registered, please enter a new Email!", Snackbar.LENGTH_LONG).show()
 
                 }
                 else {

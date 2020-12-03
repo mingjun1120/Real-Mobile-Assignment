@@ -47,7 +47,7 @@ class Login : AppCompatActivity() {
                 startActivity(intent)
             }
             else
-                Snackbar.make(it, "This User Account Does Not Exist !!!", Snackbar.LENGTH_LONG).show()
+                Snackbar.make(it, "This user account doesn't exist!!!", Snackbar.LENGTH_LONG).show()
         }
             val register = findViewById<TextView>(R.id.register_link)
             register.setOnClickListener {
