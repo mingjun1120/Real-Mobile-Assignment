@@ -25,7 +25,7 @@ class ChangePassword : AppCompatActivity() {
         val sessionId1 = intent.getStringExtra("name")
 
         val hello_username = findViewById<TextView>(R.id.hello_Username)
-        hello_username.text = "Hello, $sessionId1"
+        hello_username.text = "Hello, $sessionId1!"
 
         val backBtn = findViewById<ImageButton>(R.id.backButton)
         backBtn.setOnClickListener{

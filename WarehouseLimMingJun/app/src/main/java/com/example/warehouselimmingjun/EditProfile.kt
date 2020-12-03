@@ -34,7 +34,7 @@ class EditProfile : AppCompatActivity() {
         val hello_username = findViewById<TextView>(R.id.hello_Username)
 
         email.text = sessionId
-        hello_username.text = "Hello, $sessionId1"
+        hello_username.text = "Hello, $sessionId1!"
         Username.text = sessionId1
 
         val myNameName: String? = Username.text.toString()

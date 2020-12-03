@@ -29,7 +29,7 @@ class Profile : AppCompatActivity() {
         val sessionId1 = intent.getStringExtra("name")
 
         email.text = sessionId
-        hello_username.text = "Hello, $sessionId1"
+        hello_username.text = "Hello, $sessionId1!"
         userName.text = sessionId1
 
         val backBtn = findViewById<ImageButton>(R.id.backButton)
